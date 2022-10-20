@@ -1,0 +1,99 @@
+.container {
+  position: relative;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  width: 70px;
+  padding: 4px 8px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  border: 2px solid #0099cc80;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.button:hover {
+  transform: scale(1.05);
+}
+
+.sub_container {
+  position: absolute;
+  top: 32px;
+  right: 0px;
+  display: flex;
+  padding: 7px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 360px;
+  height: 500px;
+  background: var(--background);
+  overflow-y: auto;
+  border-radius: 5px;
+  border: 3px solid var(--lightBlue);
+  /* visibility: hidden; */
+  transform: translate(175px, -250px) scale(0);
+  z-index: 999;
+  transition: all 0.3s;
+}
+
+.sub_container::-webkit-scrollbar {
+  display: none;
+  width: 10px;
+  height: 10px;
+  background-color: lightblue;
+}
+.sub_container:hover::-webkit-scrollbar {
+  display: initial;
+}
+.sub_container::-webkit-scrollbar-thumb {
+  background-color: #09c;
+}
+
+.viewSelect {
+  /* visibility: visible;
+   */
+  transform: translate(0, 0) scale(1);
+}
+
+.separator {
+  width: 100%;
+  margin: -1px 0 -1px 15px;
+
+  font-weight: bold;
+}
+
+.container_span {
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
+  padding: 0.4em;
+  background: var(--letters);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.container_span > :first-child {
+  color: var(--bitcoin);
+}
+
+.container_span:hover {
+  transform: scale(1.1);
+}
+
+.container_span_span {
+  color: var(--reduceBackground);
+  font-weight: bold;
+  margin: 0 0 0 4px;
+}
+
+@media (max-width: 500px) {
+  .container {
+    transform: scale(0.8);
+  }
+}
