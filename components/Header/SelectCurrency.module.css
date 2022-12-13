@@ -33,9 +33,9 @@
   height: 500px;
   background: var(--background);
   overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 5px;
   border: 3px solid var(--lightBlue);
-  /* visibility: hidden; */
   transform: translate(175px, -250px) scale(0);
   z-index: 999;
   transition: all 0.3s;
@@ -55,21 +55,18 @@
 }
 
 .viewSelect {
-  /* visibility: visible;
-   */
   transform: translate(0, 0) scale(1);
 }
 
 .separator {
   width: 100%;
-  margin: -1px 0 -1px 15px;
-
+  margin: -1px 0 -1px 10px;
   font-weight: bold;
 }
 
 .container_span {
   width: 100px;
-  display: flex;
+  display: inline-flex;
   justify-content: space-around;
   margin: 5px;
   padding: 0.4em;

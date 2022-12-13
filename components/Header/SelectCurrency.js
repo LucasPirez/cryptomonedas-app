@@ -68,6 +68,7 @@ export default function SelectCurrency() {
   };
 
   const ref = useClick(() => setViewSelect(false));
+  console.log(symbols);
   return (
     <>
       <div className={styles.container} ref={ref}>
@@ -86,31 +87,33 @@ export default function SelectCurrency() {
           {symbols.map((u, i) => {
             if (i > 0 && symbols[i - 1][0][0] !== u[0][0]) {
               return (
-                <div key={i}>
+                <>
                   <p className={styles.separator}>{u[0][0]}</p>
-
-                  <div
-                    key={i}
-                    className={styles.container_span}
-                    onClick={(e) => handleClick(e, u[0], u[1])}
-                  >
-                    <span>{u[1]}</span>
-                    <span className={styles.container_span_span}>{u[0]}</span>
+                  <div key={i} className={styles.container_letter}>
+                    <div
+                      className={styles.container_span}
+                      onClick={(e) => handleClick(e, u[0], u[1])}
+                    >
+                      <span>{u[1]}</span>
+                      <span className={styles.container_span_span}>{u[0]}</span>
+                    </div>
                   </div>
-                </div>
+                </>
               );
             } else {
               return (
-                <div key={i}>
+                <>
                   {i === 0 && <p className={styles.separator}>{u[0][0]}</p>}
-                  <div
-                    className={styles.container_span}
-                    onClick={(e) => handleClick(e, u[0], u[1])}
-                  >
-                    <span>{u[1]}</span>
-                    <span className={styles.container_span_span}>{u[0]}</span>
+                  <div key={i} className={styles.container_letter}>
+                    <div
+                      className={styles.container_span}
+                      onClick={(e) => handleClick(e, u[0], u[1])}
+                    >
+                      <span>{u[1]}</span>
+                      <span className={styles.container_span_span}>{u[0]}</span>
+                    </div>
                   </div>
-                </div>
+                </>
               );
             }
           })}
