@@ -9,6 +9,7 @@ import Convert from "../../components/coin/Convert";
 import ModalPortal from "../../components/portal/ModalPortal";
 import { GraficContextProvider } from "../../context/GraficContext";
 import Description from "../../components/coin/Description";
+import { EPCoinAdapter } from "../../adapters/EPCoinAdapter";
 
 const ContainerGrafic = lazy(() =>
   import("../../components/coin/ContainerGrafic")
@@ -43,7 +44,7 @@ export default function Coin() {
         <GraficContextProvider>
           {coin && (
             <>
-              <Content data={coin} />
+              <Content data={EPCoinAdapter(coin)} />
               <div>
                 {!portalState ? (
                   <>

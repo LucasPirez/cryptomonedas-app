@@ -8,15 +8,15 @@ export default function RowExchanges({ data, bitcoinPrice = 1 }) {
     country,
     url,
     image,
-    trust_score,
-    trust_score_rank,
-    trade_volume_24h_btc,
-    trade_volume_24h_btc_normalized,
+    trustScore,
+    trustScoreRank,
+    tradeVolume24hBTC,
+    tradeVolume24hBTCNormalized,
     description,
   } = data;
   return (
     <>
-      <td>{trust_score_rank}</td>
+      <td>{trustScoreRank}</td>
       <td className="container_name">
         <Image src={`${image}`} alt="" width={20} height={20} />
         <span style={{ fontSize: "1.1em", fontWeight: "600" }}>{name}</span>
@@ -25,15 +25,13 @@ export default function RowExchanges({ data, bitcoinPrice = 1 }) {
         <div className="trust_visual">
           <div></div>
         </div>
-        <span>{trust_score}</span>
+        <span>{trustScore}</span>
       </td>
       <td className="bitcoin_covert">
-        <p>
-          ${(trade_volume_24h_btc_normalized * bitcoinPrice).toLocaleString()}
-        </p>
+        <p>${(tradeVolume24hBTCNormalized * bitcoinPrice).toLocaleString()}</p>
       </td>
       <td className="bitcoin_covert">
-        <p>${(trade_volume_24h_btc * bitcoinPrice).toLocaleString()}</p>
+        <p>${(tradeVolume24hBTC * bitcoinPrice).toLocaleString()}</p>
       </td>
       <td className="td_description">
         {description !== "" ? (
@@ -93,7 +91,7 @@ export default function RowExchanges({ data, bitcoinPrice = 1 }) {
           }
 
           .trust_visual > div {
-            width: ${trust_score}0%;
+            width: ${trustScore}0%;
             height: 100%;
             border-radius: 999px;
             background: ${color.blue};

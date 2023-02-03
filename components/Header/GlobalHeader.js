@@ -20,9 +20,9 @@ export default function GlobalHeader() {
 
       setMarketCap({
         total: suma,
-        Dominance: `${arrP[0][0].toUpperCase()} ${arrP[0][1].toFixed(
-          2
-        )}%, ${arrP[1][0].toUpperCase()} ${arrP[1][1].toFixed(2)}%`,
+        Dominance: `${arrP[0][0].toUpperCase()} ${arrP[0][1].toLocaleString(
+          "en-US"
+        )}%, ${arrP[1][0].toUpperCase()} ${arrP[1][1].toLocaleString()}%`,
       });
     });
   }, []);

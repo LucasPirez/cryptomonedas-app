@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { EPExchangesAdapter } from "../../adapters/EPExchagesAdapter";
 import { exchangesList, oneCoin } from "../../client/client";
 import useAppContext from "../../context/TableContext";
 import useIntersectionObserver from "../../hook/useIntersectionObserver";
@@ -83,7 +84,7 @@ export default function Exchanges() {
                   return (
                     <tr key={u.id}>
                       <RowExchanges
-                        data={u}
+                        data={EPExchangesAdapter(u)}
                         bitcoinPrice={dataExchanges.bitcoin}
                       />
                     </tr>

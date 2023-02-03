@@ -72,13 +72,6 @@ export const graficDays = (id, days = 7, currency) => {
       return null;
     });
 };
-// {
-//     mode: "no-cors",
-//     headers: {
-//       "Access-Control-Allow-Origin": "*",
-//     },
-//   }
-// Exchanges
 
 export const exchangesList = (num) => {
   console.log("exchangesList");

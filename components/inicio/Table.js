@@ -11,6 +11,7 @@ import OrderTable from "../OrderTable";
 import TableComponent from "../utilities/TableComponent";
 import Link from "next/link";
 import Loading from "../Loading";
+import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
 
 export default function Table({ search }) {
   const { coinTable, setCoinTable, coint, setCoint } = useAppContext();
@@ -34,6 +35,7 @@ export default function Table({ search }) {
           <tbody>
             {coinTable ? (
               coinTable.map((u, i) => {
+                console.log(u);
                 if (i < coint) {
                   return (
                     <tr
@@ -42,7 +44,7 @@ export default function Table({ search }) {
                         router.push(`http://localhost:3000/coin/${u.id}`)
                       }
                     >
-                      <CoinsRow data={u} />
+                      <CoinsRow data={EPCoinsMarketsAdapter(u)} />
                     </tr>
                   );
                 }

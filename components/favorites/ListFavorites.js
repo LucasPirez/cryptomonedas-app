@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { EPCoinAdapter } from "../../adapters/EPCoinAdapter";
+import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
 import { oneCoin } from "../../client/client";
 import { color } from "../../styles/colors";
 import TableComponent from "../utilities/TableComponent";
@@ -34,7 +36,7 @@ export default function ListFavorites({ favorites }) {
               </thead>
               <tbody>
                 {favoritesFetch.map((u, i) => (
-                  <RowFavorites data={u} key={u.id} />
+                  <RowFavorites data={EPCoinsMarketsAdapter(u)} key={u.id} />
                 ))}
               </tbody>
             </table>

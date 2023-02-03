@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ReactDom from "react-dom";
 
-export default function ModalPortal({ children, setPortalState }) {
+export default function ModalPortal({ children }) {
   const portalNode = document.createElement("div");
 
   portalNode.style.position = "fixed";
@@ -10,7 +10,7 @@ export default function ModalPortal({ children, setPortalState }) {
   portalNode.style.display = "flex";
   portalNode.style.justifyContent = "center";
   portalNode.style.background = "#fafafa";
-  portalNode.style.top = "0";
+  portalNode.style.top = "15vh";
   portalNode.style.left = "0";
 
   useEffect(() => {

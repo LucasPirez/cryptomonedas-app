@@ -24,7 +24,7 @@ export default function CoinsRow({ data }) {
               no={color.background}
             />
           </span>
-          <span> {data.market_cap_rank}</span>
+          <span> {data.marketCapRank}</span>
         </div>
       </td>
       <td className="sticy__td">
@@ -43,39 +43,39 @@ export default function CoinsRow({ data }) {
 
       <td className="numbers">
         <span>{currencySelect.symbol}</span>
-        <span>{data.current_price.toLocaleString("en-US")}</span>
+        <span>{data.currentPrice.toLocaleString("en-US")}</span>
       </td>
 
       <td
         className={
-          data.price_change_percentage_24h > 0
+          data.priceChangePercentage24h > 0
             ? "price numbers "
             : "price_danger numbers "
         }
       >
-        {data.price_change_percentage_24h &&
-          data.price_change_percentage_24h.toFixed(2)}
+        {data.priceChangePercentage24h &&
+          data.priceChangePercentage24h.toFixed(2)}
         %
       </td>
       <td
         className={
-          data.price_change_percentage_7d_in_currency > 0
+          data.priceChangePercentage7dInCurrency > 0
             ? "price numbers "
             : "price_danger numbers "
         }
       >
-        {data.price_change_percentage_7d_in_currency &&
-          data.price_change_percentage_7d_in_currency.toFixed(2)}
+        {data.priceChangePercentage7dInCurrency &&
+          data.priceChangePercentage7dInCurrency.toFixed(2)}
         %
       </td>
 
-      <td className="numbers">${data.total_volume.toLocaleString("en-US")}</td>
-      <td className="numbers">${data.market_cap.toLocaleString("en-US")}</td>
+      <td className="numbers">${data.totalVolume.toLocaleString("en-US")}</td>
+      <td className="numbers">${data.marketCap.toLocaleString("en-US")}</td>
       <td className="tdGrafic">
         <Suspense fallback={<p>cargando</p>}>
           <GraficRow
-            dataGrafic={data.sparkline_in_7d.price}
-            graficColor={data.price_change_percentage_7d_in_currency}
+            dataGrafic={data.sparklineIn7d.price}
+            graficColor={data.priceChangePercentage7dInCurrency}
           />
         </Suspense>
       </td>

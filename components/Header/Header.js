@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import SelectCurrency from "./SelectCurrency";
 import useAppContext from "../../context/TableContext";
 import useClick from "../../hook/useClick";
+import LoginLogout from "../user/LoginLogout";
 
 export default function Header() {
   const router = useRouter();
@@ -46,10 +47,14 @@ export default function Header() {
                 <a>Exchanges</a>
               </Link>
             </li>
+            <li>
+              <LoginLogout />
+            </li>
           </ul>
           <SelectCurrency />
         </div>
       </nav>
+
       <style jsx>{`
         nav {
           position: relative;
@@ -127,16 +132,21 @@ export default function Header() {
         }
 
         @media (max-width: 800px) {
+          .ul_container {
+            border: 2px solid ${color.letters}80;
+          }
           ul {
             flex-direction: column;
             align-items: flex-start;
-            margin: 0 0 10px 0;
+            justify-content: flex-start;
+            padding: 0 0.8rem;
           }
           li {
             font-size: 1.14rem;
             width: 100px;
             height: 30px;
             padding: 0.4em 0.3em 1.7em;
+            margin: 0.5rem;
           }
 
           li:hover {
@@ -154,6 +164,7 @@ export default function Header() {
             transform: scale(0);
             z-index: 999;
             transition: transform 0.3s;
+            border-radius: 5px;
             transform-origin: top right;
           }
 
