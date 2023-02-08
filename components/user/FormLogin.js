@@ -1,5 +1,5 @@
 import { useState } from "react";
-import login from "../../client/clientUser";
+import { login } from "../../client/clientUser";
 import { useValidateForms } from "../../hook/useValidateForms";
 
 export default function FormLogin() {

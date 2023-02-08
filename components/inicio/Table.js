@@ -13,7 +13,7 @@ import Link from "next/link";
 import Loading from "../Loading";
 import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
 
-export default function Table({ search }) {
+export default function Table() {
   const { coinTable, setCoinTable, coint, setCoint } = useAppContext();
   const { container, count, setCount, visible } = useIntersectionObserver();
 

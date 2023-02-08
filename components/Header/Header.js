@@ -7,10 +7,11 @@ import SelectCurrency from "./SelectCurrency";
 import useAppContext from "../../context/TableContext";
 import useClick from "../../hook/useClick";
 import LoginLogout from "../user/LoginLogout";
+import SesionItit from "../user/SesionInit";
 
 export default function Header() {
   const router = useRouter();
-  const { numberActual, numberActualState } = useAppContext();
+  const { numberActualState } = useAppContext();
   const path = router.asPath;
   const [hidden, setHidden] = useState(true);
   const handleClick = () => {
@@ -50,10 +51,12 @@ export default function Header() {
             <li>
               <LoginLogout />
             </li>
+            <li></li>
           </ul>
           <SelectCurrency />
         </div>
       </nav>
+      <SesionItit />
 
       <style jsx>{`
         nav {
