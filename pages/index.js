@@ -6,16 +6,24 @@ import { color } from "../styles/colors";
 import { global } from "../client/client";
 import GlobalHeader from "../components/Header/GlobalHeader";
 import Header from "../components/Header/Header";
-
+import { pagination } from "../client/client";
+import { coinTableReducer } from "../redux/store";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { coinReduceTable } from "../redux/features/listCriptos";
+
 const Table = lazy(() => import("../components/inicio/Table"));
 
 export default function Home() {
+  const dispatch = useDispatch();
   // const [number, setNumber] = useState(1);
   const { push } = useRouter();
 
   useEffect(() => {
-    push("pagestable/1");
+    pagination(1, "usd").then((data) => {
+      dispatch(coinReduceTable(data));
+    });
+    push("criptos/1");
   }, []);
 
   return (

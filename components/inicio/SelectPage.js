@@ -1,63 +1,39 @@
 import { useState, useEffect } from "react";
-
+import { pagination, exchangesList } from "../../client/client";
 import { color } from "../../styles/colors";
 import Button from "../Button";
-import { useRouter } from "next/router";
+import { useFetch } from "../../hook/useFetch";
 
-export default function SelectPage({ route, max, setCount }) {
-  const { push, query } = useRouter();
-  const [numberquery, setNumberquery] = useState(1);
-
-  useEffect(() => {
-    window.scrollTo({ top, behavior: "smooth" });
-    setCount(() => 25);
-  }, [numberquery]);
-
-  function handlesumClick(e, val) {
-    e.preventDefault();
-    setNumberquery(numberquery + val);
-    push(`/${route}/${numberquery + val}`);
-  }
-
-  function handleRestClick(e, val) {
-    e.preventDefault();
-    setNumberquery(numberquery - val);
-    push(`/${route}/${numberquery - val}`);
-  }
-
-  function handleClickValue(e, val) {
-    e.preventDefault();
-    setNumberquery(val);
-    push(`/${route}/${val}`);
-  }
+export default function SelectPage({ route, max, reInitCount }) {
+  const { handlesumClick, handleRestClick, handleClickValue, page } = useFetch(
+    route,
+    reInitCount
+  );
 
   return (
     <>
       <div>
-        {numberquery > 1 && (
-          <Button onClick={(e) => handleRestClick(e, 1)}>
+        {page > 1 && (
+          <Button onClick={handleRestClick}>
             <span>PREV</span>
           </Button>
         )}
-        {numberquery > 3 && (
+        {page > 3 && (
           <Button onClick={(e) => handleClickValue(e, 1)}>
             <span>1</span>
           </Button>
         )}
-        <Button
-          select={true}
-          onClick={(e) => handleClickValue(e, e.target.value)}
-        >
-          <span>{numberquery}</span>
+        <Button select={true} onClick={(e) => handleClickValue(e, page)}>
+          <span>{page}</span>
         </Button>
-        {numberquery < max && (
-          <Button onClick={(e) => handlesumClick(e, 1)} value={numberquery + 1}>
-            <span>{numberquery + 1}</span>
+        {page < max && (
+          <Button onClick={(e) => handleClickValue(e, page + 1)}>
+            <span>{page + 1}</span>
           </Button>
         )}
-        {numberquery < max - 1 && (
-          <Button onClick={(e) => handlesumClick(e, 2)}>
-            <span>{numberquery + 2}</span>
+        {page < max - 1 && (
+          <Button onClick={(e) => handleClickValue(e, page + 2)}>
+            <span>{page + 2}</span>
           </Button>
         )}
 
@@ -65,8 +41,8 @@ export default function SelectPage({ route, max, setCount }) {
         <Button onClick={(e) => handleClickValue(e, max)}>
           <span>{max}</span>
         </Button>
-        {numberquery < max && (
-          <Button onClick={(e) => handlesumClick(e, 1)}>
+        {page < max && (
+          <Button onClick={handlesumClick}>
             <span>NEXT</span>
           </Button>
         )}

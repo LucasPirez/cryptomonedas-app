@@ -9,10 +9,11 @@ import SelectPage from "../inicio/SelectPage";
 import Loading from "../Loading";
 import OrderTable from "../OrderTable";
 import RowExchanges from "./RowExchanges";
+import { useSelector } from "react-redux";
 
 export default function Exchanges() {
   const { dataExchanges, setDataExchanges } = useAppContext();
-  const { container, count, setCount } = useIntersectionObserver();
+  const { container, count, reInitCount } = useIntersectionObserver();
 
   return (
     <>
@@ -101,7 +102,7 @@ export default function Exchanges() {
         ref={container}
         style={{ width: "100%", height: 30, background: "trasparent" }}
       ></div>
-      <SelectPage max={5} setCount={setCount} route={"exchanges"} />
+      <SelectPage max={5} reInitCount={reInitCount} route={"exchanges"} />
       <style jsx>{`
         div {
           max-width: 1150px;

@@ -8,6 +8,7 @@ import useAppContext from "../../context/TableContext";
 import useClick from "../../hook/useClick";
 import LoginLogout from "../user/LoginLogout";
 import SesionItit from "../user/SesionInit";
+import { useSelector } from "react-redux";
 
 export default function Header() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function Header() {
   const handleClick = () => {
     setHidden(true);
   };
-
+  const { criptos, exchanges } = useSelector((state) => state.pagination);
   const ref = useClick(handleClick);
   return (
     <>
@@ -33,8 +34,8 @@ export default function Header() {
         </div>
         <div className={`ul_container ${!hidden ? "mostrar" : ""}`}>
           <ul>
-            <li className={path.includes("/pagestable") ? "select" : ""}>
-              <Link href={`/pagestable/${numberActualState.coin || 1}`}>
+            <li className={path.includes("/criptos") ? "select" : ""}>
+              <Link href={`/criptos/${criptos || 1}`}>
                 <a>table</a>
               </Link>
             </li>
@@ -44,7 +45,7 @@ export default function Header() {
               </Link>
             </li>
             <li className={path.includes("/exchanges/1") ? "select" : ""}>
-              <Link href={`/exchanges/${numberActualState.exchanges || 1}`}>
+              <Link href={`/exchanges/${exchanges || 1}`}>
                 <a>Exchanges</a>
               </Link>
             </li>

@@ -62,13 +62,12 @@ export default function SelectCurrency() {
   const handleClick = (e, name, s) => {
     e.preventDefault();
 
-    console.log(name);
     setCurrencySelect({ currency: name.toLowerCase(), symbol: s });
     setViewSelect(!viewSelect);
   };
 
   const ref = useClick(() => setViewSelect(false));
-  console.log(symbols);
+
   return (
     <>
       <div className={styles.container} ref={ref}>

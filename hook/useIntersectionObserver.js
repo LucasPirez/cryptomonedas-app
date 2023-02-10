@@ -5,6 +5,8 @@ export default function useIntersectionObserver() {
   const [visible, setVisible] = useState(false);
   const ref = useRef();
 
+  const reInitCount = () => setCount(25);
+
   useEffect(() => {
     const copyRef = ref.current;
     const callback = (entries) => {
@@ -32,7 +34,7 @@ export default function useIntersectionObserver() {
   return {
     container: ref,
     count,
-    setCount,
+    reInitCount,
     visible,
   };
 }

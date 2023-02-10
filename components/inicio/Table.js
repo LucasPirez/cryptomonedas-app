@@ -1,42 +1,34 @@
 import React, { useState, useEffect, Suspense, useMemo } from "react";
 import { pagination } from "../../client/client";
 import CoinsRow from "../Row";
-import useAppContext from "../../context/TableContext";
 import { color } from "../../styles/colors";
 import { useRouter } from "next/router";
 import SelectPage from "./SelectPage";
 import useIntersectionObserver from "../../hook/useIntersectionObserver";
-
 import OrderTable from "../OrderTable";
 import TableComponent from "../utilities/TableComponent";
 import Link from "next/link";
 import Loading from "../Loading";
 import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
+import { useSelector } from "react-redux";
 
 export default function Table() {
-  const { coinTable, setCoinTable, coint, setCoint } = useAppContext();
-  const { container, count, setCount, visible } = useIntersectionObserver();
-
+  const { container, count, reInitCount, visible } = useIntersectionObserver();
   const router = useRouter();
+  // redux
+  const state = useSelector((state) => state.criptoList);
 
-  useEffect(() => {
-    if (visible) {
-      setCoint(coint + 25);
-    }
-  }, [count, visible]);
-  // onClick={() => router.push(`coin/${u.id}`)}
   return (
     <>
       <div className="contain">
         <table>
           <thead>
-            <tr className="local_tr">{coinTable && <TableComponent />}</tr>
+            <tr className="local_tr">{state !== [] && <TableComponent />}</tr>
           </thead>
           <tbody>
-            {coinTable ? (
-              coinTable.map((u, i) => {
-                console.log(u);
-                if (i < coint) {
+            {state !== [] ? (
+              state.map((u, i) => {
+                if (i < count) {
                   return (
                     <tr
                       key={u.id}
@@ -63,7 +55,7 @@ export default function Table() {
         ref={container}
         style={{ width: "100%", height: 30, background: "trasparent" }}
       ></div>
-      <SelectPage max={99} setCount={setCount} route={"pagestable"} />
+      <SelectPage max={99} reInitCount={reInitCount} route={"criptos"} />
       <style jsx>
         {`
           table {
