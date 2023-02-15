@@ -1,7 +1,7 @@
 import Head from "next/head";
 import handler from "./api/hello";
 import { useState, useEffect, lazy } from "react";
-import Search from "../components/inicio/Search";
+
 import { color } from "../styles/colors";
 import { global } from "../client/client";
 import GlobalHeader from "../components/Header/GlobalHeader";
@@ -11,6 +11,7 @@ import { coinTableReducer } from "../redux/store";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { coinReduceTable } from "../redux/features/listCriptos";
+import Search from "../components/inicio/Search";
 
 const Table = lazy(() => import("../components/inicio/Table"));
 

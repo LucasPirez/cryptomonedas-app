@@ -1,29 +1,28 @@
-import React, { useState, useEffect, Suspense, useMemo } from "react";
-import { pagination } from "../../client/client";
-import CoinsRow from "../Row";
-import { color } from "../../styles/colors";
-import { useRouter } from "next/router";
-import SelectPage from "./SelectPage";
-import useIntersectionObserver from "../../hook/useIntersectionObserver";
-import OrderTable from "../OrderTable";
-import TableComponent from "../utilities/TableComponent";
-import Link from "next/link";
-import Loading from "../Loading";
-import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, Suspense, useMemo } from 'react'
+import { pagination } from '../../client/client'
+import CoinsRow from '../Row'
+import { color } from '../../styles/colors'
+import { useRouter } from 'next/router'
+import SelectPage from './SelectPage'
+import useIntersectionObserver from '../../hook/useIntersectionObserver'
+import OrderTable from '../OrderTable'
+import TableComponent from '../utilities/TableComponent'
+import Link from 'next/link'
+import Loading from '../Loading'
+import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
+import { useSelector } from 'react-redux'
 
 export default function Table() {
-  const { container, count, reInitCount, visible } = useIntersectionObserver();
-  const router = useRouter();
-  // redux
-  const state = useSelector((state) => state.criptoList);
+  const { container, count, reInitCount, visible } = useIntersectionObserver()
+  const router = useRouter()
+  const state = useSelector((state) => state.criptoList)
 
   return (
     <>
-      <div className="contain">
+      <div className='contain'>
         <table>
           <thead>
-            <tr className="local_tr">{state !== [] && <TableComponent />}</tr>
+            <tr className='local_tr'>{state !== [] && <TableComponent />}</tr>
           </thead>
           <tbody>
             {state !== [] ? (
@@ -38,7 +37,7 @@ export default function Table() {
                     >
                       <CoinsRow data={EPCoinsMarketsAdapter(u)} />
                     </tr>
-                  );
+                  )
                 }
               })
             ) : (
@@ -53,15 +52,15 @@ export default function Table() {
       </div>
       <div
         ref={container}
-        style={{ width: "100%", height: 30, background: "trasparent" }}
+        style={{ width: '100%', height: 30, background: 'trasparent' }}
       ></div>
-      <SelectPage max={99} reInitCount={reInitCount} route={"criptos"} />
+      <SelectPage max={99} reInitCount={reInitCount} route={'criptos'} />
       <style jsx>
         {`
           table {
-            min-height: "90vh";
+            min-height: '90vh';
             width: 100%;
-            background: "white";
+            background: 'white';
             opacity: 0.96;
             border-collapse: collapse;
           }
@@ -92,7 +91,7 @@ export default function Table() {
             width: 100%;
           }
         `}
-      </style>{" "}
+      </style>{' '}
     </>
-  );
+  )
 }

@@ -1,86 +1,83 @@
-import { useState } from "react";
-import { login } from "../../client/clientUser";
-import { useValidateForms } from "../../hook/useValidateForms";
+import { useState } from 'react'
+import { signUp } from '../../client/clientUser'
+import { useValidateForms } from '../../hook/useValidateForms'
 
-export default function FormLogin() {
-  const { buttonDisabled, handleBlur } = useValidateForms();
+export default function FormSignUp() {
+  const { buttonDisabled, handleBlur } = useValidateForms()
   const [formValues, setFormValues] = useState({
-    email: "",
-    completName: "",
-    userAlias: "",
-    password: "",
-  });
+    email: '',
+    completName: '',
+    userAlias: '',
+    password: '',
+  })
 
-  const sendData = (e) => {
-    e.preventDefault();
-    console.log(formValues);
-    login(formValues)
-      .then((data) => {
-        console.log(data);
-        if (data.ok) {
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const sendData = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await signUp(formValues)
+      // const result = await response.json();
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleChange = (e) => {
-    e.preventDefault();
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  };
+    e.preventDefault()
+    setFormValues({ ...formValues, [e.target.name]: e.target.value })
+  }
   return (
     <>
       <form>
-        <div className="container_input">
+        <div className='container_input'>
           <input
-            type="text"
-            name="completName"
+            type='text'
+            name='completName'
             onBlur={handleBlur}
             required
             value={formValues.completName}
             onChange={handleChange}
           />
-          <label htmlFor="name"> Complet Name</label>
+          <label htmlFor='name'> Complet Name</label>
         </div>
-        <div className="container_input">
+        <div className='container_input'>
           <input
-            type="text"
-            name="userAlias"
+            type='text'
+            name='userAlias'
             onBlur={handleBlur}
             required
             value={formValues.userAlias}
             onChange={handleChange}
           />
-          <label htmlFor="name"> userAlias</label>
+          <label htmlFor='name'> userAlias</label>
         </div>
 
-        <div className="container_input">
+        <div className='container_input'>
           <input
-            type="email"
-            name="email"
+            type='email'
+            name='email'
             required
             onBlur={handleBlur}
             value={formValues.email}
             onChange={handleChange}
           />
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor='email'>Email Address</label>
         </div>
-        <div className="container_input">
+        <div className='container_input'>
           <input
-            type="password"
+            type='password'
             onBlur={handleBlur}
-            name="password"
+            name='password'
             required
             value={formValues.password}
             onChange={handleChange}
           />
-          <label htmlFor="password"> Passoword</label>
+          <label htmlFor='password'> Passoword</label>
         </div>
       </form>
 
-      <div className="container_buttons">
-        <a href="#">Continue visit</a>
+      <div className='container_buttons'>
+        <a href='#'>Continue visit</a>
         <button onClick={sendData}>Sing In</button>
       </div>
       <style jsx>{`
@@ -142,5 +139,5 @@ export default function FormLogin() {
         }
       `}</style>
     </>
-  );
+  )
 }

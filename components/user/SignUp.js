@@ -1,50 +1,50 @@
-import { useState, useEffect, useRef } from "react";
+import react, { useState, useEffect, useRef } from "react";
 import login from "../../client/clientUser";
 import ModalPortal from "../portal/ModalPortal";
-import FormLogin from "./FormLogin";
+import FormSignUp from "./FormSignUp";
 
-export default function Login() {
-  const refForm = useRef({ email: "", name: "", lastName: "", password: "" });
-  const [formValues, setFormValues] = useState({
-    email: "",
-    name: "",
-    lastName: "",
-    password: "",
-  });
+export default function SignUp() {
+  // const refForm = useRef({ email: "", name: "", lastName: "", password: "" });
+  // const [formValues, setFormValues] = useState({
+  //   email: "",
+  //   name: "",
+  //   lastName: "",
+  //   password: "",
+  // });
 
-  const sendData = (e) => {
-    e.preventDefault();
-    console.log(refForm.current);
-    login(refForm.current)
-      .then((data) => {
-        console.log(data);
-        if (data.ok) {
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const sendData = (e) => {
+  //   e.preventDefault();
+  //   console.log(refForm.current);
+  //   login(refForm.current)
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data.ok) {
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    refForm.current[e.target.name] = e.target.value;
-  };
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   refForm.current[e.target.name] = e.target.value;
+  // };
 
   return (
     <>
       <ModalPortal>
         <section>
           <div className="container_title">
-            <h3>Log In</h3>
+            <h3>Sign Up</h3>
             <p>
               You are a User
               <span>
-                <a href="#"> Sign In</a>
+                <a href="#"> Login</a>
               </span>
             </p>
           </div>
-          <FormLogin />
+          <FormSignUp />
         </section>
       </ModalPortal>
       <style jsx>{`

@@ -1,73 +1,73 @@
-import React, { useState, useEffect } from "react";
-import { color } from "../../../styles/colors";
-import useGraficContext from "../../../context/GraficContext";
-import ChevronDown from "../../Icons/ChevrowDown";
+import React, { useState, useEffect } from 'react'
+import { color } from '../../../styles/colors'
+import useGraficContext from '../../../context/GraficContext'
+import ChevronDown from '../../Icons/ChevrowDown'
 
 export default function HeaderGeneralGrafic() {
-  const { setData, fetch7Days, time, setTime, dateNow } = useGraficContext();
-  const [vista, setVista] = useState(false);
+  const { setData, fetch7Days, time, setTime, dateNow } = useGraficContext()
+  const [vista, setVista] = useState(false)
 
   const fecha = (e) => {
-    const dateSelect = Math.round(new Date(e.target.value).getTime() / 1000);
-    const res = Math.round((dateNow - dateSelect) / 86400);
+    const dateSelect = Math.round(new Date(e.target.value).getTime() / 1000)
+    const res = Math.round((dateNow - dateSelect) / 86400)
 
-    setTime(() => res);
-  };
+    setTime(() => res)
+  }
 
   return (
     <>
-      <div className="container">
-        <div className="sub_container">
+      <div className='container'>
+        <div className='sub_container'>
           <button
-            className={time === 1 ? "select" : ""}
+            className={time === 1 ? 'select' : ''}
             onClick={(e) => fetch7Days(1, e)}
           >
             1D
           </button>
           <button
-            className={time === 7 ? "select" : ""}
+            className={time === 7 ? 'select' : ''}
             onClick={(e) => fetch7Days(7, e)}
           >
             7D
           </button>
           <button
-            className={time === 14 ? "select" : ""}
+            className={time === 14 ? 'select' : ''}
             onClick={(e) => fetch7Days(14, e)}
           >
             14D
           </button>
           <button
-            className={time === 30 ? "select" : ""}
+            className={time === 30 ? 'select' : ''}
             onClick={(e) => fetch7Days(30, e)}
           >
             1M
           </button>
           <button
-            className={time === 90 ? "select" : ""}
+            className={time === 90 ? 'select' : ''}
             onClick={(e) => fetch7Days(90, e)}
           >
             3M
           </button>
           <button
-            className={time === 180 ? "select" : ""}
+            className={time === 180 ? 'select' : ''}
             onClick={(e) => fetch7Days(180, e)}
           >
             6M
           </button>
           <button
-            className={time === 360 ? "select" : ""}
+            className={time === 360 ? 'select' : ''}
             onClick={(e) => fetch7Days(360, e)}
           >
             1Y
           </button>
-          <div className="container_icon" onClick={() => setVista(!vista)}>
+          <div className='container_icon' onClick={() => setVista(!vista)}>
             <ChevronDown />
           </div>
-          <div className={`container_input ${vista && "select_input"}`}>
+          <div className={`container_input ${vista && 'select_input'}`}>
             <input
-              type="date"
+              type='date'
               onChange={fecha}
-              max={new Date().toISOString().split("T")[0]}
+              max={new Date().toISOString().split('T')[0]}
             />
             <button onClick={(e) => fetch7Days(time, e)}>send</button>
           </div>
@@ -148,5 +148,5 @@ export default function HeaderGeneralGrafic() {
         }
       `}</style>
     </>
-  );
+  )
 }

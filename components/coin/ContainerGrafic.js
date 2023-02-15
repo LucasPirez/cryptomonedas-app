@@ -1,72 +1,67 @@
-import { useState, useEffect, useRef } from "react";
-import { graficDays, graficRange } from "../../client/client";
-import { color } from "../../styles/colors";
-import Grafic from "./grafic/Grafic";
-import CandleGrafic from "./grafic/candleGrafic";
-import Image from "next/image";
-import HeaderGeneralGrafic from "./grafic/HeaderGeneralGrafic";
-import ButtonsSelectGrafic from "./ButtonsSelectGrafic";
-import useGraficContext from "../../context/GraficContext";
-import Loading from "../Loading";
-import SelectorTime from "./grafic/selectorTime";
-import { image } from "d3";
-import useAppContext from "../../context/TableContext";
+import { useState, useEffect, useRef } from 'react'
+import { graficDays, graficRange } from '../../client/client'
+import { color } from '../../styles/colors'
+import Grafic from './grafic/Grafic'
+import CandleGrafic from './grafic/candleGrafic'
+import Image from 'next/image'
+import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
+import ButtonsSelectGrafic from './ButtonsSelectGrafic'
+import useGraficContext from '../../context/GraficContext'
+import Loading from '../Loading'
+import SelectorTime from './grafic/selectorTime'
+import { image } from 'd3'
+import useAppContext from '../../context/TableContext'
 
 export default function ContainerGrafic({ id, setPortalState, portalState }) {
-  const [dataBitcoin, setDataBitcoin] = useState(null);
-  const [candleGrafic, setCandleGrafic] = useState(false);
-  const [change, setChange] = useState(false);
-  const { currencySelect } = useAppContext();
-  const rangeMin = useRef({ min: null, time: null });
-  const { data, rangeGrafic, time, loading } = useGraficContext();
+  const [dataBitcoin, setDataBitcoin] = useState(null)
+  const [candleGrafic, setCandleGrafic] = useState(false)
+  const [change, setChange] = useState(false)
+  const { currencySelect } = useAppContext()
+  const rangeMin = useRef({ min: null, time: null })
+  const { data, rangeGrafic, time, loading } = useGraficContext()
 
   function reduceBitcoin(value) {
     const arr = value.map((u, i) => {
       if (i < data.length) {
-        return [u[0], data[i][1] / u[1]];
+        return [u[0], data[i][1] / u[1]]
       }
-    });
-    console.log(data);
-    console.log(value);
-    setDataBitcoin(arr);
+    })
+    setDataBitcoin(arr)
   }
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (data && time && change && rangeMin.current.time !== time) {
-        rangeMin.current.time = time;
+        rangeMin.current.time = time
 
         const response = await graficDays(
-          "bitcoin",
+          'bitcoin',
           time,
           currencySelect.currency
-        );
-        console.log(time);
+        )
+        console.log(time)
 
-        reduceBitcoin(response.prices);
+        reduceBitcoin(response.prices)
       }
-    })();
-  }, [time, change]);
+    })()
+  }, [time, change])
 
-  // rangeGrafic.min &&
   useEffect(() => {
     if (change && rangeGrafic.min !== rangeMin.current.min) {
-      rangeMin.current.min = rangeGrafic.min;
-      console.log(rangeGrafic.min);
-      console.log("render rangeGrafic");
+      rangeMin.current.min = rangeGrafic.min
 
       graficRange({
-        id: "bitcoin",
+        id: 'bitcoin',
         currency: currencySelect.currency,
         time: rangeGrafic.min / 1000,
         dateNow: rangeGrafic.max / 1000,
       })
         .then((datos) => datos.json())
         .then((datos) => {
-          reduceBitcoin(datos.prices);
-        });
+          reduceBitcoin(datos.prices)
+        })
     }
-  }, [rangeGrafic, change]);
+  }, [rangeGrafic, change])
 
   return (
     <>
@@ -91,7 +86,7 @@ export default function ContainerGrafic({ id, setPortalState, portalState }) {
           ))}
         {loading && <Loading />}
 
-        {data && <SelectorTime id={id} currency={"usd"} />}
+        {data && <SelectorTime id={id} currency={'usd'} />}
       </section>
 
       <style jsx>
@@ -105,5 +100,5 @@ export default function ContainerGrafic({ id, setPortalState, portalState }) {
         `}
       </style>
     </>
-  );
+  )
 }

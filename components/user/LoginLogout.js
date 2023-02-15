@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Login from "./Login";
+import SignUp from "./SignUp";
 
 export default function LoginLogout() {
   const [visible, setVisible] = useState(false);
@@ -13,7 +13,7 @@ export default function LoginLogout() {
     <>
       <div>
         <button onClick={handleClick}>Login/logOUt</button>
-        {visible && <Login />}
+        {visible && <SignUp />}
       </div>
       <style jsx>{``}</style>
     </>

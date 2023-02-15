@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
-import { pagination, exchangesList } from "../../client/client";
-import { color } from "../../styles/colors";
-import Button from "../Button";
-import { useFetch } from "../../hook/useFetch";
+import { useState, useEffect } from 'react'
+import { pagination, exchangesList } from '../../client/client'
+import { color } from '../../styles/colors'
+import Button from '../Button'
+import { usePagination } from '../../hook/usePagination'
 
 export default function SelectPage({ route, max, reInitCount }) {
-  const { handlesumClick, handleRestClick, handleClickValue, page } = useFetch(
-    route,
-    reInitCount
-  );
+  const { handlesumClick, handleRestClick, handleClickValue, page } =
+    usePagination(route, reInitCount)
 
   return (
     <>
@@ -66,5 +64,5 @@ export default function SelectPage({ route, max, reInitCount }) {
         }
       `}</style>
     </>
-  );
+  )
 }

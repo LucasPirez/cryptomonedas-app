@@ -1,154 +1,138 @@
-import { json } from "d3";
-import { makePublicRouterInstance, Router } from "next/router";
-import { useState, useEffect } from "react";
+import { Router } from "next/router";
+import { useState, useEffect, useReducer } from "react";
 import { lista } from "../../client/client";
 import useClick from "../../hook/useClick";
 import { color } from "../../styles/colors";
-import Link from "next/link";
+import RenderSearch from "./RenderSearch";
+
+const INITIAL_STATE = {
+  list: [],
+  listFiltered: [],
+  wordTiped: "",
+};
+
+const TYPES = {
+  cargarList: (state, payload) => {
+    return { ...state, list: payload };
+  },
+  filtrar: (state, payload) => {
+    return { ...state, listFiltered: payload };
+  },
+  escribir: (state, payload) => {
+    return { ...state, wordTiped: payload };
+  },
+};
+
+const reducer = (state, { type, payload }) => TYPES[type](state, payload);
 
 export default function Search() {
-  const [list, setList] = useState(null);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState([]);
-  const ref = useClick(() => setSearch(""));
+  const [{ list, listFiltered, wordTiped }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
+  const ref = useClick(() => dispatch({ type: "escribir", payload: "" }));
 
-  const text = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target;
 
-    setSearch(value);
+    dispatch({ type: "escribir", payload: value });
+    storage(value);
     const arr = [];
-    if (search.length > 1) {
-      list.map((u) => {
-        if (u.includes(search)) {
-          arr.push(u);
-        }
+    if (value.length > 1) {
+      const order = list
+        .filter((u) => u.includes(value))
+        .sort((a, b) => a.length - b.length);
+      dispatch({
+        type: "filtrar",
+        payload: order,
       });
-
-      arr.sort((a, b) => {
-        return a.length - b.length;
-      });
-
-      setFilter(arr);
     }
-    if (search.length === 0) {
-      setFilter([]);
+    if (value.length === 0) {
+      dispatch({ type: "filtrar", payload: [] });
     }
   };
 
-  useEffect(() => {
+  const storage = (value) => {
     const arr = [];
     // localStorage.removeItem("listSearch");
-    const storage = JSON.parse(localStorage.getItem("listSearch"));
-    if (storage) {
-      setList(storage);
-    }
+    if (!list.length) {
+      const storage = JSON.parse(localStorage.getItem("listSearch"));
+      if (storage) {
+        dispatch({ type: "cargarList", payload: storage });
+      } else {
+        if (value.length > 1) {
+          lista().then((data) => {
+            const arr = data.map((u, i) => u.id.toLowerCase());
+            localStorage.setItem("listSearch", JSON.stringify(arr));
 
-    if (localStorage.getItem("listSearch") === null) {
-      if (search.length > 1) {
-        lista().then((data) => {
-          console.log(data);
-          data.map((u, i) => arr.push(u.id.toLowerCase()));
-          localStorage.setItem("listSearch", JSON.stringify(arr));
-          setList(arr);
-        });
+            dispatch({
+              type: "cargarList",
+              payload: arr,
+            });
+          });
+        }
       }
     }
-  }, [search]);
-  console.log(search);
+  };
+
   return (
     <>
       <div className="container" ref={ref}>
         <div className="container_input">
           <input
             type="text"
-            value={search}
-            onChange={text}
+            onChange={handleChange}
             className="input"
             placeholder="Search"
           />
-          {search.length > 2 && (
+          {wordTiped.length > 2 && (
             <div className="sub_container">
-              {filter.length &&
-                filter.map((u) => (
-                  <div key={u} className="map">
-                    <Link href={`/coin/${u}`}>
-                      <a>
-                        <p className="names">{u}</p>
-                      </a>
-                    </Link>
-                  </div>
-                ))}
+              {listFiltered.length &&
+                listFiltered.map((u) => <RenderSearch u={u} key={u} />)}
             </div>
           )}
         </div>
       </div>
-
       <style jsx>{`
-        .container{
-          width:100%;
-          height:auto;
-        
+        .container {
+          width: 100%;
+          height: auto;
         }
-          
-        .container_input{
+
+        .container_input {
           margin: 40px auto;
-         max-width:700px;
-         width:auto;
-         position:relative;
-         
+          max-width: 700px;
+          width: auto;
+          position: relative;
         }
 
-        .input{
-          font-size:1.2em;
-          width:100%;
-          outline:none;
-         padding:0.3em 0.5em;
-         background:${color.letters};
-         color:${color.reduceBackground};
-         border: 1.5px solid ${color.letters};
-         border-radius:3px;
+        .input {
+          font-size: 1.2em;
+          width: 100%;
+          outline: none;
+          padding: 0.3em 0.5em;
+          background: ${color.letters};
+          color: ${color.reduceBackground};
+          border: 1.5px solid ${color.letters};
+          border-radius: 3px;
         }
-        .input::placeholder{
-          color:${color.background}90;
-          color:${color.reduceBackground}96
+        .input::placeholder {
+          color: ${color.background}90;
+          color: ${color.reduceBackground}96;
         }
-        .input:focus{
-       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        .input:focus {
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+            rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
           border: 1.5px solid ${color.blue};
-         
         }
-
         .sub_container {
-          margin:auto;
-          width:100%;
+          margin: auto;
+          width: 100%;
           height: 400px;
-          position:absolute;
+          position: absolute;
           background: ${color.letters};
           z-index: 9;
           overflow: auto;
-        }
-        .map {
-          width: 100%;
-          height: 39px;
-          margin: 0px;
-          border: 1px solid #000;
-          background: ${color.letters}
-          transition: all 0.3s;
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-        }
-
-        .map:hover {
-          background: ${color.lightBlue};
-        }
-        .map:hover  .names {
-          color: ${color.letters};
-        }
-        .names{
-          margin-left: 2rem;
-
-          color: ${color.lightBlue};
         }
       `}</style>
     </>

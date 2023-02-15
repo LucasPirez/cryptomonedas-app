@@ -1,17 +1,18 @@
-import useAppContext from "../../context/TableContext";
-import { color } from "../../styles/colors";
-import OrderTable from "../OrderTable";
+import useAppContext from '../../context/TableContext'
+import { color } from '../../styles/colors'
+import { useSelector } from 'react-redux'
+import OrderTable from '../OrderTable'
 
 export default function TableComponent() {
-  const { setCoinTable, coinTable } = useAppContext();
+  const { setCoinTable, coinTable } = useAppContext()
   return (
     <>
       <th>
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"market_cap_rank"}
+          type={'number'}
+          nameConvert={'market_cap_rank'}
         >
           <span>#</span>
         </OrderTable>
@@ -20,8 +21,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"string"}
-          nameConvert={"id"}
+          type={'string'}
+          nameConvert={'id'}
         >
           <span>Name</span>
         </OrderTable>
@@ -30,8 +31,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"current_price"}
+          type={'number'}
+          nameConvert={'current_price'}
         >
           <span>Price</span>
         </OrderTable>
@@ -40,8 +41,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"price_change_percentage_24h_in_currency"}
+          type={'number'}
+          nameConvert={'price_change_percentage_24h_in_currency'}
         >
           <span>24h %</span>
         </OrderTable>
@@ -50,8 +51,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"price_change_percentage_7d_in_currency"}
+          type={'number'}
+          nameConvert={'price_change_percentage_7d_in_currency'}
         >
           <span>7d %</span>
         </OrderTable>
@@ -60,8 +61,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"total_volume"}
+          type={'number'}
+          nameConvert={'total_volume'}
         >
           <span>Total Volume</span>
         </OrderTable>
@@ -70,8 +71,8 @@ export default function TableComponent() {
         <OrderTable
           setCoinTable={setCoinTable}
           coinTable={coinTable}
-          type={"number"}
-          nameConvert={"market_cap"}
+          type={'number'}
+          nameConvert={'market_cap'}
         >
           <span>Market Cap</span>
         </OrderTable>
@@ -92,5 +93,5 @@ export default function TableComponent() {
         `}
       </style>
     </>
-  );
+  )
 }

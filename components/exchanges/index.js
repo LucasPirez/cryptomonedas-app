@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { EPExchangesAdapter } from "../../adapters/EPExchagesAdapter";
-import { exchangesList, oneCoin } from "../../client/client";
-import useAppContext from "../../context/TableContext";
-import useIntersectionObserver from "../../hook/useIntersectionObserver";
-import { color } from "../../styles/colors";
-import Header from "../Header/Header";
-import SelectPage from "../inicio/SelectPage";
-import Loading from "../Loading";
-import OrderTable from "../OrderTable";
-import RowExchanges from "./RowExchanges";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react'
+import { EPExchangesAdapter } from '../../adapters/EPExchagesAdapter'
+import { exchangesList, oneCoin } from '../../client/client'
+import useAppContext from '../../context/TableContext'
+import useIntersectionObserver from '../../hook/useIntersectionObserver'
+import { color } from '../../styles/colors'
+import Header from '../Header/Header'
+import SelectPage from '../inicio/SelectPage'
+import Loading from '../Loading'
+import OrderTable from '../OrderTable'
+import RowExchanges from './RowExchanges'
+import { useSelector } from 'react-redux'
 
 export default function Exchanges() {
-  const { dataExchanges, setDataExchanges } = useAppContext();
-  const { container, count, reInitCount } = useIntersectionObserver();
+  const { dataExchanges, setDataExchanges } = useAppContext()
+  const { container, count, reInitCount } = useIntersectionObserver()
 
   return (
     <>
@@ -21,13 +21,13 @@ export default function Exchanges() {
         <table>
           <thead>
             {dataExchanges.datos && (
-              <tr className="local_tr">
+              <tr className='local_tr'>
                 <th>
                   <OrderTable
                     setCoinTable={setDataExchanges}
                     coinTable={dataExchanges.datos}
-                    type={"number"}
-                    nameConvert={"trust_score_rank"}
+                    type={'number'}
+                    nameConvert={'trust_score_rank'}
                   >
                     <span>#</span>
                   </OrderTable>
@@ -36,8 +36,8 @@ export default function Exchanges() {
                   <OrderTable
                     setCoinTable={setDataExchanges}
                     coinTable={dataExchanges.datos}
-                    type={"string"}
-                    nameConvert={"id"}
+                    type={'string'}
+                    nameConvert={'id'}
                   >
                     <span>Name</span>
                   </OrderTable>
@@ -46,8 +46,8 @@ export default function Exchanges() {
                   <OrderTable
                     setCoinTable={setDataExchanges}
                     coinTable={dataExchanges.datos}
-                    type={"number"}
-                    nameConvert={"trust_score"}
+                    type={'number'}
+                    nameConvert={'trust_score'}
                   >
                     <span>Trust Score</span>
                   </OrderTable>
@@ -56,8 +56,8 @@ export default function Exchanges() {
                   <OrderTable
                     setCoinTable={setDataExchanges}
                     coinTable={dataExchanges.datos}
-                    type={"number"}
-                    nameConvert={"trade_volume_24h_btc_normalized"}
+                    type={'number'}
+                    nameConvert={'trade_volume_24h_btc_normalized'}
                   >
                     <span>Volume 24h Normalized</span>
                   </OrderTable>
@@ -66,8 +66,8 @@ export default function Exchanges() {
                   <OrderTable
                     setCoinTable={setDataExchanges}
                     coinTable={dataExchanges.datos}
-                    type={"number"}
-                    nameConvert={"trade_volume_24h_btc"}
+                    type={'number'}
+                    nameConvert={'trade_volume_24h_btc'}
                   >
                     <span>Volume 24h</span>
                   </OrderTable>
@@ -89,7 +89,7 @@ export default function Exchanges() {
                         bitcoinPrice={dataExchanges.bitcoin}
                       />
                     </tr>
-                  );
+                  )
                 }
               })
             ) : (
@@ -100,17 +100,17 @@ export default function Exchanges() {
       </div>
       <div
         ref={container}
-        style={{ width: "100%", height: 30, background: "trasparent" }}
+        style={{ width: '100%', height: 30, background: 'trasparent' }}
       ></div>
-      <SelectPage max={5} reInitCount={reInitCount} route={"exchanges"} />
+      <SelectPage max={5} reInitCount={reInitCount} route={'exchanges'} />
       <style jsx>{`
         div {
           max-width: 1150px;
           margin: 0 auto;
           position: relative;
-          min-height: "90vh";
+          min-height: '90vh';
           overflow-x: auto;
-          width: "100%";
+          width: '100%';
         }
         table {
           margin: auto;
@@ -152,5 +152,5 @@ export default function Exchanges() {
         }
       `}</style>
     </>
-  );
+  )
 }
