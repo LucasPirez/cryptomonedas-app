@@ -1,16 +1,18 @@
 import useAppContext from '../../context/TableContext'
 import { color } from '../../styles/colors'
 import { useSelector } from 'react-redux'
+import { coinReduceTable } from '../../redux/features/listCriptos'
 import OrderTable from '../OrderTable'
 
 export default function TableComponent() {
+  const state = useSelector((state) => state.criptoList)
   const { setCoinTable, coinTable } = useAppContext()
   return (
     <>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'market_cap_rank'}
         >
@@ -19,8 +21,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'string'}
           nameConvert={'id'}
         >
@@ -29,8 +31,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'current_price'}
         >
@@ -39,8 +41,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'price_change_percentage_24h_in_currency'}
         >
@@ -49,8 +51,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'price_change_percentage_7d_in_currency'}
         >
@@ -59,8 +61,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'total_volume'}
         >
@@ -69,8 +71,8 @@ export default function TableComponent() {
       </th>
       <th>
         <OrderTable
-          setCoinTable={setCoinTable}
-          coinTable={coinTable}
+          action={coinReduceTable}
+          coinTable={state}
           type={'number'}
           nameConvert={'market_cap'}
         >

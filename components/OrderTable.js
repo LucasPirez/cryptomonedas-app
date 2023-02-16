@@ -1,62 +1,64 @@
-import { useState, useEffect } from "react";
-import { color } from "../styles/colors";
-import ChevronUp from "./Icons/ChevronUp";
-import ChevronDown from "./Icons/ChevrowDown";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react'
+import { color } from '../styles/colors'
+import ChevronUp from './Icons/ChevronUp'
+import ChevronDown from './Icons/ChevrowDown'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 export default function OrderTable({
   children,
-  setCoinTable,
+  action,
   coinTable,
   type,
   nameConvert,
 }) {
-  const { asPath } = useRouter();
-  const order = [];
-  const [selectButton, setSelectButton] = useState(false);
+  const dispatch = useDispatch()
+  const { asPath } = useRouter()
+  const order = []
+  const [selectButton, setSelectButton] = useState(false)
 
   const handleDown = (e) => {
-    e && e.preventDefault();
-    e && e.stopPropagation();
-    e && setSelectButton(true);
-    if (type === "string") {
+    e && e.preventDefault()
+    e && e.stopPropagation()
+    e && setSelectButton(true)
+    if (type === 'string') {
       order = [...coinTable].sort((a, b) =>
         a[nameConvert].localeCompare(b[nameConvert])
-      );
+      )
     } else {
       order = [...coinTable].sort((a, b) => {
-        return a[nameConvert] - b[nameConvert];
-      });
+        return a[nameConvert] - b[nameConvert]
+      })
     }
-    asPath.includes("pagestable")
-      ? setCoinTable(order)
-      : setCoinTable({ ...coinTable, datos: order });
-  };
+    asPath.includes('criptos')
+      ? dispatch(action(order))
+      : setCoinTable({ ...coinTable, datos: order })
+  }
 
   const handleUp = (e) => {
-    e && e.preventDefault();
-    e && e.stopPropagation();
-    e && setSelectButton(false);
-    if (type === "string") {
+    e && e.preventDefault()
+    e && e.stopPropagation()
+    e && setSelectButton(false)
+    if (type === 'string') {
       order = [...coinTable].sort((a, b) =>
         b[nameConvert].localeCompare(a[nameConvert])
-      );
+      )
     } else {
       order = [...coinTable].sort((a, b) => {
-        return b[nameConvert] - a[nameConvert];
-      });
+        return b[nameConvert] - a[nameConvert]
+      })
     }
-    asPath.includes("pagestable")
-      ? setCoinTable(order)
-      : setCoinTable({ ...coinTable, datos: order });
-  };
+    asPath.includes('criptos')
+      ? dispatch(action(order))
+      : setCoinTable({ ...coinTable, datos: order })
+  }
 
   const handleOrderActual = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
 
-    return !selectButton ? handleUp() : handleDown();
-  };
+    return !selectButton ? handleUp() : handleDown()
+  }
 
   return (
     <>
@@ -98,5 +100,5 @@ export default function OrderTable({
         }
       `}</style>
     </>
-  );
+  )
 }
