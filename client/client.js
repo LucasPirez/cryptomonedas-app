@@ -75,5 +75,7 @@ export const graficDays = (id, days = 7, currency) => {
 
 export const exchangesList = (num) => {
   console.log('exchangesList')
-  return fetch(`${BASE_URL}/exchanges/?per_page=100&page=${num}`)
+  return fetch(`${BASE_URL}/exchanges/?per_page=100&page=${num}`).then((data) =>
+    data.json()
+  )
 }

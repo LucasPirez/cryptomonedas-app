@@ -15,18 +15,22 @@ import { useSelector } from 'react-redux'
 export default function Table() {
   const { container, count, reInitCount, visible } = useIntersectionObserver()
   const router = useRouter()
-  const state = useSelector((state) => state.criptoList)
+  const { criptoList, currencySelect } = useSelector(
+    (state) => state.criptoList
+  )
 
   return (
     <>
       <div className='contain'>
         <table>
           <thead>
-            <tr className='local_tr'>{state !== [] && <TableComponent />}</tr>
+            <tr className='local_tr'>
+              {criptoList !== [] && <TableComponent />}
+            </tr>
           </thead>
           <tbody>
-            {state !== [] ? (
-              state.map((u, i) => {
+            {criptoList !== [] ? (
+              criptoList.map((u, i) => {
                 if (i < count) {
                   return (
                     <tr

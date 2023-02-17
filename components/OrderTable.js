@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { color } from '../styles/colors'
 import ChevronUp from './Icons/ChevronUp'
 import ChevronDown from './Icons/ChevrowDown'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 export default function OrderTable({
@@ -13,7 +12,6 @@ export default function OrderTable({
   nameConvert,
 }) {
   const dispatch = useDispatch()
-  const { asPath } = useRouter()
   const order = []
   const [selectButton, setSelectButton] = useState(false)
 
@@ -30,9 +28,7 @@ export default function OrderTable({
         return a[nameConvert] - b[nameConvert]
       })
     }
-    asPath.includes('criptos')
-      ? dispatch(action(order))
-      : setCoinTable({ ...coinTable, datos: order })
+    dispatch(action(order))
   }
 
   const handleUp = (e) => {
@@ -48,9 +44,8 @@ export default function OrderTable({
         return b[nameConvert] - a[nameConvert]
       })
     }
-    asPath.includes('criptos')
-      ? dispatch(action(order))
-      : setCoinTable({ ...coinTable, datos: order })
+
+    dispatch(action(order))
   }
 
   const handleOrderActual = (e) => {

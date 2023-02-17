@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { EPExchangesAdapter } from '../../adapters/EPExchagesAdapter'
-import { exchangesList, oneCoin } from '../../client/client'
-import useAppContext from '../../context/TableContext'
 import useIntersectionObserver from '../../hook/useIntersectionObserver'
 import { color } from '../../styles/colors'
 import Header from '../Header/Header'
@@ -10,22 +8,23 @@ import Loading from '../Loading'
 import OrderTable from '../OrderTable'
 import RowExchanges from './RowExchanges'
 import { useSelector } from 'react-redux'
+import { exchangeReducer } from '../../redux/features/listExchanges'
 
 export default function Exchanges() {
-  const { dataExchanges, setDataExchanges } = useAppContext()
   const { container, count, reInitCount } = useIntersectionObserver()
+  const { dataExchanges, bitcoin } = useSelector((state) => state.exchangesList)
 
   return (
     <>
       <div>
         <table>
           <thead>
-            {dataExchanges.datos && (
+            {dataExchanges && (
               <tr className='local_tr'>
                 <th>
                   <OrderTable
-                    setCoinTable={setDataExchanges}
-                    coinTable={dataExchanges.datos}
+                    action={exchangeReducer}
+                    coinTable={dataExchanges}
                     type={'number'}
                     nameConvert={'trust_score_rank'}
                   >
@@ -34,8 +33,8 @@ export default function Exchanges() {
                 </th>
                 <th>
                   <OrderTable
-                    setCoinTable={setDataExchanges}
-                    coinTable={dataExchanges.datos}
+                    action={exchangeReducer}
+                    coinTable={dataExchanges}
                     type={'string'}
                     nameConvert={'id'}
                   >
@@ -44,8 +43,8 @@ export default function Exchanges() {
                 </th>
                 <th>
                   <OrderTable
-                    setCoinTable={setDataExchanges}
-                    coinTable={dataExchanges.datos}
+                    action={exchangeReducer}
+                    coinTable={dataExchanges}
                     type={'number'}
                     nameConvert={'trust_score'}
                   >
@@ -54,8 +53,8 @@ export default function Exchanges() {
                 </th>
                 <th>
                   <OrderTable
-                    setCoinTable={setDataExchanges}
-                    coinTable={dataExchanges.datos}
+                    action={exchangeReducer}
+                    coinTable={dataExchanges}
                     type={'number'}
                     nameConvert={'trade_volume_24h_btc_normalized'}
                   >
@@ -64,8 +63,8 @@ export default function Exchanges() {
                 </th>
                 <th>
                   <OrderTable
-                    setCoinTable={setDataExchanges}
-                    coinTable={dataExchanges.datos}
+                    action={exchangeReducer}
+                    coinTable={dataExchanges}
                     type={'number'}
                     nameConvert={'trade_volume_24h_btc'}
                   >
@@ -79,14 +78,14 @@ export default function Exchanges() {
           </thead>
 
           <tbody>
-            {dataExchanges.datos ? (
-              dataExchanges.datos.map((u, i) => {
+            {dataExchanges ? (
+              dataExchanges.map((u, i) => {
                 if (i < count) {
                   return (
                     <tr key={u.id}>
                       <RowExchanges
                         data={EPExchangesAdapter(u)}
-                        bitcoinPrice={dataExchanges.bitcoin}
+                        bitcoinPrice={bitcoin}
                       />
                     </tr>
                   )

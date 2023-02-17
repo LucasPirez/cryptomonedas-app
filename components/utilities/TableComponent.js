@@ -5,14 +5,16 @@ import { coinReduceTable } from '../../redux/features/listCriptos'
 import OrderTable from '../OrderTable'
 
 export default function TableComponent() {
-  const state = useSelector((state) => state.criptoList)
-  const { setCoinTable, coinTable } = useAppContext()
+  const { criptoList, currencySelect } = useSelector(
+    (state) => state.criptoList
+  )
+
   return (
     <>
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'market_cap_rank'}
         >
@@ -22,7 +24,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'string'}
           nameConvert={'id'}
         >
@@ -32,7 +34,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'current_price'}
         >
@@ -42,7 +44,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'price_change_percentage_24h_in_currency'}
         >
@@ -52,7 +54,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'price_change_percentage_7d_in_currency'}
         >
@@ -62,7 +64,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'total_volume'}
         >
@@ -72,7 +74,7 @@ export default function TableComponent() {
       <th>
         <OrderTable
           action={coinReduceTable}
-          coinTable={state}
+          coinTable={criptoList}
           type={'number'}
           nameConvert={'market_cap'}
         >

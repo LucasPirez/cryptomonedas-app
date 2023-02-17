@@ -7,15 +7,13 @@ export function signUp(data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
+  }).then((data) => {
+    if (!data.ok) {
+      throw new Error('Network response was not ok')
+    }
+    return data.json()
   })
-    .then((data) => {
-      data.json()
-    })
-    .catch((err) => {
-      console.log(err)
-    })
 }
-
 export function SesionIn(data) {
   return fetch(`${URL_BASE_DATOS}/users/singup`, {
     method: 'POST',
@@ -23,7 +21,5 @@ export function SesionIn(data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  }).catch((err) => {
-    console.log(err)
   })
 }

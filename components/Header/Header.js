@@ -1,50 +1,63 @@
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { color } from "../../styles/colors";
-import ArrowLeft from "../Icons/Arrowleft";
-import { useRouter } from "next/router";
-import SelectCurrency from "./SelectCurrency";
-import useAppContext from "../../context/TableContext";
-import useClick from "../../hook/useClick";
-import LoginLogout from "../user/LoginLogout";
-import SesionItit from "../user/SesionInit";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { color } from '../../styles/colors'
+import ArrowLeft from '../Icons/Arrowleft'
+import { useRouter } from 'next/router'
+import useClick from '../../hook/useClick'
+import LoginLogout from '../user/LoginLogout'
+import SesionItit from '../user/SesionInit'
+import { useSelector } from 'react-redux'
+import RenderSelectCurrency from './RenderSelectCurrency'
 
 export default function Header() {
-  const router = useRouter();
-  const { numberActualState } = useAppContext();
-  const path = router.asPath;
-  const [hidden, setHidden] = useState(true);
+  const router = useRouter()
+  const path = router.asPath
+  const [hidden, setHidden] = useState(true)
   const handleClick = () => {
-    setHidden(true);
-  };
-  const { criptos, exchanges } = useSelector((state) => state.pagination);
-  const ref = useClick(handleClick);
+    setHidden(true)
+  }
+  const { criptos, exchanges } = useSelector((state) => state.pagination)
+  const ref = useClick(handleClick)
+
+  async function handleBack(e) {
+    e.preventDefault()
+
+    if (endpoint === 'criptos' && query.id != page) {
+      try {
+        console.log('hola header back  ', page)
+        const response = await pagination(page, 'usd')
+        dispatch(coinReduceTable(response))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   return (
     <>
       <nav ref={ref}>
-        <button onClick={() => router.back()}>
+        <button onClick={handleBack}>
           <ArrowLeft />
         </button>
         <h2>Crypto Tracker</h2>
-        <div className="hamburguer" onClick={() => setHidden(!hidden)}>
+        <div className='hamburguer' onClick={() => setHidden(!hidden)}>
           <div></div>
           <div></div>
           <div></div>
         </div>
-        <div className={`ul_container ${!hidden ? "mostrar" : ""}`}>
+        <div className={`ul_container ${!hidden ? 'mostrar' : ''}`}>
           <ul>
-            <li className={path.includes("/criptos") ? "select" : ""}>
+            <li className={path.includes('/criptos') ? 'select' : ''}>
               <Link href={`/criptos/${criptos || 1}`}>
                 <a>table</a>
               </Link>
             </li>
-            <li className={path.includes("/favorites/") ? "select" : ""}>
-              <Link href={"/favorites"}>
+            <li className={path.includes('/favorites/') ? 'select' : ''}>
+              <Link href={'/favorites'}>
                 <a>Favorites</a>
               </Link>
             </li>
-            <li className={path.includes("/exchanges/1") ? "select" : ""}>
+            <li className={path.includes('/exchanges/1') ? 'select' : ''}>
               <Link href={`/exchanges/${exchanges || 1}`}>
                 <a>Exchanges</a>
               </Link>
@@ -54,7 +67,7 @@ export default function Header() {
             </li>
             <li></li>
           </ul>
-          <SelectCurrency />
+          <RenderSelectCurrency />
         </div>
       </nav>
       <SesionItit />
@@ -184,5 +197,5 @@ export default function Header() {
         }
       `}</style>
     </>
-  );
+  )
 }
