@@ -4,15 +4,14 @@ import { color } from '../../styles/colors'
 import Button from '../Button'
 import { usePagination } from '../../hook/usePagination'
 
-export default function SelectPage({ route, max, reInitCount }) {
-  const { handlesumClick, handleRestClick, handleClickValue, page } =
-    usePagination(route, reInitCount)
+export default function SelectPage({ route, max, reInitCount, page }) {
+  const { handleClickValue } = usePagination(route, reInitCount)
 
   return (
     <>
       <div>
         {page > 1 && (
-          <Button onClick={handleRestClick}>
+          <Button onClick={(e) => handleClickValue(e, page - 1)}>
             <span>PREV</span>
           </Button>
         )}
@@ -40,7 +39,7 @@ export default function SelectPage({ route, max, reInitCount }) {
           <span>{max}</span>
         </Button>
         {page < max && (
-          <Button onClick={handlesumClick}>
+          <Button onClick={(e) => handleClickValue(e, page + 1)}>
             <span>NEXT</span>
           </Button>
         )}

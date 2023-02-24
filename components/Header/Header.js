@@ -16,7 +16,8 @@ export default function Header() {
   const handleClick = () => {
     setHidden(true)
   }
-  const { criptos, exchanges } = useSelector((state) => state.pagination)
+  const { page: criptoPage } = useSelector((state) => state.criptoList)
+  const { page: exchagesPage } = useSelector((state) => state.exchangesList)
   const ref = useClick(handleClick)
 
   async function handleBack(e) {
@@ -48,7 +49,7 @@ export default function Header() {
         <div className={`ul_container ${!hidden ? 'mostrar' : ''}`}>
           <ul>
             <li className={path.includes('/criptos') ? 'select' : ''}>
-              <Link href={`/criptos/${criptos || 1}`}>
+              <Link href={`/criptos/${criptoPage || 1}`}>
                 <a>table</a>
               </Link>
             </li>
@@ -58,7 +59,7 @@ export default function Header() {
               </Link>
             </li>
             <li className={path.includes('/exchanges/1') ? 'select' : ''}>
-              <Link href={`/exchanges/${exchanges || 1}`}>
+              <Link href={`/exchanges/${exchagesPage || 1}`}>
                 <a>Exchanges</a>
               </Link>
             </li>
