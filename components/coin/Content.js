@@ -1,59 +1,58 @@
-import { useState, useEffect } from "react";
-import Image from "next/image";
-
-import SubContent from "./SubContent";
-import SubContentMarket from "./SubContentMarket";
-import { color } from "../../styles/colors";
-import AddDeleteFavorite from "../favorites/AddDeleteFavorite";
-import useCurrencyLightContext from "../../context/CurrencyLightContext";
-import useAppContext from "../../context/TableContext";
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import SubContent from './SubContent'
+import SubContentMarket from './SubContentMarket'
+import { color } from '../../styles/colors'
+import AddDeleteFavorite from '../favorites/AddDeleteFavorite'
+import useCurrencyLightContext from '../../context/CurrencyLightContext'
+import { useSelector } from 'react-redux'
 
 export default function Content({ data }) {
-  const { market_cap_rank, image, name, symbol, market_data, links, id } = data;
-  const { currencySelect } = useAppContext();
+  const { market_cap_rank, image, name, symbol, market_data, links, id } = data
+  const { currencySelect } = useSelector((state) => state.criptoList)
 
   return (
     <>
-      <div className="container">
-        <div className="sub_container">
-          <div className="rank">
+      <div className='container'>
+        <div className='sub_container'>
+          <div className='rank'>
             <span>Rank #{market_cap_rank}</span>
           </div>
-          <div className="container_name">
-            <Image src={image.small} alt="coin image" width={70} height={70} />
+          <div className='container_name'>
+            <Image src={image.small} alt='coin image' width={70} height={70} />
             <h2>{name}</h2>
-            <div className="container_symbol">
+            <div className='container_symbol'>
               <span> {symbol.toUpperCase()}</span>
 
-              <AddDeleteFavorite data={id} yes="#09a" no="white" scale={1.3} />
+              <AddDeleteFavorite data={id} yes='#09a' no='white' scale={1.3} />
             </div>
 
-            <p className="price">
-              <span>{currencySelect.symbol}</span>{" "}
+            <p className='price'>
+              <span>{currencySelect.symbol}</span>{' '}
               {market_data.current_price[
                 currencySelect.currency
-              ].toLocaleString("en-US")}
+              ].toLocaleString('en-US')}
               <strong
-                title="price change percentage 24h"
+                title='price change percentage 24h'
                 className={
-                  market_data.price_change_percentage_24h > 0 ? "green" : "red"
+                  market_data.price_change_percentage_24h > 0 ? 'green' : 'red'
                 }
               >
                 %
                 {market_data.price_change_percentage_24h.toLocaleString(
-                  "en-US"
+                  'en-US'
                 ) || 0}
               </strong>
             </p>
           </div>
 
-          <div className="container_input">
+          <div className='container_input'>
             <div>
               <span>
                 Low:
                 <strong>
                   {market_data.low_24h[currencySelect.currency].toLocaleString(
-                    "en-US"
+                    'en-US'
                   )}
                 </strong>
               </span>
@@ -61,23 +60,23 @@ export default function Content({ data }) {
                 High:
                 <strong>
                   {market_data.high_24h[currencySelect.currency].toLocaleString(
-                    "en-US"
+                    'en-US'
                   )}
-                </strong>{" "}
+                </strong>{' '}
               </span>
             </div>
             <input
-              type="range"
+              type='range'
               min={market_data.low_24h[currencySelect.currency]}
               max={market_data.high_24h[currencySelect.currency]}
               value={market_data.current_price[currencySelect.currency]}
-              step="0.0001"
-              className="input_range"
+              step='0.0001'
+              className='input_range'
               readOnly={true}
             />
           </div>
         </div>
-        <div className="content_market">
+        <div className='content_market'>
           <SubContent data={links} />
           <SubContentMarket data={market_data} />
         </div>
@@ -201,5 +200,5 @@ export default function Content({ data }) {
         `}
       </style>
     </>
-  );
+  )
 }

@@ -1,4 +1,3 @@
-import useAppContext from '../../context/TableContext'
 import { color } from '../../styles/colors'
 import { useSelector } from 'react-redux'
 import { coinReduceTable } from '../../redux/features/listCriptos'

@@ -24,12 +24,7 @@ export const pagination = (id, currency) => {
   console.log('pagination')
   return fetch(
     `${BASE_URL}coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${id}&&sparkline=true&price_change_percentage=1h,24h,7d`
-  )
-    .then((data) => data.json())
-    .catch((error) => {
-      console.log(error)
-      return null
-    })
+  ).then((data) => data.json())
 }
 
 export const oneCoin = (id) => {

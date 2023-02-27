@@ -1,22 +1,22 @@
-import React, { useState, useEffect, Suspense } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { grafic7Days } from "../client/client";
-import AddDeleteFavorite from "./favorites/AddDeleteFavorite";
-import { color } from "../styles/colors";
-import IconImage from "./utilities/IconImage";
-import useAppContext from "../context/TableContext";
+import React, { useState, useEffect, Suspense } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { grafic7Days } from '../client/client'
+import AddDeleteFavorite from './favorites/AddDeleteFavorite'
+import { color } from '../styles/colors'
+import IconImage from './utilities/IconImage'
+import { useSelector } from 'react-redux'
 
-const GraficRow = React.lazy(() => import("./coin/grafic/GraficRow"));
+const GraficRow = React.lazy(() => import('./coin/grafic/GraficRow'))
 
 export default function CoinsRow({ data }) {
   // const [dataGrafic, setDataGrafic] = useState(null);
-  const { currencySelect } = useAppContext();
+  const { currencySelect } = useSelector((state) => state.criptoList)
 
   return (
     <>
       <td>
-        <div className="star">
+        <div className='star'>
           <span>
             <AddDeleteFavorite
               data={data.id}
@@ -27,30 +27,30 @@ export default function CoinsRow({ data }) {
           <span> {data.marketCapRank}</span>
         </div>
       </td>
-      <td className="sticy__td">
-        <div className="img_name">
+      <td className='sticy__td'>
+        <div className='img_name'>
           <div>
             <span>
-              <Image src={data.image} alt="icon" width={15} height={15} />
+              <Image src={data.image} alt='icon' width={15} height={15} />
             </span>
 
             <span>{data.name}</span>
           </div>
 
-          <span className="symbol">{data.symbol.toUpperCase()}</span>
+          <span className='symbol'>{data.symbol.toUpperCase()}</span>
         </div>
       </td>
 
-      <td className="numbers">
+      <td className='numbers'>
         <span>{currencySelect.symbol}</span>
-        <span>{data.currentPrice.toLocaleString("en-US")}</span>
+        <span>{data.currentPrice.toLocaleString('en-US')}</span>
       </td>
 
       <td
         className={
           data.priceChangePercentage24h > 0
-            ? "price numbers "
-            : "price_danger numbers "
+            ? 'price numbers '
+            : 'price_danger numbers '
         }
       >
         {data.priceChangePercentage24h &&
@@ -60,8 +60,8 @@ export default function CoinsRow({ data }) {
       <td
         className={
           data.priceChangePercentage7dInCurrency > 0
-            ? "price numbers "
-            : "price_danger numbers "
+            ? 'price numbers '
+            : 'price_danger numbers '
         }
       >
         {data.priceChangePercentage7dInCurrency &&
@@ -69,9 +69,9 @@ export default function CoinsRow({ data }) {
         %
       </td>
 
-      <td className="numbers">${data.totalVolume.toLocaleString("en-US")}</td>
-      <td className="numbers">${data.marketCap.toLocaleString("en-US")}</td>
-      <td className="tdGrafic">
+      <td className='numbers'>${data.totalVolume.toLocaleString('en-US')}</td>
+      <td className='numbers'>${data.marketCap.toLocaleString('en-US')}</td>
+      <td className='tdGrafic'>
         <Suspense fallback={<p>cargando</p>}>
           <GraficRow
             dataGrafic={data.sparklineIn7d.price}
@@ -147,7 +147,7 @@ export default function CoinsRow({ data }) {
         `}
       </style>
     </>
-  );
+  )
 }
 // @media screen and (max-width: 900px) {
 //           .img_name {

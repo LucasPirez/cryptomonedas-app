@@ -1,25 +1,25 @@
-import { useState, useEffect, useContext, createContext } from "react";
-import { useRouter } from "next/router";
-import { graficDays, graficRange } from "../client/client";
-import useAppContext from "./TableContext";
+import { useState, useEffect, useContext, createContext } from 'react'
+import { useRouter } from 'next/router'
+import { graficDays, graficRange } from '../client/client'
+import { useSelector } from 'react-redux'
 
-export const GraficContext = createContext(null);
+export const GraficContext = createContext(null)
 
 export function GraficContextProvider({ children }) {
-  const { currencySelect } = useAppContext();
-  const router = useRouter();
-  const { id } = router.query;
-  const [time, setTime] = useState(null);
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [rangeGrafic, setRangeGrafic] = useState({ min: null, max: null });
-  const [portalState, setPortalState] = useState(false);
+  const { currencySelect } = useSelector((state) => state.criptoList)
+  const router = useRouter()
+  const { id } = router.query
+  const [time, setTime] = useState(null)
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [rangeGrafic, setRangeGrafic] = useState({ min: null, max: null })
+  const [portalState, setPortalState] = useState(false)
 
-  const dateNow = Math.round(new Date().getTime() / 1000);
+  const dateNow = Math.round(new Date().getTime() / 1000)
 
   function rangeGraficAction({ min, max }) {
-    console.log(rangeGrafic);
-    const twoentyDays = 1728000000;
+    console.log(rangeGrafic)
+    const twoentyDays = 1728000000
     if (
       min < rangeGrafic.min - twoentyDays ||
       min > rangeGrafic.min + twoentyDays ||
@@ -27,9 +27,9 @@ export function GraficContextProvider({ children }) {
       max > rangeGrafic.max + twoentyDays ||
       rangeGrafic.min === null
     ) {
-      console.log("holaContext");
+      console.log('holaContext')
 
-      setLoading(true);
+      setLoading(true)
       graficRange({
         id: id,
         currency: currencySelect.currency,
@@ -38,38 +38,38 @@ export function GraficContextProvider({ children }) {
       })
         .then((data) => data.json())
         .then((data) => {
-          setData(data.prices);
-          console.log(data);
-          setLoading(false);
-          setTime(null);
-          setRangeGrafic({ min, max });
-        });
+          setData(data.prices)
+          console.log(data)
+          setLoading(false)
+          setTime(null)
+          setRangeGrafic({ min, max })
+        })
     } else {
-      return null;
+      return null
     }
   }
 
   function fetch7Days(tiempo, e) {
-    e && e.preventDefault();
-    console.log("holaContext");
+    e && e.preventDefault()
+    console.log('holaContext')
 
-    setLoading(true);
+    setLoading(true)
     graficDays(id, tiempo, currencySelect.currency).then((datos) => {
-      setData((data) => datos.prices);
-      setLoading(false);
-      setTime(tiempo);
-    });
+      setData((data) => datos.prices)
+      setLoading(false)
+      setTime(tiempo)
+    })
   }
 
   useEffect(() => {
-    console.log("holaContext");
-    setLoading(true);
+    console.log('holaContext')
+    setLoading(true)
     graficDays(id, 7, currencySelect.currency).then((datos) => {
-      setData((data) => datos.prices);
-      setLoading(false);
-      setTime(7);
-    });
-  }, []);
+      setData((data) => datos.prices)
+      setLoading(false)
+      setTime(7)
+    })
+  }, [])
 
   const dataContext = {
     data,
@@ -83,21 +83,21 @@ export function GraficContextProvider({ children }) {
     rangeGraficAction,
     rangeGrafic,
     loading,
-  };
+  }
 
   return (
     <GraficContext.Provider value={dataContext}>
       {children}
     </GraficContext.Provider>
-  );
+  )
 }
 
 export default function useGraficContext() {
-  const context = useContext(GraficContext);
+  const context = useContext(GraficContext)
 
   if (!context) {
-    console.error("Error deploying App Context!!!");
+    console.error('Error deploying App Context!!!')
   }
 
-  return context;
+  return context
 }

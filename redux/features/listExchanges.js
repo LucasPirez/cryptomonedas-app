@@ -36,7 +36,7 @@ export const exchangesSlice = createSlice({
       .addCase(exchangesFetch.fulfilled, async (state, action) => {
         state.loading = false
         state.dataExchanges = action.payload.response
-        state.dataExchanges = action.payload.page
+        state.page = action.payload.page
       })
       .addCase(exchangesFetch.rejected, async (state, action) => {
         state.error = action.error.message

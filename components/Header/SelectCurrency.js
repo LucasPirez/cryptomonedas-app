@@ -65,49 +65,55 @@ export default function SelectCurrency({
 
   return (
     <>
-      <div className={styles.container} ref={ref}>
-        <button onClick={handleVisibility} className={styles.button}>
-          {currencySelect.currency}
-          {!viewSelect ? <ChevronDown /> : <ChevronUp />}
-        </button>
-        <div
-          className={`${styles.sub_container} ${
-            viewSelect ? styles.viewSelect : ''
-          }`}
-        >
-          {symbols.map((u, i) => {
-            if (i > 0 && symbols[i - 1][0][0] !== u[0][0]) {
-              return (
-                <>
-                  <p className={styles.separator}>{u[0][0]}</p>
-                  <div key={i} className={styles.container_letter}>
-                    <div
-                      className={styles.container_span}
-                      onClick={(e) => handleClick(e, u[0], u[1])}
-                    >
-                      <span>{u[1]}</span>
-                      <span className={styles.container_span_span}>{u[0]}</span>
+      <div ref={ref}>
+        <div className={styles.container}>
+          <button onClick={handleVisibility} className={styles.button}>
+            {currencySelect.currency}
+            {!viewSelect ? <ChevronDown /> : <ChevronUp />}
+          </button>
+          <div
+            className={`${styles.sub_container} ${
+              viewSelect ? styles.viewSelect : ''
+            }`}
+          >
+            {symbols.map((u, i) => {
+              if (i > 0 && symbols[i - 1][0][0] !== u[0][0]) {
+                return (
+                  <>
+                    <p className={styles.separator}>{u[0][0]}</p>
+                    <div key={i} className={styles.container_letter}>
+                      <div
+                        className={styles.container_span}
+                        onClick={(e) => handleClick(e, u[0], u[1])}
+                      >
+                        <span>{u[1]}</span>
+                        <span className={styles.container_span_span}>
+                          {u[0]}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </>
-              )
-            } else {
-              return (
-                <>
-                  {i === 0 && <p className={styles.separator}>{u[0][0]}</p>}
-                  <div key={i} className={styles.container_letter}>
-                    <div
-                      className={styles.container_span}
-                      onClick={(e) => handleClick(e, u[0], u[1])}
-                    >
-                      <span>{u[1]}</span>
-                      <span className={styles.container_span_span}>{u[0]}</span>
+                  </>
+                )
+              } else {
+                return (
+                  <>
+                    {i === 0 && <p className={styles.separator}>{u[0][0]}</p>}
+                    <div key={i} className={styles.container_letter}>
+                      <div
+                        className={styles.container_span}
+                        onClick={(e) => handleClick(e, u[0], u[1])}
+                      >
+                        <span>{u[1]}</span>
+                        <span className={styles.container_span_span}>
+                          {u[0]}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </>
-              )
-            }
-          })}
+                  </>
+                )
+              }
+            })}
+          </div>
         </div>
       </div>
     </>

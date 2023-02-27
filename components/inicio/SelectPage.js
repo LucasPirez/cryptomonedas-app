@@ -4,8 +4,14 @@ import { color } from '../../styles/colors'
 import Button from '../Button'
 import { usePagination } from '../../hook/usePagination'
 
-export default function SelectPage({ route, max, reInitCount, page }) {
-  const { handleClickValue } = usePagination(route, reInitCount)
+export default function SelectPage({
+  route,
+  max,
+  reInitCount,
+  page,
+  currencySelect,
+}) {
+  const { handleClickValue } = usePagination(route, reInitCount, currencySelect)
 
   return (
     <>

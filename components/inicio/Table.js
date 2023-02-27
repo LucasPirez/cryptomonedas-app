@@ -15,10 +15,11 @@ import { useSelector } from 'react-redux'
 export default function Table() {
   const { container, count, reInitCount, visible } = useIntersectionObserver()
   const router = useRouter()
-  const { criptoList, currencySelect, page } = useSelector(
+  const { criptoList, currencySelect, page, error } = useSelector(
     (state) => state.criptoList
   )
 
+  if (error) return <p>{error}</p>
   return (
     <>
       <SelectPage
@@ -26,6 +27,7 @@ export default function Table() {
         reInitCount={reInitCount}
         route={'criptos'}
         page={page}
+        currencySelect={currencySelect.currency}
       />
       <div className='contain'>
         <table>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import * as d3 from 'd3'
-import { useGrafic } from '../../../hook/useGrafic'
+import { useGrafic } from '../../../../hook/useGrafic'
 import { getPathData } from 'path-data-polyfill'
-import useConstansGrafic from '../../../hook/useConstansGrafic'
-import { color } from '../../../styles/colors'
+import useConstansGrafic from '../../../../hook/useConstansGrafic'
+import { color } from '../../../../styles/colors'
 
 export default function BitcoinGrafic({
   dataBitcoin,

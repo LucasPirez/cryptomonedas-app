@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { graficDays, graficRange } from '../../client/client'
 import { color } from '../../styles/colors'
-import Grafic from './grafic/Grafic'
+import Grafic from './grafic/lineGrafic/Grafic'
 import CandleGrafic from './grafic/candleGrafic'
 import Image from 'next/image'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
@@ -9,14 +9,13 @@ import ButtonsSelectGrafic from './ButtonsSelectGrafic'
 import useGraficContext from '../../context/GraficContext'
 import Loading from '../Loading'
 import SelectorTime from './grafic/selectorTime'
-import { image } from 'd3'
-import useAppContext from '../../context/TableContext'
+import { useSelector } from 'react-redux'
 
 export default function ContainerGrafic({ id, setPortalState, portalState }) {
   const [dataBitcoin, setDataBitcoin] = useState(null)
   const [candleGrafic, setCandleGrafic] = useState(false)
   const [change, setChange] = useState(false)
-  const { currencySelect } = useAppContext()
+  const { currencySelect } = useSelector((state) => state.criptoList)
   const rangeMin = useRef({ min: null, time: null })
   const { data, rangeGrafic, time, loading } = useGraficContext()
 

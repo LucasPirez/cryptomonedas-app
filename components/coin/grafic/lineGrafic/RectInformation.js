@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { invert } from 'd3'
-import { color } from '../../../styles/colors'
+import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
 
 export const trim = (val) => {

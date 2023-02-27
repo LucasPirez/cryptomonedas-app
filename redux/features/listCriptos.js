@@ -5,11 +5,15 @@ import {
 } from '../../util/localStorageCurrency'
 import { pagination } from '../../client/client'
 
-export const fetchByPage = createAsyncThunk('coin/fetchByPage', async (num) => {
-  const response = await pagination(num, 'usd')
-  console.log(response)
-  return { response, page: num }
-})
+export const fetchByPage = createAsyncThunk(
+  'coin/fetchByPage',
+  async ({ numPage, currency }) => {
+    const response = await pagination(numPage, currency)
+    console.log('action select reducer')
+
+    return { response, page: numPage }
+  }
+)
 
 export const criptoSlice = createSlice({
   name: 'criptos',

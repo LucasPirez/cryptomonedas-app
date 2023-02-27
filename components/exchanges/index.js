@@ -12,10 +12,18 @@ import { exchangeReducer } from '../../redux/features/listExchanges'
 
 export default function Exchanges() {
   const { container, count, reInitCount } = useIntersectionObserver()
-  const { dataExchanges, bitcoin } = useSelector((state) => state.exchangesList)
+  const { dataExchanges, bitcoin, page } = useSelector(
+    (state) => state.exchangesList
+  )
 
   return (
     <>
+      <SelectPage
+        max={5}
+        reInitCount={reInitCount}
+        route={'exchanges'}
+        page={page}
+      />
       <div>
         <table>
           <thead>
@@ -101,7 +109,7 @@ export default function Exchanges() {
         ref={container}
         style={{ width: '100%', height: 30, background: 'trasparent' }}
       ></div>
-      <SelectPage max={5} reInitCount={reInitCount} route={'exchanges'} />
+
       <style jsx>{`
         div {
           max-width: 1150px;

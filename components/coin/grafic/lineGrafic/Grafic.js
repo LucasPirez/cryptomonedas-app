@@ -13,12 +13,12 @@ import {
 
 import { getPathData } from 'path-data-polyfill'
 import { useState } from 'react'
-import { useGrafic } from '../../../hook/useGrafic'
+import { useGrafic } from '../../../../hook/useGrafic'
 import BitcoinGrafic from './BitcoinGrafic'
 import RectInformation from './RectInformation'
-import useConstansGrafic from '../../../hook/useConstansGrafic'
-import { color } from '../../../styles/colors'
-import useCursor from '../../../hook/useCursor'
+import useConstansGrafic from '../../../../hook/useConstansGrafic'
+import { color } from '../../../../styles/colors'
+import useCursor from '../../../../hook/useCursor'
 
 export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
   // const [coordenadas, setCoordenadas] = useState({ x: 0, y: 0, mouseY: 0 });
