@@ -17,7 +17,9 @@ export default function RenderSelectCurrency() {
 
     setViewSelect(!viewSelect)
     dispatch(currencySelectReducer({ currency: name.toLowerCase(), symbol: s }))
-    dispatch(fetchByPage({ numPage: query.id, currency: name.toLowerCase() }))
+    dispatch(
+      fetchByPage({ numPage: parseInt(query.id), currency: name.toLowerCase() })
+    )
   }
 
   const handleVisibility = (bool = null) => {

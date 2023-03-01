@@ -20,12 +20,13 @@ import { useSelector } from 'react-redux'
 export default function Table({ query }) {
   const { container, count, reInitCount, visible } = useIntersectionObserver()
   const { router } = useRouter()
-  const { criptoList, currencySelect, page, error } = useSelector(
+  const { criptoList, currencySelect, page, error, loading } = useSelector(
     (state) => state.criptoList
   )
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log('holaaaaa')
     if (!page) {
       dispatch(currencyUpdatePage(parseInt(query)))
       dispatch(
@@ -45,7 +46,6 @@ export default function Table({ query }) {
         reInitCount={reInitCount}
         route={'criptos'}
         page={page}
-        currencySelect={currencySelect.currency}
       />
       <div className='contain'>
         <table>
@@ -71,6 +71,13 @@ export default function Table({ query }) {
                 }
               })
             ) : (
+              <tr>
+                <td>
+                  <Loading />
+                </td>
+              </tr>
+            )}
+            {loading && (
               <tr>
                 <td>
                   <Loading />

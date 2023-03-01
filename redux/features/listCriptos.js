@@ -8,10 +8,7 @@ import { pagination } from '../../client/client'
 export const fetchByPage = createAsyncThunk(
   'coin/fetchByPage',
   async ({ numPage, currency }) => {
-    console.log(currency)
     const response = await pagination(numPage, currency)
-    console.log('action select reducer')
-
     return { response, page: numPage }
   }
 )

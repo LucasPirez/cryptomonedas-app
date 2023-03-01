@@ -6,52 +6,79 @@ import styles from './SelectCurrency.module.css'
 import { useSelector } from 'react-redux'
 
 const symbols = [
-  ['AED', 'د.إ'],
-  ['ARS', '$'],
-  ['AUD', '$'],
-  ['BDT', '৳'],
-  ['BHD', '.د.ب'],
-  ['BMD', '$'],
-  ['BRL', 'R$'],
-  ['CAD', '$'],
-  ['CHF', 'CHF'],
-  ['CLP', '$'],
-  ['CNY', '¥'],
-  ['CZK', 'Kč'],
-  ['DKK', 'kr'],
-  ['EUR', '€'],
-  ['GBP', '£'],
-  ['HKD', '$'],
-  ['HUF', 'Ft'],
-  ['IDR', 'Rp'],
-  ['ILS', '₪'],
-  ['INR', '₹'],
-  ['JPY', '¥'],
-  ['KRW', '₩'],
-  ['KWD', 'د.ك'],
-  ['LKR', '₨'],
-  ['MMK', 'K'],
-  ['MXN', '$'],
-  ['MYR', 'RM'],
-  ['NGN', '₦'],
-  ['NOK', 'kr'],
-  ['NZD', '$'],
-  ['PHP', '₱'],
-  ['PKR', '₨'],
-  ['PLN', 'zł'],
-  ['RUB', '₽'],
-  ['SAR', '﷼'],
-  ['SEK', 'kr'],
-  ['SGD', '$'],
-  ['THB', '฿'],
-  ['TRY', '₤'],
-  ['TWD', 'NT$'],
-  ['UAH', '₴'],
-  ['USD', '$'],
-  ['VEF', 'Bs'],
-  ['VND', '₫'],
-  ['XDR', 'SDR'],
-  ['ZAR', 'R'],
+  [
+    ['AED', 'د.إ'],
+    ['ARS', '$'],
+    ['AUD', '$'],
+  ],
+  [
+    ['BDT', '৳'],
+    ['BHD', '.د.ب'],
+    ['BMD', '$'],
+    ['BRL', 'R$'],
+  ],
+  [
+    ['CAD', '$'],
+    ['CHF', 'CHF'],
+    ['CLP', '$'],
+    ['CNY', '¥'],
+    ['CZK', 'Kč'],
+  ],
+  [['DKK', 'kr']],
+  [['EUR', '€']],
+  [['GBP', '£']],
+  [
+    ['HKD', '$'],
+    ['HUF', 'Ft'],
+  ],
+  [
+    ['IDR', 'Rp'],
+    ['ILS', '₪'],
+    ['INR', '₹'],
+  ],
+  [['JPY', '¥']],
+  [
+    ['KRW', '₩'],
+    ['KWD', 'د.ك'],
+  ],
+
+  [['LKR', '₨']],
+  [
+    ['MMK', 'K'],
+    ['MXN', '$'],
+    ['MYR', 'RM'],
+  ],
+  [
+    ['NGN', '₦'],
+    ['NOK', 'kr'],
+    ['NZD', '$'],
+  ],
+  [
+    ['PHP', '₱'],
+    ['PKR', '₨'],
+    ['PLN', 'zł'],
+  ],
+  [['RUB', '₽']],
+  [
+    ['SAR', '﷼'],
+    ['SEK', 'kr'],
+    ['SGD', '$'],
+  ],
+  [
+    ['THB', '฿'],
+    ['TRY', '₤'],
+    ['TWD', 'NT$'],
+  ],
+  [
+    ['UAH', '₴'],
+    ['USD', '$'],
+  ],
+  [
+    ['VEF', 'Bs'],
+    ['VND', '₫'],
+  ],
+  [['XDR', 'SDR']],
+  [['ZAR', 'R']],
 ]
 
 export default function SelectCurrency({
@@ -81,23 +108,40 @@ export default function SelectCurrency({
               viewSelect ? styles.viewSelect : ''
             }`}
           >
-            <p className={styles.separator}>A</p>
             {symbols.map((u, i) => {
               return (
-                <>
-                  {i > 0 && symbols[i - 1][0][0] !== u[0][0] && (
-                    <p className={styles.separator}>{u[0][0]}</p>
-                  )}
-
-                  <div
-                    className={`${styles.container_span} ${select(u[0])}`}
-                    onClick={(e) => handleClick(e, u[0], u[1])}
-                  >
-                    <span>{u[1]}</span>
-                    <span className={styles.container_span_span}>{u[0]}</span>
-                  </div>
-                </>
+                <div key={i}>
+                  <p className={styles.separator}>{u[0][0][0]}</p>
+                  {u.map((j, k) => {
+                    return (
+                      <div
+                        key={k + Math.random() * 2}
+                        className={`${styles.container_span} ${select(j[0])}`}
+                        onClick={(e) => handleClick(e, j[0], j[1])}
+                      >
+                        <span>{j[1]}</span>
+                        <span className={styles.container_span_span}>
+                          {j[0]}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
               )
+              // return (
+              //   <>
+              //     {i > 0 && symbols[i - 1][0][0] !== u[0][0] && (
+              //     )}
+
+              //     <div
+              //       className={`${styles.container_span} ${select(u[0])}`}
+              //       onClick={(e) => handleClick(e, u[0], u[1])}
+              //     >
+              //       <span>{u[1]}</span>
+              //       <span className={styles.container_span_span}>{u[0]}</span>
+              //     </div>
+              //   </>
+              // )
             })}
           </div>
         </div>
