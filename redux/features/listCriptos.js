@@ -8,6 +8,7 @@ import { pagination } from '../../client/client'
 export const fetchByPage = createAsyncThunk(
   'coin/fetchByPage',
   async ({ numPage, currency }) => {
+    console.log(currency)
     const response = await pagination(numPage, currency)
     console.log('action select reducer')
 
@@ -20,7 +21,7 @@ export const criptoSlice = createSlice({
   initialState: {
     criptoList: [],
     currencySelect: getLocalStorageCurrency(),
-    page: 1,
+    page: null,
     loading: false,
     error: null,
   },
@@ -31,6 +32,9 @@ export const criptoSlice = createSlice({
     currencySelectReducer: (state = [], action) => {
       setLocalStorageCurrency(action.payload)
       return { ...state, currencySelect: action.payload }
+    },
+    currencyUpdatePage: (state, action) => {
+      return { ...state, page: action.payload }
     },
   },
   extraReducers: (builder) => {
@@ -47,6 +51,7 @@ export const criptoSlice = createSlice({
     })
   },
 })
-export const { coinReduceTable, currencySelectReducer } = criptoSlice.actions
+export const { coinReduceTable, currencySelectReducer, currencyUpdatePage } =
+  criptoSlice.actions
 
 export default criptoSlice.reducer

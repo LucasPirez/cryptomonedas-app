@@ -63,12 +63,17 @@ export default function SelectCurrency({
 
   const ref = useClick(() => handleVisibility(false))
 
+  const select = (value) => {
+    const s = currencySelect.currency == value.toLowerCase()
+
+    return s ? styles.select : ''
+  }
   return (
     <>
       <div ref={ref}>
         <div className={styles.container}>
           <button onClick={handleVisibility} className={styles.button}>
-            {currencySelect.currency}
+            {currencySelect ? currencySelect.currency : 'usd'}
             {!viewSelect ? <ChevronDown /> : <ChevronUp />}
           </button>
           <div
@@ -76,42 +81,23 @@ export default function SelectCurrency({
               viewSelect ? styles.viewSelect : ''
             }`}
           >
+            <p className={styles.separator}>A</p>
             {symbols.map((u, i) => {
-              if (i > 0 && symbols[i - 1][0][0] !== u[0][0]) {
-                return (
-                  <>
+              return (
+                <>
+                  {i > 0 && symbols[i - 1][0][0] !== u[0][0] && (
                     <p className={styles.separator}>{u[0][0]}</p>
-                    <div key={i} className={styles.container_letter}>
-                      <div
-                        className={styles.container_span}
-                        onClick={(e) => handleClick(e, u[0], u[1])}
-                      >
-                        <span>{u[1]}</span>
-                        <span className={styles.container_span_span}>
-                          {u[0]}
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                )
-              } else {
-                return (
-                  <>
-                    {i === 0 && <p className={styles.separator}>{u[0][0]}</p>}
-                    <div key={i} className={styles.container_letter}>
-                      <div
-                        className={styles.container_span}
-                        onClick={(e) => handleClick(e, u[0], u[1])}
-                      >
-                        <span>{u[1]}</span>
-                        <span className={styles.container_span_span}>
-                          {u[0]}
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                )
-              }
+                  )}
+
+                  <div
+                    className={`${styles.container_span} ${select(u[0])}`}
+                    onClick={(e) => handleClick(e, u[0], u[1])}
+                  >
+                    <span>{u[1]}</span>
+                    <span className={styles.container_span_span}>{u[0]}</span>
+                  </div>
+                </>
+              )
             })}
           </div>
         </div>

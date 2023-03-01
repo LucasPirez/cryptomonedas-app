@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react'
-
 import '../styles/globals.css'
-import GlobalHeader from '../components/Header/GlobalHeader'
-import Header from '../components/Header/Header'
 import { Provider } from 'react-redux'
 import { CurrencyLightProvider } from '../context/CurrencyLightContext'
 import { store } from '../redux/store'
+import Layout from '../components/layouts/Layout'
 
 function MyApp({ Component, pageProps }) {
   return (
     <CurrencyLightProvider>
       <Provider store={store}>
-        <GlobalHeader />
-        <Header />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
     </CurrencyLightProvider>
   )

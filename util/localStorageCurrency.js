@@ -6,7 +6,7 @@ export const getLocalStorageCurrency = () => {
     window.localStorage.getItem(CURRENCY_SELECT)
 
   if (!storage) {
-    return { currency: 'USD', symbol: '$' }
+    return { currency: 'usd', symbol: '$' }
   }
 
   const { currency, symbol } = JSON.parse(storage)

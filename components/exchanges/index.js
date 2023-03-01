@@ -7,23 +7,38 @@ import SelectPage from '../inicio/SelectPage'
 import Loading from '../Loading'
 import OrderTable from '../OrderTable'
 import RowExchanges from './RowExchanges'
-import { useSelector } from 'react-redux'
-import { exchangeReducer } from '../../redux/features/listExchanges'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  exchangeReducer,
+  exchanges,
+  updatePage,
+} from '../../redux/features/listExchanges'
 
-export default function Exchanges() {
+export default function Exchanges({ query }) {
   const { container, count, reInitCount } = useIntersectionObserver()
   const { dataExchanges, bitcoin, page } = useSelector(
     (state) => state.exchangesList
   )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log(query)
+    if (!page) {
+      dispatch(updatePage(parseInt(query)))
+      if (!dataExchanges) dispatch(exchanges(parseInt(query)))
+    }
+  }, [])
 
   return (
     <>
-      <SelectPage
-        max={5}
-        reInitCount={reInitCount}
-        route={'exchanges'}
-        page={page}
-      />
+      {page && (
+        <SelectPage
+          max={5}
+          reInitCount={reInitCount}
+          route={'exchanges'}
+          page={page}
+        />
+      )}
       <div>
         <table>
           <thead>

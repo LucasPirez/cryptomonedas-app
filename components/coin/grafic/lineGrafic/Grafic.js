@@ -21,18 +21,15 @@ import { color } from '../../../../styles/colors'
 import useCursor from '../../../../hook/useCursor'
 
 export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
-  // const [coordenadas, setCoordenadas] = useState({ x: 0, y: 0, mouseY: 0 });
   const {
     getYforX,
     getyforXTouch,
     startTouch,
     coordenadas,
     animationStart,
-    setAnimationStart,
-    datosLine,
-    setDatosLine,
-  } = useCursor()
-
+    stopAnimation,
+  } = useCursor(datosLine)
+  const [datosLine, setDatosLine] = useState(null)
   const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
 
@@ -102,10 +99,6 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
 
       const path = d3
         .select('#pathSelect')
-        // .data([data])
-        // .attr("d", [
-        //   `${valueLine}L ${width - margin.left} ${height} L 0 ${height}`,
-        // ])
         .style('stroke', `${color.blue}80`)
         .style('stroke-width', 1.8)
         .style('fill', 'url(#gradient)')
@@ -171,10 +164,10 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
             cursor: 'crosshair',
           }}
           onMouseMove={getYforX}
-          onMouseLeave={(e) => setAnimationStart(false)}
+          onMouseLeave={stopAnimation}
           onTouchStart={(e) => startTouch(e)}
           onTouchMove={getyforXTouch}
-          onTouchEnd={(e) => setAnimationStart(false)}
+          onTouchEnd={stopAnimation}
         >
           <g id='x-axis' />
           <g id='y-axis' />

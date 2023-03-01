@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 import {
   exchangeReducer,
   updateBitcoin,
-  exchangesFetch,
+  exchanges,
 } from '../redux/features/listExchanges'
 
-export const usePagination = (endpoint, reInitCount, currencySelect) => {
+export const usePagination = (endpoint, reInitCount, currencySelect = '') => {
   const dispatch = useDispatch()
   const { push } = useRouter()
 
@@ -19,7 +19,7 @@ export const usePagination = (endpoint, reInitCount, currencySelect) => {
     if (endpoint === 'criptos') {
       dispatch(fetchByPage({ numPage: val, currency: currencySelect }))
     } else {
-      dispatch(exchangesFetch(val))
+      dispatch(exchanges(val))
     }
     push(`/${endpoint}/${val}`)
   }

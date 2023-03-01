@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { exchangesList } from '../../client/client'
 
-export const exchangesFetch = createAsyncThunk(
-  'exchanges/exchangesFetch',
+export const exchanges = createAsyncThunk(
+  'exchanges/exchanges',
   async (num) => {
     const response = await exchangesList(num)
     return { response, page: num }
@@ -14,7 +14,7 @@ const initialState = {
   bitcoin: null,
   loading: false,
   error: null,
-  page: 1,
+  page: null,
 }
 
 export const exchangesSlice = createSlice({
@@ -27,23 +27,27 @@ export const exchangesSlice = createSlice({
     updateBitcoin: (state, action) => {
       return { ...state, bitcoin: action.payload }
     },
+    updatePage: (state, action) => {
+      return { ...state, page: action.payload }
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(exchangesFetch.pending, async (state, action) => {
+      .addCase(exchanges.pending, (state, action) => {
         state.loading = true
       })
-      .addCase(exchangesFetch.fulfilled, async (state, action) => {
+      .addCase(exchanges.fulfilled, (state, action) => {
         state.loading = false
         state.dataExchanges = action.payload.response
         state.page = action.payload.page
       })
-      .addCase(exchangesFetch.rejected, async (state, action) => {
+      .addCase(exchanges.rejected, (state, action) => {
         state.error = action.error.message
       })
   },
 })
 
-export const { exchangeReducer, updateBitcoin } = exchangesSlice.actions
+export const { exchangeReducer, updateBitcoin, updatePage } =
+  exchangesSlice.actions
 
 export default exchangesSlice.reducer
