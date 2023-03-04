@@ -5,7 +5,7 @@ import { useGrafic } from '../../../../hook/useGrafic'
 import RectLine from '../RectLine'
 import { color } from '../../../../styles/colors'
 import HeaderGrafic from './HeaderGrafic'
-import { invert } from 'd3'
+import { invert, select } from 'd3'
 
 export default function Grafic({ dataObj, dataScale, x1, y1 }) {
   const [stateRect, setStateRect] = useState({
@@ -75,15 +75,6 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
     [dataScale, width]
   )
 
-  function updateElement(o, element) {
-    for (const name in o) {
-      if (o.hasOwnProperty(name)) {
-        element.setAttributeNS(null, name, o[name])
-      }
-    }
-    return element
-  }
-
   const getPosition = (e) => {
     setAnimationStart(true)
     const cursor = e.nativeEvent.offsetX
@@ -92,9 +83,19 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
     if (f > margin.top && f < height - margin.bottom) {
       setYLine(y1.invert(f).toFixed(0))
 
-      updateElement({ x1: margin.left, y1: f, x2: width, y2: f }, lineUpdate)
-      updateElement({ x: 10, y: f - 9 }, rectPriceY)
-      updateElement({ x: 12, y: f + 3 }, textPriceY)
+      select('#lineUpdate')
+        .attr('x1', margin.left)
+        .attr('y1', f)
+        .attr('x2', width)
+        .attr('y2', f)
+
+      select('#rectPriceY')
+        .attr('x', 10)
+        .attr('y', f - 9)
+
+      select('#textPriceY')
+        .attr('x', 12)
+        .attr('y', f + 3)
     }
 
     dataScale.map((u, i) => {

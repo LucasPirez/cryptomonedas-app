@@ -20,7 +20,7 @@ export default function useCursor(datosLine) {
   const getYforX = (e) => {
     setAnimationStart(true)
     const y = e.nativeEvent.offsetY
-    if (y > margin.bottom) {
+    if (y > margin.bottom && datosLine) {
       datosLine.getPathData().map((u, i) => {
         const x = e.nativeEvent.offsetX
         if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {

@@ -21,6 +21,7 @@ import { color } from '../../../../styles/colors'
 import useCursor from '../../../../hook/useCursor'
 
 export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
+  const [datosLine, setDatosLine] = useState(null)
   const {
     getYforX,
     getyforXTouch,
@@ -29,7 +30,6 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
     animationStart,
     stopAnimation,
   } = useCursor(datosLine)
-  const [datosLine, setDatosLine] = useState(null)
   const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
 
@@ -110,44 +110,30 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
     [data, width]
   )
 
-  function updateElement(o, element) {
-    for (const name in o) {
-      if (o.hasOwnProperty(name)) {
-        element.setAttributeNS(null, name, o[name])
-      }
-    }
-    return element
-  }
-
   useEffect(() => {
     if (coordenadas.x !== 0) {
       animationStart &&
-        updateElement({ cx: coordenadas.x, cy: coordenadas.y }, dezlizador)
+        select('#dezlizador')
+          .attr('cx', coordenadas.x)
+          .attr('cy', coordenadas.y)
+
       bitcoinPrice &&
         change &&
-        updateElement(
-          { cx: bitcoinPrice.x, cy: bitcoinPrice.y },
-          bitcoinDezlizador
-        )
-      updateElement(
-        {
-          x1: margin.left,
-          y1: coordenadas.mouseY,
-          x2: width,
-          y2: coordenadas.mouseY,
-        },
-        lineUpdate
-      )
+        select('#bitcoinDezlizador')
+          .attr('cx', bitcoinPrice.x)
+          .attr('cy', bitcoinPrice.y)
 
-      updateElement(
-        {
-          x1: coordenadas.x,
-          y1: margin.top,
-          x2: coordenadas.x,
-          y2: height - margin.bottom,
-        },
-        lineVerticalUpdate
-      )
+      select('#lineUpdate')
+        .attr('x1', margin.left)
+        .attr('y1', coordenadas.mouseY)
+        .attr('x2', width)
+        .attr('y2', coordenadas.mouseY)
+
+      select('#lineVerticalUpdate')
+        .attr('x1', coordenadas.x)
+        .attr('y1', margin.top)
+        .attr('x2', coordenadas.x)
+        .attr('y2', height - margin.bottom)
     }
   }, [coordenadas])
 

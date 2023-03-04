@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { invert } from 'd3'
+import { invert, select } from 'd3'
 import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
 
@@ -22,27 +22,16 @@ export default function RectInformation({
   bitcoinScale,
   animationStart,
 }) {
-  // console.table(coordenadas, x1, y1, bitcoinPrice, bitcoinScale);
-
-  function updateRect(o, element) {
-    for (const name in o) {
-      if (o.hasOwnProperty(name)) {
-        element.setAttributeNS(null, name, o[name])
-      }
-    }
-    return element
-  }
-
   function mostarNOmostrar(valor) {
-    ;['#textPrice', '#rectInformation', '#textBitcoin', '#textDate'].forEach(
-      (u) => {
-        d3.select(u)
-          .transition()
-          .ease(d3.easeLinear)
-          .duration(300)
-          .style('opacity', valor)
-      }
-    )
+    const arr = ['#textPrice', '#rectInformation', '#textBitcoin', '#textDate']
+
+    arr.forEach((u) => {
+      d3.select(u)
+        .transition()
+        .ease(d3.easeLinear)
+        .duration(300)
+        .style('opacity', valor)
+    })
   }
 
   useEffect(() => {
@@ -64,29 +53,22 @@ export default function RectInformation({
 
     const yDown = coordenadas.mouseY < 100 ? 95 : -10
 
-    updateRect(
-      { x: coordenadas.x - uperDown, y: coordenadas.mouseY - 85 + yDown },
-      rectInformation
-    )
+    select('#rectInformation')
+      .attr('x', coordenadas.x - uperDown)
+      .attr('y', coordenadas.mouseY - 85 + yDown)
 
-    updateRect(
-      { x: coordenadas.x - uperDown + 12, y: coordenadas.mouseY - 42 + yDown },
-      textPrice
-    )
+    select('#textPrice')
+      .attr('x', coordenadas.x - uperDown + 12)
+      .attr('y', coordenadas.mouseY - 42 + yDown)
 
-    updateRect(
-      { x: coordenadas.x - uperDown + 12, y: coordenadas.mouseY - 65 + yDown },
-      textDate
-    )
+    select('#textDate')
+      .attr('x', coordenadas.x - uperDown + 12)
+      .attr('y', coordenadas.mouseY - 65 + yDown)
 
     if (bitcoinScale) {
-      updateRect(
-        {
-          x: coordenadas.x - uperDown + 12,
-          y: coordenadas.mouseY - 22 + yDown,
-        },
-        textBitcoin
-      )
+      select('#textBitcoin')
+        .attr('x', coordenadas.x - uperDown + 12)
+        .attr('y', coordenadas.mouseY - 22 + yDown)
     }
   }, [coordenadas])
 

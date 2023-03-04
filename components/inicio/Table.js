@@ -19,7 +19,8 @@ import { useSelector } from 'react-redux'
 
 export default function Table({ query }) {
   const { container, count, reInitCount, visible } = useIntersectionObserver()
-  const { router } = useRouter()
+  const router = useRouter()
+
   const { criptoList, currencySelect, page, error, loading } = useSelector(
     (state) => state.criptoList
   )
