@@ -1,12 +1,12 @@
-import { color } from "../styles/colors";
+import { color } from '../styles/colors'
 
 export default function Loading() {
   return (
     <>
-      <div className="container">
-        <div className="circulo"></div>
-        <div className="circulo2"></div>
-        <div className="circulo3"></div>
+      <div className='container'>
+        <div className='circulo'></div>
+        <div className='circulo2'></div>
+        <div className='circulo3'></div>
       </div>
       <style jsx>
         {`
@@ -63,5 +63,5 @@ export default function Loading() {
         `}
       </style>
     </>
-  );
+  )
 }

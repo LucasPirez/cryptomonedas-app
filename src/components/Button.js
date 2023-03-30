@@ -1,4 +1,4 @@
-import { color } from "../styles/colors";
+import { color } from '../styles/colors'
 
 export default function Button({
   children,
@@ -9,7 +9,7 @@ export default function Button({
   return (
     <>
       <button
-        className={select ? "select" : ""}
+        className={select ? 'select' : ''}
         onClick={onClick}
         disabled={disabled}
       >
@@ -32,5 +32,5 @@ export default function Button({
         }
       `}</style>
     </>
-  );
+  )
 }

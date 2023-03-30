@@ -16,6 +16,7 @@ import {
 import Loading from '../Loading'
 import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
 import { useSelector } from 'react-redux'
+import Error from '../error/Error'
 
 export default function Table({ query }) {
   const { container, count, reInitCount, visible } = useIntersectionObserver()
@@ -39,7 +40,7 @@ export default function Table({ query }) {
     }
   }, [])
 
-  if (error) return <p>{error}</p>
+  if (error) return <Error message={error} />
   return (
     <>
       <SelectPage

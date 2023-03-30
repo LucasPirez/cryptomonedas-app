@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import BarChartIcon from "../Icons/BarChartIcon";
-import lineChart from "../Icons/line-chart.png";
-import Expand from "../Icons/Expand";
-import Minimizar from "../Icons/Minimizar";
-import Image from "next/image";
-import { color } from "../../styles/colors";
-import Button from "../Button";
+import { useEffect, useState } from 'react'
+import BarChartIcon from '../Icons/BarChartIcon'
+import lineChart from '../Icons/line-chart.png'
+import Expand from '../Icons/Expand'
+import Minimizar from '../Icons/Minimizar'
+import Image from 'next/image'
+import { color } from '../../styles/colors'
+import Button from '../Button'
 
 export default function ButtonsSelectGrafic({
   setPortalState,
@@ -17,15 +17,15 @@ export default function ButtonsSelectGrafic({
 }) {
   return (
     <>
-      <div className="container_buttons">
-        {name !== "bitcoin" && (
+      <div className='container_buttons'>
+        {name !== 'bitcoin' && (
           <>
             <input
-              className={candleGrafic ? "disabled" : ""}
-              type="checkbox"
+              className={candleGrafic ? 'disabled' : ''}
+              type='checkbox'
               onClick={() => setChange((change) => !change)}
             />
-            <span className={candleGrafic ? "disabled" : ""}>BTC</span>
+            <span className={candleGrafic ? 'disabled' : ''}>BTC</span>
           </>
         )}
 
@@ -33,7 +33,7 @@ export default function ButtonsSelectGrafic({
           <BarChartIcon />
         </Button>
         <Button select={!candleGrafic} onClick={() => setCandleGrafic(false)}>
-          <Image src={lineChart} alt="chart-line" width={20} height={20} />
+          <Image src={lineChart} alt='chart-line' width={20} height={20} />
         </Button>
 
         {!portalState ? (
@@ -70,5 +70,5 @@ export default function ButtonsSelectGrafic({
         }
       `}</style>
     </>
-  );
+  )
 }

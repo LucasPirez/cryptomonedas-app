@@ -44,7 +44,7 @@ export const criptoSlice = createSlice({
       state.page = action.payload.page
     })
     builder.addCase(fetchByPage.rejected, (state, action) => {
-      state.error = action.error.message
+      state.error = 'Ha ocurrido un Error intente mas Tarde.'
     })
   },
 })

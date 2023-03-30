@@ -1,54 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { global } from "../../client/client";
-import { color } from "../../styles/colors";
+import React, { useState, useEffect } from 'react'
+import { global } from '../../client/client'
+import { color } from '../../styles/colors'
 
 export default function GlobalHeader() {
-  const [dataGlobal, setDataGlobal] = useState(null);
-  const [marketCap, setMarketCap] = useState({ total: 0, Dominance: null });
+  const [dataGlobal, setDataGlobal] = useState(null)
+  const [marketCap, setMarketCap] = useState({ total: 0, Dominance: null })
 
   useEffect(() => {
     global().then((dato) => {
-      console.log(dato.data);
-      const { total_market_cap, market_cap_percentage } = dato.data;
-      setDataGlobal(dato);
+      console.log(dato.data)
+      const { total_market_cap, market_cap_percentage } = dato.data
+      setDataGlobal(dato)
 
       const suma = Object.values(total_market_cap).reduce(
         (acc, cva) => acc + cva,
         0
-      );
-      const arrP = Object.entries(market_cap_percentage);
+      )
+      const arrP = Object.entries(market_cap_percentage)
 
       setMarketCap({
         total: suma,
         Dominance: `${arrP[0][0].toUpperCase()} ${arrP[0][1].toLocaleString(
-          "en-US"
+          'en-US'
         )}%, ${arrP[1][0].toUpperCase()} ${arrP[1][1].toLocaleString()}%`,
-      });
-    });
-  }, []);
+      })
+    })
+  }, [])
 
   return (
     <>
-      <div className="container">
-        <div className="sub_container">
-          <div style={{ display: "inline-flex" }}>
+      <div className='container'>
+        <div className='sub_container'>
+          <div style={{ display: 'inline-flex' }}>
             <p>Cryptos:</p>
             {dataGlobal && (
               <span>{dataGlobal.data.active_cryptocurrencies}</span>
             )}
           </div>
-          <div style={{ display: "inline-flex" }}>
+          <div style={{ display: 'inline-flex' }}>
             <p>Exchanges:</p>
             {dataGlobal && <span>{dataGlobal.data.markets}</span>}
           </div>
-          <div style={{ display: "inline-flex" }}>
+          <div style={{ display: 'inline-flex' }}>
             <p>Dominance:</p>
             <span>{marketCap.Dominance && marketCap.Dominance}</span>
           </div>
-          <div style={{ display: "inline-flex" }}>
+          <div style={{ display: 'inline-flex' }}>
             <p>Market Cap:</p>
             <span>
-              {marketCap.total !== 0 && marketCap["total"].toLocaleString("en")}
+              {marketCap.total !== 0 && marketCap['total'].toLocaleString('en')}
             </span>
 
             <span>
@@ -101,5 +101,5 @@ export default function GlobalHeader() {
         `}
       </style>
     </>
-  );
+  )
 }

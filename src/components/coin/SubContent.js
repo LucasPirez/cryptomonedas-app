@@ -1,30 +1,30 @@
-import { color } from "../../styles/colors";
-import ArrowDown from "../Icons/arrowDown";
-import LinkExternal from "../Icons/LinkExternal";
+import { color } from '../../styles/colors'
+import ArrowDown from '../Icons/arrowDown'
+import LinkExternal from '../Icons/LinkExternal'
 
 export default function SubContent({ data }) {
   return (
     <>
-      <div className="container">
-        <div className="container_link">
-          <a href={data.homepage} target="_black" className="direct_link">
+      <div className='container'>
+        <div className='container_link'>
+          <a href={data.homepage} target='_black' className='direct_link'>
             webSite
           </a>
           <span>
             <LinkExternal />
           </span>
         </div>
-        <div className="container_link">
+        <div className='container_link'>
           <a
-            target="_black"
+            target='_black'
             href={
-              data.chat_url[0] !== ""
+              data.chat_url[0] !== ''
                 ? data.chat_url[0]
-                : data.chat_url[1] !== ""
+                : data.chat_url[1] !== ''
                 ? data.chat_url[1]
                 : data.chat_url[2]
             }
-            className="direct_link"
+            className='direct_link'
           >
             Chat
           </a>
@@ -32,44 +32,44 @@ export default function SubContent({ data }) {
             <LinkExternal />
           </span>
         </div>
-        <div className="container_ocult container_link">
+        <div className='container_ocult container_link'>
           <p>Explorers</p>
           <span>
             <ArrowDown />
           </span>
-          <div className="content_ocult">
+          <div className='content_ocult'>
             {data.blockchain_site.map((u) => {
-              if (u !== "") {
+              if (u !== '') {
                 return (
-                  <a key={u} href={u} target="_black">
+                  <a key={u} href={u} target='_black'>
                     {u.slice(8, 22)}
                   </a>
-                );
+                )
               }
             })}
           </div>
         </div>
-        <div className="container_ocult container_link">
-          <p>Community</p>{" "}
+        <div className='container_ocult container_link'>
+          <p>Community</p>{' '}
           <span>
             <ArrowDown />
           </span>
-          <div className="content_ocult">
-            <a href={data.official_forum_url[0]} target="_blanck">
+          <div className='content_ocult'>
+            <a href={data.official_forum_url[0]} target='_blanck'>
               Forum.ethereum.org
             </a>
             <a
               href={`https://twitter.com/${data.twitter_screen_name}`}
-              target="_blanck"
+              target='_blanck'
             >
-              twitter.com{" "}
+              twitter.com{' '}
             </a>
-            <a href={data.subreddit_url} target="_blanck">
+            <a href={data.subreddit_url} target='_blanck'>
               reddit.com
             </a>
             <a
               href={`https://facebook.com/${data.facebook_username}`}
-              target="_blanck"
+              target='_blanck'
             >
               facebook.com
             </a>
@@ -148,7 +148,7 @@ export default function SubContent({ data }) {
           }
 
           .content_ocult::before {
-            content: "";
+            content: '';
             position: absolute;
             top: -20px;
             left: 80px;
@@ -179,5 +179,5 @@ export default function SubContent({ data }) {
         `}
       </style>
     </>
-  );
+  )
 }
