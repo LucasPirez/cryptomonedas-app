@@ -36,10 +36,12 @@ export default function GlobalHeader() {
     <>
       <div className='container'>
         <div className='sub_container'>
-          <RenderGlobarHeader
-            dataGlobal={dataGlobal.data}
-            marketCap={dataGlobal.marketCap}
-          />
+          {dataGlobal && (
+            <RenderGlobarHeader
+              dataGlobal={dataGlobal.data}
+              marketCap={dataGlobal.marketCap}
+            />
+          )}
         </div>
       </div>
       <style jsx>
