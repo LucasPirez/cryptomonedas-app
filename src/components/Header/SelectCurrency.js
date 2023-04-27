@@ -115,9 +115,10 @@ export default function SelectCurrency({
                   {u.map((j, k) => {
                     return (
                       <div
-                        key={k + Math.random() * 2}
+                        key={k}
                         className={`${styles.container_span} ${select(j[0])}`}
                         onClick={(e) => handleClick(e, j[0], j[1])}
+                        data-testid={'idButton'}
                       >
                         <span>{j[1]}</span>
                         <span className={styles.container_span_span}>
