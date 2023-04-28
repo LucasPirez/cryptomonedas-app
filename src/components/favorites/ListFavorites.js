@@ -1,36 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { EPCoinAdapter } from "../../adapters/EPCoinAdapter";
-import { EPCoinsMarketsAdapter } from "../../adapters/EPCoinsMarketsAdapter";
-import { oneCoin } from "../../client/client";
-import { color } from "../../styles/colors";
-import TableComponent from "../utilities/TableComponent";
-import RowFavorites from "./RowFavorites";
+import React, { useState, useEffect } from 'react'
+import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
+import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
+import { oneCoin } from '../../client/client'
+import { color } from '../../styles/colors'
+import TableComponent from '../utilities/TableComponent'
+import RowFavorites from './RowFavorites'
 
-export default function ListFavorites({ favorites }) {
-  const [favoritesFetch, setFavoritesFetch] = useState([]);
-  const [count, setCount] = useState(0);
+export default function ListFavorites() {
+  const [favoritesFetch, setFavoritesFetch] = useState([])
+  const favorites = JSON.parse(localStorage.getItem('favorites_coin')) || []
+
+  if (!favorites.length) {
+    return <h3>you don&apos;t have favorites yet </h3>
+  }
 
   useEffect(() => {
-    setCount(count++);
-    if (count < 2) {
-      setFavoritesFetch((favoritesFetch) => []);
-      favorites.map((u) => {
-        (async () => {
-          const response = await oneCoin(u);
-          setFavoritesFetch((favoritesFetch) => [...favoritesFetch, response]);
-        })();
-      });
-    }
-  }, []);
+    const promiseAll = favorites.map(async (u) => {
+      const response = await oneCoin(u)
+      return response
+    })
+
+    Promise.all(promiseAll)
+      .then((data) => {
+        setFavoritesFetch(data)
+      })
+      .catch((error) => {
+        throw new Error(error.message)
+      })
+  }, [])
 
   return (
     <>
-      <div className="container">
+      <div className='container'>
         {favoritesFetch.length ? (
           <>
             <table>
               <thead>
-                <tr className="local_tr">
+                <tr className='local_tr'>
                   <TableComponent />
                 </tr>
               </thead>
@@ -42,13 +48,13 @@ export default function ListFavorites({ favorites }) {
             </table>
           </>
         ) : (
-          <h3>you don&apos;t have favorites yet </h3>
+          <h3>An error has occurred</h3>
         )}
       </div>
       <style jsx>{`
         table {
           position: relative;
-          background: "white";
+          background: 'white';
           border-collapse: collapse;
         }
         .container {
@@ -79,5 +85,5 @@ export default function ListFavorites({ favorites }) {
         }
       `}</style>
     </>
-  );
+  )
 }
