@@ -5,7 +5,7 @@ import Button from '../Button'
 import { usePagination } from '../../hook/usePagination'
 
 export default function SelectPage({ route, max, reInitCount, page }) {
-  const { handleClickValue } = usePagination(route, reInitCount)
+  const { handleClickValue } = usePagination(route)
   console.log(page)
   return (
     <>

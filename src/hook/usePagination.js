@@ -9,7 +9,7 @@ import {
   exchanges,
 } from '../redux/features/listExchanges'
 
-export const usePagination = (endpoint, reInitCount) => {
+export const usePagination = (endpoint) => {
   const dispatch = useDispatch()
   const { push } = useRouter()
   const { currencySelect } = useSelector((state) => state.criptoList)
