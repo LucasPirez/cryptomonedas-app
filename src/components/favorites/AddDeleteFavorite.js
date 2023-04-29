@@ -9,41 +9,38 @@ export default function AddDeleteFavorite({
   setOpacity,
   scale,
 }) {
-  // localStorage.removeItem("favorites_coin");
-  const local = localStorage.getItem('favorites_coin')
-    ? JSON.parse(localStorage.getItem('favorites_coin')).includes(data)
-    : false
-  const [fill, setFill] = useState(local)
+  const getStorage = () => {
+    return localStorage.getItem('favorites_coin')
+      ? JSON.parse(localStorage.getItem('favorites_coin'))
+      : []
+  }
+  const [fill, setFill] = useState(getStorage().includes(data))
 
   const favorite = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    const local = JSON.parse(localStorage.getItem('favorites_coin')) || []
-
-    if (local === null) {
-      localStorage.setItem('favorites_coin', JSON.stringify(data))
-      setFill(true)
-      setOpacity && setOpacity(true)
+    const storage = getStorage()
+    if (!storage.length) {
+      localStorage.setItem('favorites_coin', JSON.stringify([data]))
     } else {
-      local.push(data)
-
-      localStorage.setItem('favorites_coin', JSON.stringify(local))
-      setFill(true)
-      setOpacity && setOpacity(true)
+      localStorage.setItem('favorites_coin', JSON.stringify([...storage, data]))
     }
+    setFill(true)
+    setOpacity && setOpacity(true)
   }
+
   const delete_favorite = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    const local = JSON.parse(localStorage.getItem('favorites_coin'))
-
-    const result = local.filter((u) => u !== data)
-
-    localStorage.setItem('favorites_coin', JSON.stringify(result))
-
+    const storage = getStorage()
+    const storageFilter = storage.filter((u) => u !== data)
     setFill(false)
+    localStorage.setItem('favorites_coin', JSON.stringify(storageFilter))
     setOpacity && setOpacity(false)
   }
+  useEffect(() => {
+    console.log(getStorage())
+  }, [fill])
 
   return (
     <>
