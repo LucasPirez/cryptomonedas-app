@@ -1,12 +1,6 @@
 import RenderGlobarHeader from '../../Header/RenderGlobalHeader'
 import '@testing-library/jest-dom'
-import {
-  findAllByAltText,
-  findAllByRole,
-  fireEvent,
-  render,
-  screen,
-} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { findDOMNode } from 'react-dom'
 
 it('test_happy_path_data_and_marketCap_defined', () => {
