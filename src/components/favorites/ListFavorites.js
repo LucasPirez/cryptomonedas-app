@@ -7,7 +7,7 @@ import TableComponent from '../utilities/TableComponent'
 import RowFavorites from './RowFavorites'
 
 export default function ListFavorites() {
-  const [favoritesFetch, setFavoritesFetch] = useState([])
+  const [favoritesFetch, setFavoritesFetch] = useState(null)
   const favorites = JSON.parse(localStorage.getItem('favorites_coin')) || []
 
   if (!favorites.length) {
@@ -32,24 +32,21 @@ export default function ListFavorites() {
   return (
     <>
       <div className='container'>
-        {favoritesFetch.length ? (
-          <>
-            <table>
-              <thead>
-                <tr className='local_tr'>
-                  <TableComponent />
-                </tr>
-              </thead>
-              <tbody>
-                {favoritesFetch.map((u, i) => (
+        <>
+          <table>
+            <thead>
+              <tr className='local_tr'>
+                <TableComponent />
+              </tr>
+            </thead>
+            <tbody>
+              {favoritesFetch &&
+                favoritesFetch.map((u, i) => (
                   <RowFavorites data={EPCoinsMarketsAdapter(u)} key={u.id} />
                 ))}
-              </tbody>
-            </table>
-          </>
-        ) : (
-          <h3>An error has occurred</h3>
-        )}
+            </tbody>
+          </table>
+        </>
       </div>
       <style jsx>{`
         table {

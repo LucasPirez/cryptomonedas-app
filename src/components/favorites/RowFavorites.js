@@ -1,21 +1,21 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import Image from "next/image";
-import Star from "../../components/Icons/Star";
-import Link from "next/link";
-import AddDeleteFavorite from "./AddDeleteFavorite";
-import { color } from "../../styles/colors";
-import { useRouter } from "next/router";
+import React, { useState, useEffect, lazy, Suspense } from 'react'
+import Image from 'next/image'
+import Star from '../../components/Icons/Star'
+import Link from 'next/link'
+import AddDeleteFavorite from './AddDeleteFavorite'
+import { color } from '../../styles/colors'
+import { useRouter } from 'next/router'
 
-const GraficRow = React.lazy(() => import("../coin/grafic/GraficRow"));
+const GraficRow = React.lazy(() => import('../coin/grafic/GraficRow'))
 
 export default function RowFavorites({ data }) {
-  const [opacity, setOpacity] = useState(true);
-  const { push } = useRouter();
+  const [opacity, setOpacity] = useState(true)
+  const { push } = useRouter()
   return (
     <>
       <tr onClick={() => push(`http://localhost:3000/coin/${data.id}`)}>
         <td>
-          <div className="star">
+          <div className='star'>
             <AddDeleteFavorite
               data={data.id}
               yes={color.bitcoin}
@@ -24,28 +24,28 @@ export default function RowFavorites({ data }) {
             />
           </div>
         </td>
-        <td className="sticy__td">
-          <div className="img_name">
+        <td className='sticy__td'>
+          <div className='img_name'>
             <div>
-              <Image src={data.image.small} alt="icon" width={15} height={15} />
+              <Image src={data.image.small} alt='icon' width={15} height={15} />
 
               <Link href={`coin/${data.id}`}>
-                <a className="image">{data.name}</a>
+                <a className='image'>{data.name}</a>
               </Link>
             </div>
-            <span className="symbol">{data.symbol.toUpperCase()}</span>
+            <span className='symbol'>{data.symbol.toUpperCase()}</span>
           </div>
         </td>
 
-        <td className="numbers">
-          ${data.market_data.current_price.usd.toLocaleString("en-US")}
+        <td className='numbers'>
+          ${data.market_data.current_price.usd.toLocaleString('en-US')}
         </td>
 
         <td
           className={
             data.market_data.price_change_percentage_24h > 0
-              ? "price numbers"
-              : "price_danger numbers"
+              ? 'price numbers'
+              : 'price_danger numbers'
           }
         >
           {data.market_data.price_change_percentage_24h &&
@@ -55,8 +55,8 @@ export default function RowFavorites({ data }) {
         <td
           className={
             data.market_data.price_change_percentage_7d_in_currency.usd > 0
-              ? "price numbers"
-              : "price_danger numbers"
+              ? 'price numbers'
+              : 'price_danger numbers'
           }
         >
           {data.market_data.price_change_percentage_7d_in_currency.usd &&
@@ -66,14 +66,14 @@ export default function RowFavorites({ data }) {
           %
         </td>
 
-        <td className="numbers">
-          ${data.market_data.total_volume.usd.toLocaleString("en-US")}
+        <td className='numbers'>
+          ${data.market_data.total_volume.usd.toLocaleString('en-US')}
         </td>
-        <td className="numbers">
-          ${data.market_data.market_cap.usd.toLocaleString("en-US")}
+        <td className='numbers'>
+          ${data.market_data.market_cap.usd.toLocaleString('en-US')}
         </td>
-        <td className="tdGrafic">
-          <Suspense fallback="hola">
+        <td className='tdGrafic'>
+          <Suspense fallback='hola'>
             <GraficRow
               dataGrafic={data.market_data.sparkline_7d.price}
               graficColor={
@@ -88,13 +88,13 @@ export default function RowFavorites({ data }) {
           tr {
             cursor: pointer;
             transition: all 0.3s;
-            background: ${!opacity ? `${color.dark}50` : ""};
+            background: ${!opacity ? `${color.dark}50` : ''};
             border-bottom: 1px solid ${color.letters};
             margin: 2rem;
           }
 
           tr:hover {
-            background: ${!opacity ? `${color.dark}50` : ""};
+            background: ${!opacity ? `${color.dark}50` : ''};
           }
 
           td {
@@ -163,5 +163,5 @@ export default function RowFavorites({ data }) {
         `}
       </style>
     </>
-  );
+  )
 }
