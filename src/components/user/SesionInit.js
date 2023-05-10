@@ -4,7 +4,7 @@ import { SesionIn } from '../../client/clientUser'
 export default function SesionItit() {
   const [formValue, setFormValue] = useState({
     userAlias: '',
-    password: '',
+    password: ''
   })
 
   const handleChange = ({ target }) => {

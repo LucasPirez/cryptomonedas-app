@@ -9,10 +9,10 @@ export default function OrderTable({
   action,
   coinTable,
   type,
-  nameConvert,
+  nameConvert
 }) {
   const dispatch = useDispatch()
-  const order = []
+  let order = []
   const [selectButton, setSelectButton] = useState(false)
 
   const handleDown = (e) => {

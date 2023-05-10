@@ -13,12 +13,10 @@ export function GraficContextProvider({ children }) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [rangeGrafic, setRangeGrafic] = useState({ min: null, max: null })
-  const [portalState, setPortalState] = useState(false)
 
   const dateNow = Math.round(new Date().getTime() / 1000)
 
   function rangeGraficAction({ min, max }) {
-    console.log(rangeGrafic)
     const twoentyDays = 1728000000
     if (
       min < rangeGrafic.min - twoentyDays ||
@@ -27,8 +25,6 @@ export function GraficContextProvider({ children }) {
       max > rangeGrafic.max + twoentyDays ||
       rangeGrafic.min === null
     ) {
-      console.log('holaContext')
-
       setLoading(true)
       graficRange({
         id: id,
@@ -51,7 +47,6 @@ export function GraficContextProvider({ children }) {
 
   function fetch7Days(tiempo, e) {
     e && e.preventDefault()
-    console.log('holaContext')
 
     setLoading(true)
     graficDays(id, tiempo, currencySelect.currency).then((datos) => {
@@ -62,7 +57,6 @@ export function GraficContextProvider({ children }) {
   }
 
   useEffect(() => {
-    console.log('holaContext')
     setLoading(true)
     graficDays(id, 7, currencySelect.currency).then((datos) => {
       setData((data) => datos.prices)
@@ -75,8 +69,6 @@ export function GraficContextProvider({ children }) {
     data,
     setData,
     fetch7Days,
-    portalState,
-    setPortalState,
     time,
     setTime,
     dateNow,

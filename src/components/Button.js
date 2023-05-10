@@ -4,7 +4,7 @@ export default function Button({
   children,
   onClick,
   select,
-  disabled = false,
+  disabled = false
 }) {
   return (
     <>

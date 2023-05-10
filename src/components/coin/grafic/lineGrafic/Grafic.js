@@ -1,18 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import * as d3 from 'd3'
-import {
-  extent,
-  range,
-  scaleLinear,
-  symbol,
-  select,
-  symbolCircle,
-  selectAll,
-  scaleTime,
-} from 'd3'
-
-import { getPathData } from 'path-data-polyfill'
-import { useState } from 'react'
+import { scaleLinear, select, scaleTime } from 'd3'
 import { useGrafic } from '../../../../hook/useGrafic'
 import BitcoinGrafic from './BitcoinGrafic'
 import RectInformation from './RectInformation'
@@ -28,7 +16,7 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
     startTouch,
     coordenadas,
     animationStart,
-    stopAnimation,
+    stopAnimation
   } = useCursor(datosLine)
   const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
@@ -143,11 +131,11 @@ export default function Grafic({ data, change, dataBitcoin }, {} = {}) {
         <svg
           ref={graficD3}
           style={{
-            height: height,
-            width: width,
+            height,
+            width,
             marginRight: '0px',
             marginLeft: '0px',
-            cursor: 'crosshair',
+            cursor: 'crosshair'
           }}
           onMouseMove={getYforX}
           onMouseLeave={stopAnimation}

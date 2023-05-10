@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import BarChartIcon from '../Icons/BarChartIcon'
 import lineChart from '../Icons/line-chart.png'
 import Expand from '../Icons/Expand'
@@ -13,7 +12,7 @@ export default function ButtonsSelectGrafic({
   setCandleGrafic,
   candleGrafic,
   setChange,
-  name,
+  name
 }) {
   return (
     <>

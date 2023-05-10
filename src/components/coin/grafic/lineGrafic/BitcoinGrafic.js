@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import * as d3 from 'd3'
-import { useGrafic } from '../../../../hook/useGrafic'
-import { getPathData } from 'path-data-polyfill'
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
 import { color } from '../../../../styles/colors'
 
@@ -9,7 +7,7 @@ export default function BitcoinGrafic({
   dataBitcoin,
   setBitcoinPrice,
   coordenadas,
-  setBitcoinScale,
+  setBitcoinScale
 }) {
   const { width, height, margin } = useConstansGrafic()
 
@@ -19,7 +17,7 @@ export default function BitcoinGrafic({
     .scaleLinear()
     .domain([
       d3.min(dataBitcoin, (d) => d[1]),
-      d3.max(dataBitcoin, (d) => d[1]),
+      d3.max(dataBitcoin, (d) => d[1])
     ])
     .range([height - margin.bottom, margin.top])
 
@@ -28,7 +26,7 @@ export default function BitcoinGrafic({
       .scaleTime()
       .domain([
         d3.min(dataBitcoin, (d) => d[0]),
-        d3.max(dataBitcoin, (d) => d[0]),
+        d3.max(dataBitcoin, (d) => d[0])
       ])
       .range([margin.left, width])
 
@@ -46,15 +44,15 @@ export default function BitcoinGrafic({
       .style('fill', 'transparent')
       .style('stroke-width', 1.4)
 
-    const yAxis = d3
-      .select('#axisBitcoin')
-      .attr('transform', `translate(${width - margin.left},0)`)
-      .style('color', 'transparent')
-      .call(d3.axisRight().scale(y1).ticks(7).tickSize(0))
-      .selectAll('text')
-      .style('color', `${color.bitcoin}`)
-      .style('font-weight', 600)
-      .style('font-size', 12)
+    // const yAxis = d3
+    //   .select('#axisBitcoin')
+    //   .attr('transform', `translate(${width - margin.left},0)`)
+    //   .style('color', 'transparent')
+    //   .call(d3.axisRight().scale(y1).ticks(7).tickSize(0))
+    //   .selectAll('text')
+    //   .style('color', `${color.bitcoin}`)
+    //   .style('font-weight', 600)
+    //   .style('font-size', 12)
 
     const parse = path.node()
     setStateBitcoin(parse)
@@ -69,7 +67,6 @@ export default function BitcoinGrafic({
           setBitcoinPrice(eventY)
           setBitcoinScale(y1.invert(eventY.y))
         }
-        return
       })
     }
   }, [coordenadas])

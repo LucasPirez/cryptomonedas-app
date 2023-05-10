@@ -1,92 +1,89 @@
-import { Router } from "next/router";
-import { useState, useEffect, useReducer } from "react";
-import { lista } from "../../client/client";
-import useClick from "../../hook/useClick";
-import { color } from "../../styles/colors";
-import RenderSearch from "./RenderSearch";
+import { useReducer } from 'react'
+import { lista } from '../../client/client'
+import useClick from '../../hook/useClick'
+import { color } from '../../styles/colors'
+import RenderSearch from './RenderSearch'
 
 const INITIAL_STATE = {
   list: [],
   listFiltered: [],
-  wordTiped: "",
-};
+  wordTiped: ''
+}
 
 const TYPES = {
   cargarList: (state, payload) => {
-    return { ...state, list: payload };
+    return { ...state, list: payload }
   },
   filtrar: (state, payload) => {
-    return { ...state, listFiltered: payload };
+    return { ...state, listFiltered: payload }
   },
   escribir: (state, payload) => {
-    return { ...state, wordTiped: payload };
-  },
-};
+    return { ...state, wordTiped: payload }
+  }
+}
 
-const reducer = (state, { type, payload }) => TYPES[type](state, payload);
+const reducer = (state, { type, payload }) => TYPES[type](state, payload)
 
 export default function Search() {
   const [{ list, listFiltered, wordTiped }, dispatch] = useReducer(
     reducer,
     INITIAL_STATE
-  );
-  const ref = useClick(() => dispatch({ type: "escribir", payload: "" }));
+  )
+  const ref = useClick(() => dispatch({ type: 'escribir', payload: '' }))
 
   const handleChange = (e) => {
-    const { value } = e.target;
+    const { value } = e.target
 
-    dispatch({ type: "escribir", payload: value });
-    storage(value);
-    const arr = [];
+    dispatch({ type: 'escribir', payload: value })
+    storage(value)
     if (value.length > 1) {
       const order = list
         .filter((u) => u.includes(value))
-        .sort((a, b) => a.length - b.length);
+        .sort((a, b) => a.length - b.length)
       dispatch({
-        type: "filtrar",
-        payload: order,
-      });
+        type: 'filtrar',
+        payload: order
+      })
     }
     if (value.length === 0) {
-      dispatch({ type: "filtrar", payload: [] });
+      dispatch({ type: 'filtrar', payload: [] })
     }
-  };
+  }
 
   const storage = (value) => {
-    const arr = [];
     // localStorage.removeItem("listSearch");
     if (!list.length) {
-      const storage = JSON.parse(localStorage.getItem("listSearch"));
+      const storage = JSON.parse(localStorage.getItem('listSearch'))
       if (storage) {
-        dispatch({ type: "cargarList", payload: storage });
+        dispatch({ type: 'cargarList', payload: storage })
       } else {
         if (value.length > 1) {
           lista().then((data) => {
-            const arr = data.map((u, i) => u.id.toLowerCase());
-            localStorage.setItem("listSearch", JSON.stringify(arr));
+            const arr = data.map((u, i) => u.id.toLowerCase())
+            localStorage.setItem('listSearch', JSON.stringify(arr))
 
             dispatch({
-              type: "cargarList",
-              payload: arr,
-            });
-          });
+              type: 'cargarList',
+              payload: arr
+            })
+          })
         }
       }
     }
-  };
+  }
 
   return (
     <>
-      <div className="container" ref={ref}>
-        <div className="container_input">
+      <div className='container' ref={ref}>
+        <div className='container_input'>
           <input
-            type="text"
+            type='text'
             onChange={handleChange}
-            className="input"
-            placeholder="Search"
+            className='input'
+            placeholder='Search'
           />
           {wordTiped.length > 2 && (
-            <div className="sub_container">
+            <div className='sub_container'>
               {listFiltered.length &&
                 listFiltered.map((u) => <RenderSearch u={u} key={u} />)}
             </div>
@@ -136,5 +133,5 @@ export default function Search() {
         }
       `}</style>
     </>
-  );
+  )
 }

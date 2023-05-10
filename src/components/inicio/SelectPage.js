@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { pagination, exchangesList } from '../../client/client'
 import { color } from '../../styles/colors'
 import Button from '../Button'
 import { usePagination } from '../../hook/usePagination'

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export default function RenderPage() {
   return (
@@ -7,5 +7,5 @@ export default function RenderPage() {
         <div></div>
       </section>
     </>
-  );
+  )
 }

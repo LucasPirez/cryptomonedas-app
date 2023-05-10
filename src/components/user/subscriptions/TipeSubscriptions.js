@@ -1,16 +1,16 @@
-import { color } from "../../../styles/colors";
+import { color } from '../../../styles/colors'
 
 export default function TipeSubscriptions() {
   return (
     <>
       <section>
-        <div className="container">
+        <div className='container'>
           <h3>Free</h3>
           <p>
             CrytoTracker as it is - perfect for anyone looking to get a
             360-overview on the crypto markets
           </p>
-          <span className="price">$0.00/lifeTime</span>
+          <span className='price'>$0.00/lifeTime</span>
 
           <button>Current Plan</button>
 
@@ -33,13 +33,13 @@ export default function TipeSubscriptions() {
             </li>
           </ul>
         </div>
-        <div className="container">
+        <div className='container'>
           <h3>Premium</h3>
           <p>
             For the more demanding, powerful crypto enthusiasts looking for an
             edge in the markets.
           </p>
-          <span className="price">$41.66 /mo</span>
+          <span className='price'>$41.66 /mo</span>
 
           <button>Upgrade to Premium</button>
 
@@ -132,5 +132,5 @@ export default function TipeSubscriptions() {
         }
       `}</style>
     </>
-  );
+  )
 }

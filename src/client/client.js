@@ -23,7 +23,10 @@ export const lista = () => {
 export const pagination = (id, currency) => {
   console.log('pagination')
   return fetch(
-    `${BASE_URL}coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${id}&&sparkline=true&price_change_percentage=1h,24h,7d`
+    `${BASE_URL}coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${id}&&sparkline=true&price_change_percentage=1h,24h,7d`,
+    {
+      mode: 'no-cors',
+    }
   ).then((data) => data.json())
 }
 

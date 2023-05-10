@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { invert, select } from 'd3'
+import React, { useEffect } from 'react'
+import { select } from 'd3'
 import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
 
@@ -20,7 +20,7 @@ export default function RectInformation({
   y1,
   bitcoinPrice,
   bitcoinScale,
-  animationStart,
+  animationStart
 }) {
   function mostarNOmostrar(valor) {
     const arr = ['#textPrice', '#rectInformation', '#textBitcoin', '#textDate']

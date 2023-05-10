@@ -1,25 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGrafic } from '../../../../hook/useGrafic'
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
-import {
-  extent,
-  scaleLinear,
-  scaleTime,
-  line,
-  select,
-  min,
-  invert,
-  remove,
-  axisBottom,
-  timeFormat,
-  selectAll,
-  count,
-} from 'd3'
+import { select, min, axisBottom, timeFormat } from 'd3'
 import { color } from '../../../../styles/colors'
 import useGraficContext from '../../../../context/GraficContext'
 
 export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
-  const { width, margin } = useConstansGrafic()
+  const { width } = useConstansGrafic()
   const { data, rangeGraficAction } = useGraficContext()
   const ref1 = useRef(0)
   const ref2 = useRef(1)
@@ -92,7 +79,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
     e.preventDefault()
     rangeGraficAction({
       min: new Date(xScale.invert(ref1.current)).getTime(),
-      max: new Date(xScale.invert(ref2.current)).getTime(),
+      max: new Date(xScale.invert(ref2.current)).getTime()
     })
 
     return (bool = 'none')
@@ -145,7 +132,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
         ref={svgD3}
         style={{
           width: '100%',
-          height: '100%',
+          height: '100%'
         }}
         onMouseUp={handleUp}
         onMouseMove={handleMove}

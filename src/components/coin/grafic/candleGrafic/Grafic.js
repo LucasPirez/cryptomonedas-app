@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
 import * as d3 from 'd3'
 import { useGrafic } from '../../../../hook/useGrafic'
 import RectLine from '../RectLine'
 import { color } from '../../../../styles/colors'
 import HeaderGrafic from './HeaderGrafic'
-import { invert, select } from 'd3'
+import { select } from 'd3'
 
 export default function Grafic({ dataObj, dataScale, x1, y1 }) {
   const [stateRect, setStateRect] = useState({
@@ -14,7 +14,7 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
     open: null,
     close: null,
     hight: null,
-    low: null,
+    low: null
   })
   const [animationStart, setAnimationStart] = useState(false)
   const [theme, setTheme] = useState(null)
@@ -23,7 +23,7 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
   const calc = Math.round((width - margin.left - margin.right) / dataObj.length)
   const marginCandles = calc > 47 ? 47 : calc
 
-  const diference = dataObj[dataObj.length - 1]['date'] - dataObj[0]['date']
+  const diference = dataObj[dataObj.length - 1].date - dataObj[0].date
 
   const candleRef = useGrafic(
     (svg) => {
@@ -41,7 +41,7 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
               .axisBottom()
               .scale(x1)
               .ticks(8, [
-                d3.timeFormat(diference > 2629800000 ? '%d/%m/ %Y' : '%d'),
+                d3.timeFormat(diference > 2629800000 ? '%d/%m/ %Y' : '%d')
               ])
           )
           .selectAll('text')
@@ -101,22 +101,20 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
     dataScale.map((u, i) => {
       if (
         i < dataScale.length - 1 &&
-        cursor > u['posX'] &&
-        cursor < dataScale[i + 1]['posX']
+        cursor > u.posX &&
+        cursor < dataScale[i + 1].posX
       ) {
         setStateRect({
-          x: u['posX'] + 2.5,
-          y: u['promedio'],
-          open: u['open'],
-          close: u['close'],
-          hight: u['maximo'],
-          low: u['minimo'],
+          x: u.posX + 2.5,
+          y: u.promedio,
+          open: u.open,
+          close: u.close,
+          hight: u.maximo,
+          low: u.minimo
         })
-        const t =
-          u['open'] - u['close'] < 0 ? color.candleRed : color.candleGreen
+        const t = u.open - u.close < 0 ? color.candleRed : color.candleGreen
         setTheme(t)
       }
-      return
     })
   }
 
@@ -124,11 +122,11 @@ export default function Grafic({ dataObj, dataScale, x1, y1 }) {
     <svg
       ref={candleRef}
       style={{
-        height: height,
-        width: width,
+        height,
+        width,
         marginRight: '0px',
         marginLeft: '0px',
-        cursor: 'crosshair',
+        cursor: 'crosshair'
       }}
       onMouseMove={getPosition}
       onMouseLeave={() => setAnimationStart(false)}

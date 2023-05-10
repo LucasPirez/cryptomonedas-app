@@ -1,7 +1,7 @@
-import react, { useState, useEffect, useRef } from "react";
-import login from "../../client/clientUser";
-import ModalPortal from "../portal/ModalPortal";
-import FormSignUp from "./FormSignUp";
+// import react, { useState, useEffect, useRef } from 'react'
+// import login from '../../client/clientUser'
+import ModalPortal from '../portal/ModalPortal'
+import FormSignUp from './FormSignUp'
 
 export default function SignUp() {
   // const refForm = useRef({ email: "", name: "", lastName: "", password: "" });
@@ -35,12 +35,12 @@ export default function SignUp() {
     <>
       <ModalPortal>
         <section>
-          <div className="container_title">
+          <div className='container_title'>
             <h3>Sign Up</h3>
             <p>
               You are a User
               <span>
-                <a href="#"> Login</a>
+                <a href='#'> Login</a>
               </span>
             </p>
           </div>
@@ -86,5 +86,5 @@ export default function SignUp() {
         }
       `}</style>
     </>
-  );
+  )
 }

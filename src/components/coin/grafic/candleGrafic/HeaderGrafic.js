@@ -1,10 +1,7 @@
-import { useEffect } from 'react'
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
-import { color } from '../../../../styles/colors'
-import { invert } from 'd3'
 
 export default function HeaderGrafic({ stateRect, y1, theme }) {
-  const { margin, width, height } = useConstansGrafic()
+  const { margin, height } = useConstansGrafic()
 
   return (
     <>
@@ -88,7 +85,7 @@ export default function HeaderGrafic({ stateRect, y1, theme }) {
           .invert(stateRect.close)
           .toLocaleString('en-US', { maximumFractionDigits: 2 })}
       </text>
-      <style jsx>{``}</style>
+      <style jsx>{''}</style>
     </>
   )
 }

@@ -4,9 +4,7 @@ import { coinReduceTable } from '../../redux/features/listCriptos'
 import OrderTable from '../OrderTable'
 
 export default function TableComponent() {
-  const { criptoList, currencySelect } = useSelector(
-    (state) => state.criptoList
-  )
+  const { criptoList } = useSelector((state) => state.criptoList)
 
   return (
     <>

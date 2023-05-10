@@ -3,12 +3,12 @@ import { signUp } from '../../client/clientUser'
 import { useValidateForms } from '../../hook/useValidateForms'
 
 export default function FormSignUp() {
-  const { buttonDisabled, handleBlur } = useValidateForms()
+  const { handleBlur } = useValidateForms()
   const [formValues, setFormValues] = useState({
     email: '',
     completName: '',
     userAlias: '',
-    password: '',
+    password: ''
   })
 
   const sendData = async (e) => {

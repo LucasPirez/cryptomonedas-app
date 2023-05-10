@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import SignUp from "./SignUp";
+import { useState } from 'react'
+import SignUp from './SignUp'
 
 export default function LoginLogout() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
 
   const handleClick = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setVisible(!visible);
-  };
+    setVisible(!visible)
+  }
   return (
     <>
       <div>
         <button onClick={handleClick}>Login/logOUt</button>
         {visible && <SignUp />}
       </div>
-      <style jsx>{``}</style>
+      <style jsx>{''}</style>
     </>
-  );
+  )
 }

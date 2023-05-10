@@ -1,25 +1,22 @@
-import React, { useState, useEffect, Suspense, useMemo } from 'react'
-import { pagination } from '../../client/client'
+import React, { useEffect } from 'react'
 import CoinsRow from '../Row'
 import { color } from '../../styles/colors'
 import { useRouter } from 'next/router'
 import SelectPage from './SelectPage'
 import useIntersectionObserver from '../../hook/useIntersectionObserver'
-import OrderTable from '../OrderTable'
 import TableComponent from '../utilities/TableComponent'
-import { useDispatch } from 'react-redux'
-import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   currencyUpdatePage,
-  fetchByPage,
+  fetchByPage
 } from '../../redux/features/listCriptos'
 import Loading from '../Loading'
 import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
-import { useSelector } from 'react-redux'
+
 import Error from '../error/Error'
 
 export default function Table({ query }) {
-  const { container, count, reInitCount, visible } = useIntersectionObserver()
+  const { container, count, reInitCount } = useIntersectionObserver()
   const router = useRouter()
 
   const { criptoList, currencySelect, page, error, loading } = useSelector(
@@ -34,7 +31,7 @@ export default function Table({ query }) {
       dispatch(
         fetchByPage({
           numPage: parseInt(query),
-          currency: currencySelect.currency,
+          currency: currencySelect.currency
         })
       )
     }
