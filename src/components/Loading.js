@@ -20,43 +20,33 @@ export default function Loading() {
             height: auto;
           }
 
-          .circulo {
-            margin: 0 3px;
+          .circulo,
+          .circulo2,
+          .circulo3 {
+            margin: 0 6px;
             width: 15px;
             height: 15px;
             border-radius: 50%;
             background: ${color.candleRed};
-            animation: loader 2s linear infinite;
+            animation: loader 1.7s linear infinite;
           }
 
           .circulo2 {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: ${color.candleRed};
-            animation: loader 2s linear infinite;
             animation-delay: 0.6s;
-            margin: 0 3px;
           }
 
           .circulo3 {
-            width: 15px;
-            margin: 0 3px;
-            height: 15px;
-            border-radius: 50%;
-            background: ${color.candleRed};
-            animation: loader 2s linear infinite;
             animation-delay: 1.2s;
           }
 
           @keyframes loader {
             0%,
             100% {
-              transform: scale(0);
-              opacity: 0;
+              transform: scale(0.7);
+              opacity: 0.6;
             }
             50% {
-              transform: scale(1);
+              transform: scale(1.5);
               opacity: 1;
             }
           }
