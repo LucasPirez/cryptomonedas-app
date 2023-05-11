@@ -14,7 +14,7 @@ const initialState = {
   bitcoin: null,
   loading: false,
   error: null,
-  page: null,
+  page: null
 }
 
 export const exchangesSlice = createSlice({
@@ -29,7 +29,7 @@ export const exchangesSlice = createSlice({
     },
     updatePage: (state, action) => {
       return { ...state, page: action.payload }
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -44,7 +44,7 @@ export const exchangesSlice = createSlice({
       .addCase(exchanges.rejected, (state, action) => {
         state.error = action.error.message
       })
-  },
+  }
 })
 
 export const { exchangeReducer, updateBitcoin, updatePage } =

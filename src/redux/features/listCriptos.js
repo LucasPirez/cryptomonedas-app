@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
   getLocalStorageCurrency,
-  setLocalStorageCurrency,
+  setLocalStorageCurrency
 } from '../../util/localStorageCurrency'
 import { pagination } from '../../client/client'
 
@@ -20,7 +20,7 @@ export const criptoSlice = createSlice({
     currencySelect: getLocalStorageCurrency(),
     page: null,
     loading: false,
-    error: null,
+    error: null
   },
   reducers: {
     coinReduceTable: (state = [], action) => {
@@ -32,7 +32,7 @@ export const criptoSlice = createSlice({
     },
     currencyUpdatePage: (state, action) => {
       return { ...state, page: action.payload }
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchByPage.pending, (state, action) => {
@@ -46,7 +46,7 @@ export const criptoSlice = createSlice({
     builder.addCase(fetchByPage.rejected, (state, action) => {
       state.error = 'Ha ocurrido un Error intente mas Tarde.'
     })
-  },
+  }
 })
 export const { coinReduceTable, currencySelectReducer, currencyUpdatePage } =
   criptoSlice.actions
