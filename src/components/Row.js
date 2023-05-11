@@ -1,10 +1,7 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { grafic7Days } from '../client/client'
 import AddDeleteFavorite from './favorites/AddDeleteFavorite'
 import { color } from '../styles/colors'
-import IconImage from './utilities/IconImage'
 import { useSelector } from 'react-redux'
 
 const GraficRow = React.lazy(() => import('./coin/grafic/GraficRow'))
@@ -13,69 +10,81 @@ export default function CoinsRow({ data }) {
   // const [dataGrafic, setDataGrafic] = useState(null);
   const { currencySelect } = useSelector((state) => state.criptoList)
 
+  const {
+    marketCapRank,
+    image,
+    name,
+    currentPrice,
+    priceChangePercentage24h,
+    priceChangePercentage7dInCurrency,
+    sparklineIn7d,
+    totalVolume,
+    marketCap,
+    symbol,
+    id
+  } = data
+
   return (
     <>
       <td>
         <div className='star'>
           <span>
             <AddDeleteFavorite
-              data={data.id}
+              data={id}
               yes={color.bitcoin}
               no={color.background}
             />
           </span>
-          <span> {data.marketCapRank}</span>
+          <span> {marketCapRank}</span>
         </div>
       </td>
       <td className='sticy__td'>
         <div className='img_name'>
           <div>
             <span>
-              <Image src={data.image} alt='icon' width={15} height={15} />
+              <Image src={image} alt='icon' width={15} height={15} />
             </span>
 
-            <span>{data.name}</span>
+            <span>{name}</span>
           </div>
 
-          <span className='symbol'>{data.symbol.toUpperCase()}</span>
+          <span className='symbol'>{symbol.toUpperCase()}</span>
         </div>
       </td>
 
       <td className='numbers'>
         <span>{currencySelect.symbol}</span>
-        <span>{data.currentPrice.toLocaleString('en-US')}</span>
+        <span>{currentPrice.toLocaleString('en-US')}</span>
       </td>
 
       <td
         className={
-          data.priceChangePercentage24h > 0
+          priceChangePercentage24h > 0
             ? 'price numbers '
             : 'price_danger numbers '
         }
       >
-        {data.priceChangePercentage24h &&
-          data.priceChangePercentage24h.toFixed(2)}
-        %
+        {priceChangePercentage24h && priceChangePercentage24h.toFixed(2)}%
       </td>
       <td
         className={
-          data.priceChangePercentage7dInCurrency > 0
+          priceChangePercentage7dInCurrency > 0
             ? 'price numbers '
             : 'price_danger numbers '
         }
       >
-        {data.priceChangePercentage7dInCurrency &&
-          data.priceChangePercentage7dInCurrency.toFixed(2)}
+        {priceChangePercentage7dInCurrency &&
+          priceChangePercentage7dInCurrency.toFixed(2)}
         %
       </td>
 
-      <td className='numbers'>${data.totalVolume.toLocaleString('en-US')}</td>
-      <td className='numbers'>${data.marketCap.toLocaleString('en-US')}</td>
+      <td className='numbers'>${totalVolume.toLocaleString('en-US')}</td>
+      <td className='numbers'>${marketCap.toLocaleString('en-US')}</td>
       <td className='tdGrafic'>
         <Suspense fallback={<p>cargando</p>}>
           <GraficRow
-            dataGrafic={data.sparklineIn7d.price}
-            graficColor={data.priceChangePercentage7dInCurrency}
+            dataGrafic={sparklineIn7d.price}
+            graficColor={priceChangePercentage7dInCurrency}
           />
         </Suspense>
       </td>
@@ -149,15 +158,3 @@ export default function CoinsRow({ data }) {
     </>
   )
 }
-// @media screen and (max-width: 900px) {
-//           .img_name {
-//             position: sticky;
-//             left: 0px;
-
-//             flex-direction: column;
-//             justify-content: space-around;
-//             width: 100px;
-//             background: ${color.background};
-//             z-index: 9;
-//           }
-//         }
