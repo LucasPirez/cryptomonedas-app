@@ -12,20 +12,24 @@ const DataGraficFetcher = lazy(() =>
 )
 
 export default function Coin() {
-  const [coin, setCoin] = useState(null)
   const router = useRouter()
+  const [coin, setCoin] = useState({ data: null, id: null })
 
   useEffect(() => {
-    const id = router.query.id
-
-    if (id) {
-      oneCoin(id)
+    if (coin.id) {
+      oneCoin(coin.id)
         .then((data) => {
-          setCoin(data)
+          setCoin({ ...coin, data })
         })
         .catch((error) => {
           console.log(error)
         })
+    }
+  }, [coin.id])
+
+  useEffect(() => {
+    if (router.query.id) {
+      setCoin({ ...coin, id: router.query.id })
     }
   }, [router.query.id])
 
@@ -33,15 +37,18 @@ export default function Coin() {
     <>
       <section>
         <GraficContextProvider>
-          {coin && (
+          {coin.data && (
             <>
-              <Content data={EPCoinAdapter(coin)} />
+              <Content data={EPCoinAdapter(coin.data)} />
               <div>
                 <>
                   <Suspense fallback={<p>Cargando Grafico</p>}>
-                    <DataGraficFetcher id={router.query.id} />
+                    <DataGraficFetcher id={coin.id} />
                   </Suspense>
-                  <Convert data={coin.market_data} name={coin.symbol} />
+                  <Convert
+                    data={coin.data.market_data}
+                    name={coin.data.symbol}
+                  />
                 </>
               </div>
             </>
