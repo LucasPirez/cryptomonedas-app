@@ -1,40 +1,38 @@
-import Image from "next/image";
-import { color } from "../../styles/colors";
+import Image from 'next/image'
+import { color } from '../../styles/colors'
 
 export default function RowExchanges({ data, bitcoinPrice = 1 }) {
   const {
-    id,
     name,
-    country,
-    url,
+
     image,
     trustScore,
     trustScoreRank,
     tradeVolume24hBTC,
     tradeVolume24hBTCNormalized,
-    description,
-  } = data;
+    description
+  } = data
   return (
     <>
       <td>{trustScoreRank}</td>
-      <td className="container_name">
-        <Image src={`${image}`} alt="" width={20} height={20} />
-        <span style={{ fontSize: "1.1em", fontWeight: "600" }}>{name}</span>
+      <td className='container_name'>
+        <Image src={`${image}`} alt='' width={20} height={20} />
+        <span style={{ fontSize: '1.1em', fontWeight: '600' }}>{name}</span>
       </td>
       <td>
-        <div className="trust_visual">
+        <div className='trust_visual'>
           <div></div>
         </div>
         <span>{trustScore}</span>
       </td>
-      <td className="bitcoin_covert">
+      <td className='bitcoin_covert'>
         <p>${(tradeVolume24hBTCNormalized * bitcoinPrice).toLocaleString()}</p>
       </td>
-      <td className="bitcoin_covert">
+      <td className='bitcoin_covert'>
         <p>${(tradeVolume24hBTC * bitcoinPrice).toLocaleString()}</p>
       </td>
-      <td className="td_description">
-        {description !== "" ? (
+      <td className='td_description'>
+        {description !== '' ? (
           <>
             <span>Read Description</span>
             <p>
@@ -43,7 +41,7 @@ export default function RowExchanges({ data, bitcoinPrice = 1 }) {
             </p>
           </>
         ) : (
-          ""
+          ''
         )}
       </td>
 
@@ -142,5 +140,5 @@ export default function RowExchanges({ data, bitcoinPrice = 1 }) {
         `}
       </style>
     </>
-  );
+  )
 }

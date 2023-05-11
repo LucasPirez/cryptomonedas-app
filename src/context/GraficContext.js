@@ -27,10 +27,10 @@ export function GraficContextProvider({ children }) {
     ) {
       setLoading(true)
       graficRange({
-        id: id,
+        id,
         currency: currencySelect.currency,
         time: min / 1000,
-        dateNow: max / 1000,
+        dateNow: max / 1000
       })
         .then((data) => data.json())
         .then((data) => {
@@ -74,7 +74,7 @@ export function GraficContextProvider({ children }) {
     dateNow,
     rangeGraficAction,
     rangeGrafic,
-    loading,
+    loading
   }
 
   return (

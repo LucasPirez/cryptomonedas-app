@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { EPExchangesAdapter } from '../../adapters/EPExchagesAdapter'
 import useIntersectionObserver from '../../hook/useIntersectionObserver'
 import { color } from '../../styles/colors'
-import Header from '../Header/Header'
 import SelectPage from '../inicio/SelectPage'
 import Loading from '../Loading'
 import RowExchanges from './RowExchanges'
@@ -38,7 +37,7 @@ export default function Exchanges({ query }) {
         <table>
           <TableHeader dataExchanges={dataExchanges} />
           <tbody>
-            {dataExchanges ? (
+            {!dataExchanges ? (
               dataExchanges.map((u, i) => {
                 if (i < count) {
                   return (
