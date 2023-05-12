@@ -128,20 +128,6 @@ export default function SelectCurrency({
                   })}
                 </div>
               )
-              // return (
-              //   <>
-              //     {i > 0 && symbols[i - 1][0][0] !== u[0][0] && (
-              //     )}
-
-              //     <div
-              //       className={`${styles.container_span} ${select(u[0])}`}
-              //       onClick={(e) => handleClick(e, u[0], u[1])}
-              //     >
-              //       <span>{u[1]}</span>
-              //       <span className={styles.container_span_span}>{u[0]}</span>
-              //     </div>
-              //   </>
-              // )
             })}
           </div>
         </div>
