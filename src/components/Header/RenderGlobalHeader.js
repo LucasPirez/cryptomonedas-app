@@ -18,7 +18,7 @@ export default function RenderGlobarHeader({ dataGlobal, marketCap }) {
       <div style={{ display: 'inline-flex' }}>
         <p>Market Cap:</p>
         <span>
-          {marketCap.total !== 0 && marketCap['total'].toLocaleString('en')}
+          {marketCap.total !== 0 && marketCap.total.toLocaleString('en')}
         </span>
 
         <span>

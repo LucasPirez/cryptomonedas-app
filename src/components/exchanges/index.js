@@ -37,7 +37,7 @@ export default function Exchanges({ query }) {
         <table>
           <TableHeader dataExchanges={dataExchanges} />
           <tbody>
-            {!dataExchanges ? (
+            {dataExchanges ? (
               dataExchanges.map((u, i) => {
                 if (i < count) {
                   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { color } from '../../styles/colors'
 import Star from '../Icons/Star'
 
@@ -7,13 +7,14 @@ export default function AddDeleteFavorite({
   yes,
   no,
   setOpacity,
-  scale,
+  scale
 }) {
   const getStorage = () => {
     return localStorage.getItem('favorites_coin')
       ? JSON.parse(localStorage.getItem('favorites_coin'))
       : []
   }
+
   const [fill, setFill] = useState(getStorage().includes(data))
 
   const favorite = (e) => {
@@ -38,9 +39,6 @@ export default function AddDeleteFavorite({
     localStorage.setItem('favorites_coin', JSON.stringify(storageFilter))
     setOpacity && setOpacity(false)
   }
-  useEffect(() => {
-    console.log(getStorage())
-  }, [fill])
 
   return (
     <>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import useClick from '../../hook/useClick'
 import ChevronUp from '../Icons/ChevronUp'
 import ChevronDown from '../Icons/ChevrowDown'
@@ -9,89 +8,89 @@ const symbols = [
   [
     ['AED', 'د.إ'],
     ['ARS', '$'],
-    ['AUD', '$'],
+    ['AUD', '$']
   ],
   [
     ['BDT', '৳'],
     ['BHD', '.د.ب'],
     ['BMD', '$'],
-    ['BRL', 'R$'],
+    ['BRL', 'R$']
   ],
   [
     ['CAD', '$'],
     ['CHF', 'CHF'],
     ['CLP', '$'],
     ['CNY', '¥'],
-    ['CZK', 'Kč'],
+    ['CZK', 'Kč']
   ],
   [['DKK', 'kr']],
   [['EUR', '€']],
   [['GBP', '£']],
   [
     ['HKD', '$'],
-    ['HUF', 'Ft'],
+    ['HUF', 'Ft']
   ],
   [
     ['IDR', 'Rp'],
     ['ILS', '₪'],
-    ['INR', '₹'],
+    ['INR', '₹']
   ],
   [['JPY', '¥']],
   [
     ['KRW', '₩'],
-    ['KWD', 'د.ك'],
+    ['KWD', 'د.ك']
   ],
 
   [['LKR', '₨']],
   [
     ['MMK', 'K'],
     ['MXN', '$'],
-    ['MYR', 'RM'],
+    ['MYR', 'RM']
   ],
   [
     ['NGN', '₦'],
     ['NOK', 'kr'],
-    ['NZD', '$'],
+    ['NZD', '$']
   ],
   [
     ['PHP', '₱'],
     ['PKR', '₨'],
-    ['PLN', 'zł'],
+    ['PLN', 'zł']
   ],
   [['RUB', '₽']],
   [
     ['SAR', '﷼'],
     ['SEK', 'kr'],
-    ['SGD', '$'],
+    ['SGD', '$']
   ],
   [
     ['THB', '฿'],
     ['TRY', '₤'],
-    ['TWD', 'NT$'],
+    ['TWD', 'NT$']
   ],
   [
     ['UAH', '₴'],
-    ['USD', '$'],
+    ['USD', '$']
   ],
   [
     ['VEF', 'Bs'],
-    ['VND', '₫'],
+    ['VND', '₫']
   ],
   [['XDR', 'SDR']],
-  [['ZAR', 'R']],
+  [['ZAR', 'R']]
 ]
 
 export default function SelectCurrency({
   handleClick,
   viewSelect,
-  handleVisibility,
+  handleVisibility
 }) {
   const { currencySelect } = useSelector((state) => state.criptoList)
 
   const ref = useClick(() => handleVisibility(false))
 
   const select = (value) => {
-    const s = currencySelect.currency == value.toLowerCase()
+    const s = currencySelect.currency.toLowerCase() === value.toLowerCase()
 
     return s ? styles.select : ''
   }

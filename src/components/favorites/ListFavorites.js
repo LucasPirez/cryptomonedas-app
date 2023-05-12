@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
 import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
 import { oneCoin } from '../../client/client'
 import { color } from '../../styles/colors'
@@ -9,10 +8,6 @@ import RowFavorites from './RowFavorites'
 export default function ListFavorites() {
   const [favoritesFetch, setFavoritesFetch] = useState(null)
   const favorites = JSON.parse(localStorage.getItem('favorites_coin')) || []
-
-  if (!favorites.length) {
-    return <h3>you don&apos;t have favorites yet </h3>
-  }
 
   useEffect(() => {
     const promiseAll = favorites.map(async (u) => {
@@ -28,6 +23,10 @@ export default function ListFavorites() {
         throw new Error(error.message)
       })
   }, [])
+
+  if (!favorites.length) {
+    return <h3>you don&apos;t have favorites yet </h3>
+  }
 
   return (
     <>

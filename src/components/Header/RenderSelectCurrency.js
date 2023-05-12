@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SelectCurrency from './SelectCurrency'
 import {
   currencySelectReducer,
-  fetchByPage,
+  fetchByPage
 } from '../../redux/features/listCriptos'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'

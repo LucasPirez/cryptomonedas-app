@@ -23,10 +23,7 @@ export const lista = () => {
 export const pagination = (id, currency) => {
   console.log('pagination')
   return fetch(
-    `${BASE_URL}coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${id}&&sparkline=true&price_change_percentage=1h,24h,7d`,
-    {
-      mode: 'no-cors',
-    }
+    `${BASE_URL}coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=${id}&&sparkline=true&price_change_percentage=1h,24h,7d`
   ).then((data) => data.json())
 }
 
@@ -46,7 +43,7 @@ export const graficRange = ({
   id,
   currency,
   time,
-  dateNow = Math.round(new Date().getTime() / 1000),
+  dateNow = Math.round(new Date().getTime() / 1000)
 }) => {
   console.log('graficRange')
   return fetch(
@@ -60,8 +57,8 @@ export const graficDays = (id, days = 7, currency) => {
     `${BASE_URL}coins/${id}/market_chart?vs_currency=${currency}&days=${days}`,
     {
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     }
   )
     .then((data) => data.json())

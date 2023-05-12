@@ -1,6 +1,5 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react'
+import React, { useState, Suspense } from 'react'
 import Image from 'next/image'
-import Star from '../../components/Icons/Star'
 import Link from 'next/link'
 import AddDeleteFavorite from './AddDeleteFavorite'
 import { color } from '../../styles/colors'
@@ -11,6 +10,7 @@ const GraficRow = React.lazy(() => import('../coin/grafic/GraficRow'))
 export default function RowFavorites({ data }) {
   const [opacity, setOpacity] = useState(true)
   const { push } = useRouter()
+
   return (
     <>
       <tr onClick={() => push(`http://localhost:3000/coin/${data.id}`)}>
