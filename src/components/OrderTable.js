@@ -20,11 +20,11 @@ export default function OrderTable({
     e && e.stopPropagation()
     e && setSelectButton(true)
     if (type === 'string') {
-      order = [...coinTable].sort((a, b) =>
+      order = coinTable.toSorted((a, b) =>
         a[nameConvert].localeCompare(b[nameConvert])
       )
     } else {
-      order = [...coinTable].sort((a, b) => {
+      order = coinTable.toSorted((a, b) => {
         return a[nameConvert] - b[nameConvert]
       })
     }
@@ -36,11 +36,11 @@ export default function OrderTable({
     e && e.stopPropagation()
     e && setSelectButton(false)
     if (type === 'string') {
-      order = [...coinTable].sort((a, b) =>
+      order = coinTable.toSorted((a, b) =>
         b[nameConvert].localeCompare(a[nameConvert])
       )
     } else {
-      order = [...coinTable].sort((a, b) => {
+      order = coinTable.toSorted((a, b) => {
         return b[nameConvert] - a[nameConvert]
       })
     }
