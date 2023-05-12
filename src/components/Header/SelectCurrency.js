@@ -107,21 +107,25 @@ export default function SelectCurrency({
               viewSelect ? styles.viewSelect : ''
             }`}
           >
-            {symbols.map((u, i) => {
+            {symbols.map((group, i) => {
               return (
-                <div key={i}>
-                  <p className={styles.separator}>{u[0][0][0]}</p>
-                  {u.map((j, k) => {
+                <div key={`${i}---${group[0]}--${group[1]}`}>
+                  <p className={styles.separator}>{group[0][0][0]}</p>
+                  {group.map((symbolCurrency, k) => {
                     return (
                       <div
-                        key={k}
-                        className={`${styles.container_span} ${select(j[0])}`}
-                        onClick={(e) => handleClick(e, j[0], j[1])}
+                        key={`${i}-${k}-${symbolCurrency[0]}-${symbolCurrency[1]}`}
+                        className={`${styles.container_span} ${select(
+                          symbolCurrency[0]
+                        )}`}
+                        onClick={(e) =>
+                          handleClick(e, symbolCurrency[0], symbolCurrency[1])
+                        }
                         data-testid={'idButton'}
                       >
-                        <span>{j[1]}</span>
+                        <span>{symbolCurrency[1]}</span>
                         <span className={styles.container_span_span}>
-                          {j[0]}
+                          {symbolCurrency[0]}
                         </span>
                       </div>
                     )
