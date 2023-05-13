@@ -25,8 +25,7 @@ export default function Table({ query }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('holaaaaa')
-    if (!page) {
+    if (page !== +query) {
       dispatch(currencyUpdatePage(parseInt(query)))
       dispatch(
         fetchByPage({
@@ -35,7 +34,7 @@ export default function Table({ query }) {
         })
       )
     }
-  }, [])
+  }, [query])
 
   if (error) return <Error message={error} />
   return (

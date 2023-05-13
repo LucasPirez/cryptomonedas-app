@@ -1,17 +1,12 @@
 import Head from 'next/head'
-import handler from './api/hello'
-import { useState, useEffect, lazy } from 'react'
-import { color } from '../styles/colors'
-import { global } from '../client/client'
-import GlobalHeader from '../components/Header/GlobalHeader'
-import Header from '../components/Header/Header'
+import { useEffect, lazy } from 'react'
 import { useRouter } from 'next/router'
 import Search from '../components/inicio/Search'
 
 const Table = lazy(() => import('../components/inicio/Table'))
 
 export default function Home() {
-  const { push } = useRouter()
+  const { push, query } = useRouter()
 
   useEffect(() => {
     push('criptos/1')
@@ -28,7 +23,7 @@ export default function Home() {
       <main>
         <>
           <Search />
-          <Table />
+          {query.id && <Table query={query.id} />}
         </>
       </main>
 

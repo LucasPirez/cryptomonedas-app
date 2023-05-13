@@ -17,11 +17,12 @@ export default function Exchanges({ query }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!page) {
+    if (page !== +query) {
+      console.log('hola')
       dispatch(updatePage(parseInt(query)))
-      if (!dataExchanges) dispatch(exchanges(parseInt(query)))
+      dispatch(exchanges(parseInt(query)))
     }
-  }, [])
+  }, [query])
 
   return (
     <>
