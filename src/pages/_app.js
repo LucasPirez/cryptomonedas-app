@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
 import { CurrencyLightProvider } from '../context/CurrencyLightContext'

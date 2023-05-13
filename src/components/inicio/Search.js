@@ -39,7 +39,7 @@ export default function Search() {
     if (value.length > 1) {
       const order = list
         .filter((u) => u.includes(value))
-        .sort((a, b) => a.length - b.length)
+        .toSorted((a, b) => a.length - b.length)
       dispatch({
         type: 'filtrar',
         payload: order
