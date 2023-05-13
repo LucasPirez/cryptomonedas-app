@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { color } from '../../styles/colors'
 import ArrowLeft from '../Icons/Arrowleft'
@@ -13,25 +13,19 @@ export default function Header() {
   const router = useRouter()
   const path = router.asPath
   const [hidden, setHidden] = useState(true)
+
+  const { page: criptoPage } = useSelector((state) => state.criptoList)
+  const { page: exchagesPage } = useSelector((state) => state.exchangesList)
+
   const handleClick = () => {
     setHidden(true)
   }
-  const { page: criptoPage } = useSelector((state) => state.criptoList)
-  const { page: exchagesPage } = useSelector((state) => state.exchangesList)
+
   const ref = useClick(handleClick)
 
   async function handleBack(e) {
     e.preventDefault()
-
-    if (endpoint === 'criptos' && query.id != page) {
-      try {
-        console.log('hola header back  ', page)
-        const response = await pagination(page, 'usd')
-        dispatch(coinReduceTable(response))
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    router.back()
   }
 
   return (
