@@ -12,7 +12,6 @@ import {
 } from '../../redux/features/listCriptos'
 import Loading from '../Loading'
 import { EPCoinsMarketsAdapter } from '../../adapters/EPCoinsMarketsAdapter'
-import { getUSer } from './u'
 import Error from '../error/Error'
 
 export default function Table({ query }) {
@@ -25,7 +24,6 @@ export default function Table({ query }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getUSer()
     if (page !== +query) {
       dispatch(currencyUpdatePage(parseInt(query)))
       dispatch(

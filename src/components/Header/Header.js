@@ -65,7 +65,6 @@ export default function Header() {
           <RenderSelectCurrency />
         </div>
       </nav>
-      <SesionItit />
 
       <style jsx>{`
         nav {
