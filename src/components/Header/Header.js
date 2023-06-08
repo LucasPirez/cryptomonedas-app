@@ -4,8 +4,6 @@ import { color } from '../../styles/colors'
 import ArrowLeft from '../Icons/Arrowleft'
 import { useRouter } from 'next/router'
 import useClick from '../../hook/useClick'
-import LoginLogout from '../user/LoginLogout'
-import SesionItit from '../user/SesionInit'
 import { useSelector } from 'react-redux'
 import RenderSelectCurrency from './RenderSelectCurrency'
 
@@ -57,10 +55,6 @@ export default function Header() {
                 <a>Exchanges</a>
               </Link>
             </li>
-            <li>
-              <LoginLogout />
-            </li>
-            <li></li>
           </ul>
           <RenderSelectCurrency />
         </div>
