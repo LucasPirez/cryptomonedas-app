@@ -1,9 +1,11 @@
 import { scaleLinear, scaleTime, line, extent } from 'd3'
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
 import SvgTime from './SvgTime'
+import { useContextGraficHistoric } from '../../context/ContextGraficHistoric'
 
-export default function ContainerTimeGrafic({ data }) {
+export default function ContainerTimeGrafic() {
   const { width, margin } = useConstansGrafic()
+  const { dataHistoric: data } = useContextGraficHistoric()
 
   const xScale = scaleTime()
     .domain(extent(data, (d) => d[0]))

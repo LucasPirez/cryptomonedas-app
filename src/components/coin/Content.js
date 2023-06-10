@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import SubContent from './SubContent'
 import SubContentMarket from './SubContentMarket'
 import { color } from '../../styles/colors'
 import AddDeleteFavorite from '../favorites/AddDeleteFavorite'
-import useCurrencyLightContext from '../../context/CurrencyLightContext'
 import { useSelector } from 'react-redux'
 
 export default function Content({ data }) {

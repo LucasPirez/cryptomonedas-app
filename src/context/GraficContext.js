@@ -35,7 +35,6 @@ export function GraficContextProvider({ children }) {
         .then((data) => data.json())
         .then((data) => {
           setData(data.prices)
-          console.log(data)
           setLoading(false)
           setTime(null)
           setRangeGrafic({ min, max })
@@ -59,7 +58,7 @@ export function GraficContextProvider({ children }) {
   useEffect(() => {
     setLoading(true)
     graficDays(id, 7, currencySelect.currency).then((datos) => {
-      setData((data) => datos.prices)
+      setData(() => datos.prices)
       setLoading(false)
       setTime(7)
     })

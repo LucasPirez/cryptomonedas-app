@@ -6,6 +6,7 @@ import Content from '../../components/coin/Content'
 import Convert from '../../components/coin/Convert'
 import { GraficContextProvider } from '../../context/GraficContext'
 import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
+import ContextGraficHistoricProvider from '../../components/coin/context/ContextGraficHistoric'
 
 const DataGraficFetcher = lazy(() =>
   import('../../components/coin/DataGraficFetcher')
@@ -38,20 +39,15 @@ export default function Coin() {
       <section>
         <GraficContextProvider>
           {coin.data && (
-            <>
+            <ContextGraficHistoricProvider id={coin.id}>
               <Content data={EPCoinAdapter(coin.data)} />
               <div>
-                <>
-                  <Suspense fallback={<p>Cargando Grafico</p>}>
-                    <DataGraficFetcher id={coin.id} />
-                  </Suspense>
-                  <Convert
-                    data={coin.data.market_data}
-                    name={coin.data.symbol}
-                  />
-                </>
+                <Suspense fallback={<p>Cargando Grafico</p>}>
+                  <DataGraficFetcher id={coin.id} />
+                </Suspense>
+                <Convert data={coin.data.market_data} name={coin.data.symbol} />
               </div>
-            </>
+            </ContextGraficHistoricProvider>
           )}
         </GraficContextProvider>
       </section>

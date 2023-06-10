@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Grafic from './grafic/lineGrafic/Grafic'
 import CandleGrafic from './grafic/candleGrafic'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
@@ -20,6 +20,9 @@ export default function ContainerGrafic({
   const { data, loading } = useGraficContext()
 
   function GroupComponentns() {
+    useEffect(() => {
+      console.log('render ContainerGrafic.js')
+    })
     return (
       <>
         <section>
@@ -61,7 +64,7 @@ export default function ContainerGrafic({
 
   return (
     <>
-      {portalState ? (
+      {!portalState ? (
         <GroupComponentns />
       ) : (
         <ModalPortal>
