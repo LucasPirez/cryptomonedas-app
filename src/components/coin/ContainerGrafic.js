@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
 import useGraficContext from '../../context/GraficContext'
@@ -17,6 +17,10 @@ export default function ContainerGrafic({
   const [candleGrafic, setCandleGrafic] = useState(false)
   const [portalState, setPortalState] = useState(false)
   const { data, loading } = useGraficContext()
+
+  useEffect(() => {
+    console.log('render')
+  })
 
   function GroupComponentns() {
     return (

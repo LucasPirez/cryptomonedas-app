@@ -1,8 +1,7 @@
+import { scaleLinear, extent, line } from 'd3'
 import { color } from '../../../styles/colors'
 
-import { scaleLinear, extent, line } from 'd3'
-
-export default function GraficRow({ dataGrafic, graficColor, width = 220 }) {
+function GraficRow({ dataGrafic, graficColor, width = 220 }) {
   const height = 65
   const margin = { horizontal: 2, vertical: 4 }
 
@@ -17,7 +16,7 @@ export default function GraficRow({ dataGrafic, graficColor, width = 220 }) {
   const valueLine = line()
     .x((d, i) => x1(i))
     .y((d) => y1(d))
-
+  console.log('render')
   return (
     <svg
       style={{
@@ -34,3 +33,4 @@ export default function GraficRow({ dataGrafic, graficColor, width = 220 }) {
     </svg>
   )
 }
+export default GraficRow

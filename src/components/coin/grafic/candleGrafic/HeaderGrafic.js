@@ -1,7 +1,9 @@
-import useConstansGrafic from '../../../../hook/useConstansGrafic'
+import { useContext } from 'react'
+import { ContextSVG } from '../../context/ContextSVG'
 
 export default function HeaderGrafic({ stateRect, y1, theme }) {
-  const { margin, height } = useConstansGrafic()
+  const { state } = useContext(ContextSVG)
+  const { margin, height } = state.constants
 
   return (
     <>

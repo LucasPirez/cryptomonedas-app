@@ -1,18 +1,11 @@
-import useConstansGrafic from '../../../../hook/useConstansGrafic'
-import { scaleLinear, scaleTime, min, max } from 'd3'
 import Grafic from './Grafic'
+import { useContext } from 'react'
+import { ContextSVG } from '../../context/ContextSVG'
 
 export default function CandleGrafic({ data }) {
-  const { width, height, margin } = useConstansGrafic()
+  const { state } = useContext(ContextSVG)
+  const { scaleX, scaleY } = state.scaleXandY
   const divisor = data.length / 10
-
-  const x1 = scaleTime()
-    .domain([min(data, (d) => d[0]), max(data, (d) => d[0])])
-    .range([margin.left, width])
-
-  const y1 = scaleLinear()
-    .domain([min(data, (d) => d[1]), max(data, (d) => d[1])])
-    .range([height - margin.bottom, margin.top])
 
   const obj = () => {
     const long = Math.round(data.length / divisor)
@@ -50,33 +43,22 @@ export default function CandleGrafic({ data }) {
 
   const dataScale = obj().map((u) => {
     return {
-      promedio: y1((u.maximo + u.minimo) / 2),
-      posX: x1(u.date) - 2.5,
-      maximo: y1(u.maximo),
-      minimo: y1(u.minimo),
-      open: y1(u.open),
-      close: y1(u.close)
+      promedio: scaleY((u.maximo + u.minimo) / 2),
+      posX: scaleX(u.date) - 2.5,
+      maximo: scaleY(u.maximo),
+      minimo: scaleY(u.minimo),
+      open: scaleY(u.open),
+      close: scaleY(u.close)
     }
   })
 
   return (
-    <>
-      <div className='container'>
-        <Grafic
-          dataObj={obj()}
-          dataScale={dataScale}
-          x1={x1}
-          y1={y1}
-          stateData={data}
-        />
-      </div>
-      <style jsx>{`
-        .container {
-          width: width;
-          height: height;
-          position: relative;
-        }
-      `}</style>
-    </>
+    <Grafic
+      dataObj={obj()}
+      dataScale={dataScale}
+      x1={scaleX}
+      y1={scaleY}
+      stateData={data}
+    />
   )
 }

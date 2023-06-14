@@ -49,7 +49,7 @@ export function GraficContextProvider({ children }) {
 
     setLoading(true)
     graficDays(id, tiempo, currencySelect.currency).then((datos) => {
-      setData((data) => datos.prices)
+      setData(datos.prices)
       setLoading(false)
       setTime(tiempo)
     })
@@ -58,7 +58,7 @@ export function GraficContextProvider({ children }) {
   useEffect(() => {
     setLoading(true)
     graficDays(id, 7, currencySelect.currency).then((datos) => {
-      setData(() => datos.prices)
+      setData(datos.prices)
       setLoading(false)
       setTime(7)
     })
@@ -72,7 +72,6 @@ export function GraficContextProvider({ children }) {
     setTime,
     dateNow,
     rangeGraficAction,
-    rangeGrafic,
     loading
   }
 

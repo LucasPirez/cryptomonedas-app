@@ -1,12 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useGrafic } from '../../../../hook/useGrafic'
-import useConstansGrafic from '../../../../hook/useConstansGrafic'
 import { select, min, axisBottom, timeFormat } from 'd3'
 import { color } from '../../../../styles/colors'
 import useGraficContext from '../../../../context/GraficContext'
+import { ContextSVG } from '../../context/ContextSVG'
 
 export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
-  const { width } = useConstansGrafic()
+  const { state } = useContext(ContextSVG)
+  const { width } = state.constants
   const { data, rangeGraficAction } = useGraficContext()
   const ref1 = useRef(0)
   const ref2 = useRef(1)

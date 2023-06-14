@@ -1,81 +1,34 @@
 import { useState, useRef } from 'react'
-import useConstansGrafic from './useConstansGrafic'
 
-import { getPathData } from 'path-data-polyfill'
-
-export default function useCursor(datosLine) {
+export default function useCursor(dispatch) {
   const refTouchStart = useRef()
-  const { width, height, margin } = useConstansGrafic()
-  const [coordenadas, setCoordenadas] = useState({
-    x: 0,
-    y: 0,
-    mouseY: 0,
-    open: null,
-    close: null,
-    hight: null,
-    low: null,
-  })
-  const [animationStart, setAnimationStart] = useState(false)
+
+  function getyforXTouch(e) {
+    const y = 100
+    const eventX = e.changedTouches[0].pageX - refTouchStart.current
+
+    return { eventX, y }
+  }
 
   const getYforX = (e) => {
-    setAnimationStart(true)
     const y = e.nativeEvent.offsetY
-    if (y > margin.bottom && datosLine) {
-      datosLine.getPathData().map((u, i) => {
-        const x = e.nativeEvent.offsetX
-        if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
-          if (y < height - margin.bottom) {
-            setCoordenadas({
-              x: u.values[0],
-              y: u.values[1],
-              mouseY: y,
-            })
-          } else {
-            setCoordenadas({
-              mouseY: height - margin.bottom,
-              x: u.values[0],
-              y: u.values[1],
-            })
-          }
-        }
-        return
-      })
-    }
+    const x = e.nativeEvent.offsetX
+
+    dispatch({ type: 'SET_COORDENADAS', payload: { x, y } })
+    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
   }
 
   function stopAnimation() {
-    setAnimationStart(false)
+    dispatch({ type: 'SET_ANIMATIONSTATE', payload: false })
   }
 
   function startTouch(e) {
-    console.log(e.target.getBoundingClientRect())
-    refTouchStart.current = e.target.getBoundingClientRect().x - margin.left
-  }
-
-  function getyforXTouch(e) {
-    setAnimationStart(true)
-    const y = 100
-
-    datosLine.getPathData().map((u, i) => {
-      const x = e.changedTouches[0].pageX - refTouchStart.current
-      if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
-        setCoordenadas({
-          x: u.values[0],
-          y: u.values[1],
-          mouseY: y,
-        })
-
-        return
-      }
-    })
+    refTouchStart.current = e.target.getBoundingClientRect().x - 40
   }
 
   return {
-    coordenadas,
     getYforX,
-    getyforXTouch,
     startTouch,
-    animationStart,
-    stopAnimation,
+    stopAnimation
   }
 }

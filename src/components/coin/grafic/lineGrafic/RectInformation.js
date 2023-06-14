@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { select } from 'd3'
 import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
-import { ContextSVG } from '../../GraficSVG'
+import { ContextSVG } from '../../context/ContextSVG'
 
 export const trim = (val) => {
   if (val) {
@@ -23,7 +23,7 @@ export default function RectInformation({
   animationStart
 }) {
   const { state } = useContext(ContextSVG)
-  const { coordenadas, mouseY } = state
+  const { coordenadas } = state
 
   function mostarNOmostrar(valor) {
     const arr = ['#textPrice', '#rectInformation', '#textBitcoin', '#textDate']
@@ -54,24 +54,24 @@ export default function RectInformation({
       uperDown = -10
     }
 
-    const yDown = mouseY < 100 ? 95 : -10
+    const yDown = coordenadas.y < 100 ? 95 : -10
 
     select('#rectInformation')
       .attr('x', coordenadas.x - uperDown)
-      .attr('y', mouseY - 85 + yDown)
+      .attr('y', coordenadas.y - 85 + yDown)
 
     select('#textPrice')
       .attr('x', coordenadas.x - uperDown + 12)
-      .attr('y', mouseY - 42 + yDown)
+      .attr('y', coordenadas.y - 42 + yDown)
 
     select('#textDate')
       .attr('x', coordenadas.x - uperDown + 12)
-      .attr('y', mouseY - 65 + yDown)
+      .attr('y', coordenadas.y - 65 + yDown)
 
     if (bitcoinScale) {
       select('#textBitcoin')
         .attr('x', coordenadas.x - uperDown + 12)
-        .attr('y', mouseY - 22 + yDown)
+        .attr('y', coordenadas.y - 22 + yDown)
     }
   }, [coordenadas])
 

@@ -6,12 +6,13 @@ export const ContextSVG = createContext(null)
 const initialState = {
   scaleXandY: { scaleX: null, scaleY: null },
   parsePath: null,
-  coordenadas: null,
+  coordenadas: { x: 0, y: 0 },
   constants: {
     width: 200,
-    height: 400,
+    height: 450,
     margin: { top: 40, right: 30, bottom: 50, left: 40 }
-  }
+  },
+  animationStart: false
 }
 
 const reducer = (state, action) => {
@@ -28,6 +29,8 @@ const reducer = (state, action) => {
         ...state,
         constants: { ...state.constants, width: action.payload }
       }
+    case 'SET_ANIMATIONSTATE':
+      return { ...state, animationStart: action.payload }
   }
 }
 

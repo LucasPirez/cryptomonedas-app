@@ -6,13 +6,13 @@ import { scaleTime, scaleLinear, min, max } from 'd3'
 import Grafic from './lineGrafic/Grafic'
 import useCursor from '../../../hook/useCursor'
 import { ContextSVG } from '../context/ContextSVG'
+import CandleGrafic from './candleGrafic'
 
-export default function GraficSVG({ data, change, dataBitcoin }) {
+export default function GraficSVG({ data, change, dataBitcoin, candleGrafic }) {
   const { state, dispatch } = useContext(ContextSVG)
   const { width, height, margin } = state.constants
 
-  const { getYforX, startTouch, animationStart, stopAnimation } =
-    useCursor(dispatch)
+  const { getYforX, startTouch, stopAnimation } = useCursor(dispatch)
 
   const { xScale, yScale } = useMemo(() => {
     const X = scaleTime()
@@ -106,12 +106,13 @@ export default function GraficSVG({ data, change, dataBitcoin }) {
           <g id='grd' />
 
           {state.scaleXandY.scaleX && (
-            <Grafic
-              data={data}
-              change={change}
-              dataBitcoin={dataBitcoin}
-              animationStart={animationStart}
-            />
+            <>
+              {!candleGrafic ? (
+                <Grafic data={data} change={change} dataBitcoin={dataBitcoin} />
+              ) : (
+                <CandleGrafic data={data} />
+              )}
+            </>
           )}
         </svg>
       </div>

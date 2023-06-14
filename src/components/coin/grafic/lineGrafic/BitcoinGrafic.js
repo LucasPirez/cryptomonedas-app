@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as d3 from 'd3'
-import useConstansGrafic from '../../../../hook/useConstansGrafic'
+
 import { color } from '../../../../styles/colors'
+import { ContextSVG } from '../../context/ContextSVG'
 
 export default function BitcoinGrafic({
   dataBitcoin,
   setBitcoinPrice,
-  coordenadas,
   setBitcoinScale
 }) {
-  const { width, height, margin } = useConstansGrafic()
-
+  const { state } = useContext(ContextSVG)
+  const { coordenadas } = state
+  const { width, height, margin } = state.constants
   const [stateBitcoin, setStateBitcoin] = useState(null)
 
   const y1 = d3
@@ -64,6 +65,10 @@ export default function BitcoinGrafic({
         const x = coordenadas.x
         if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
           const eventY = { x: u.values[0], y: u.values[1] }
+
+          d3.select('[name=bitcoinDezlizador]')
+            .attr('cx', u.values[0])
+            .attr('cy', u.values[1])
           setBitcoinPrice(eventY)
           setBitcoinScale(y1.invert(eventY.y))
         }
@@ -75,6 +80,17 @@ export default function BitcoinGrafic({
     <>
       <g id='axisBitcoin' />
       <path id='pathBitcoin' />
+
+      <circle
+        className='cursor'
+        name='bitcoinDezlizador'
+        cx='187.476'
+        cy='214.443'
+        r='2.5'
+        fill={color.bitcoin}
+        stroke={color.blue}
+        opacity={dataBitcoin ? 1 : 0}
+      />
     </>
   )
 }

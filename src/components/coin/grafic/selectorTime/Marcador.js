@@ -1,6 +1,6 @@
 import useGraficContext from '../../../../context/GraficContext'
 
-export default function Marcador({ xScale, yScale }) {
+function Marcador({ xScale, yScale }) {
   const { data } = useGraficContext()
   const handleDown = (e) => {
     e.preventDefault()

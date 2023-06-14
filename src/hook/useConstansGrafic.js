@@ -1,29 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 export default function useConstansGrafic() {
-  const height = 400;
-  const margin = { top: 40, right: 30, bottom: 50, left: 40 };
-
-  const [width, setWidth] = useState(null);
+  const [width, setWidth] = useState(null)
 
   useEffect(() => {
     const inner =
       window.innerWidth > 1100
         ? window.innerWidth * 0.65
-        : window.innerWidth * 0.9;
-    setWidth(inner);
+        : window.innerWidth * 0.9
+    setWidth(inner)
 
-    const res = window.addEventListener("resize", () => {
+    const res = window.addEventListener('resize', () => {
+      console.log('resive width')
       const resizewidth =
         window.innerWidth > 1100
           ? window.innerWidth * 0.65
-          : window.innerWidth * 0.9;
+          : window.innerWidth * 0.9
 
-      setWidth(resizewidth);
-    });
+      setWidth(resizewidth)
+    })
 
-    return () => window.removeEventListener("resize", res);
-  }, []);
+    return () => window.removeEventListener('resize', res)
+  }, [])
 
-  return { width, height, margin };
+  return width
 }

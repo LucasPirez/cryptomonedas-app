@@ -1,9 +1,9 @@
 import useConstansGrafic from '../../../../hook/useConstansGrafic'
-import { useContextGraficHistoric } from '../../context/ContextGraficHistoric'
+import { useContextGraficHistoric } from '../../context/ContextGraficsData'
 import ContainerTimeGrafic from './ContainerGrafic'
 
 export default function SelectorTime({ id, currency }) {
-  const { width } = useConstansGrafic()
+  const width = useConstansGrafic()
   const { dataHistoric } = useContextGraficHistoric()
 
   return (
