@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   trailingSlash: true,
   images: {
-    domains: ["assets.coingecko.com"],
-  },
-};
+    domains: ['assets.coingecko.com']
+  }
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

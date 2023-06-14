@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 import Image from 'next/image'
 import AddDeleteFavorite from './favorites/AddDeleteFavorite'
 import { color } from '../styles/colors'
 import { useSelector } from 'react-redux'
 
-const GraficRow = React.lazy(() => import('./coin/grafic/GraficRow'))
+const GraficRow = lazy(() => import('./coin/grafic/GraficRow'))
 
 export default function CoinsRow({ data }) {
   // const [dataGrafic, setDataGrafic] = useState(null);

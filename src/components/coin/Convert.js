@@ -1,41 +1,41 @@
-import { useState, useEffect } from "react";
-import useConstansGrafic from "../../hook/useConstansGrafic";
-import { color } from "../../styles/colors";
+import { useState, useEffect } from 'react'
+import useConstansGrafic from '../../hook/useConstansGrafic'
+import { color } from '../../styles/colors'
 
 export default function Convert({ data, name }) {
-  const [coinSelected, setCoinSelected] = useState("usd");
-  const [mount, setMount] = useState(null);
-  const [conversion, setConversion] = useState(0);
-  const arr = Object.entries(data.current_price);
-  const { width } = useConstansGrafic();
+  const [coinSelected, setCoinSelected] = useState('usd')
+  const [mount, setMount] = useState(null)
+  const [conversion, setConversion] = useState(0)
+  const arr = Object.entries(data.current_price)
+  const width = useConstansGrafic()
   useEffect(() => {
     for (const [val, price] of arr) {
       if (val === coinSelected) {
-        return setConversion(price * +mount);
+        return setConversion(price * +mount)
       }
     }
-  }, [mount, coinSelected, arr]);
+  }, [mount, coinSelected, arr])
 
   return (
     <>
-      <div className="container">
+      <div className='container'>
         <h3>Convert ETH to {coinSelected.toUpperCase()} </h3>
-        <div className="sub_container">
+        <div className='sub_container'>
           <div>
             <p>{name.toUpperCase()}:</p>
           </div>
           <input
-            type="number"
-            name="input-mount"
+            type='number'
+            name='input-mount'
             onChange={(e) => setMount(e.target.value)}
           />
         </div>
-        <div className="sub_container">
+        <div className='sub_container'>
           <div>
             <select
-              name="select"
+              name='select'
               onChange={(e) => setCoinSelected(e.target.value)}
-              value={coinSelected || "usd"}
+              value={coinSelected || 'usd'}
             >
               {Object.keys(data.ath).map((u) => (
                 <option value={u} key={u + Math.random()}>
@@ -46,7 +46,7 @@ export default function Convert({ data, name }) {
           </div>
 
           <input
-            type="number"
+            type='number'
             value={conversion >= 0 && conversion.toFixed(2)}
             readOnly={true}
           />
@@ -122,5 +122,5 @@ export default function Convert({ data, name }) {
         }
       `}</style>
     </>
-  );
+  )
 }
