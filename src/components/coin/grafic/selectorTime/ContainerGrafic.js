@@ -1,13 +1,13 @@
+import { useContext } from 'react'
 import { scaleLinear, scaleTime, line, extent } from 'd3'
 import SvgTime from './SvgTime'
-import { useContextGraficHistoric } from '../../context/ContextGraficsData'
-import { useContext } from 'react'
+import { useContextGraficsData } from '../../context/ContextGraficsData'
 import { ContextSVG } from '../../context/ContextSVG'
 
 export default function ContainerTimeGrafic() {
   const { state } = useContext(ContextSVG)
   const { width, margin } = state.constants
-  const { dataHistoric: data } = useContextGraficHistoric()
+  const { dataHistoric: data } = useContextGraficsData()
 
   const xScale = scaleTime()
     .domain(extent(data, (d) => d[0]))

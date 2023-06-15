@@ -1,14 +1,13 @@
-import { useState, useEffect, useContext, createContext } from 'react'
-import { useRouter } from 'next/router'
-import { graficDays, graficRange } from '../client/client'
+import { useContext, createContext, useState, useEffect } from 'react'
+import { graficDays, graficRange } from '../../../client/client'
 import { useSelector } from 'react-redux'
 
-export const GraficContext = createContext(null)
+const ContextGraficsData = createContext(null)
 
-export function GraficContextProvider({ children }) {
+export default function ContextGraficsDataProvide({ children, id }) {
   const { currencySelect } = useSelector((state) => state.criptoList)
-  const router = useRouter()
-  const { id } = router.query
+
+  const [dataHistoric, setDataHistoric] = useState(null)
   const [time, setTime] = useState(null)
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -64,7 +63,26 @@ export function GraficContextProvider({ children }) {
     })
   }, [])
 
-  const dataContext = {
+  useEffect(() => {
+    const abortController = new AbortController()
+
+    graficRange({ id, currency: 'usd', time: 1022577232 }, abortController)
+      .then((data) => data.json())
+      .then((data) => {
+        setDataHistoric(data.prices)
+      })
+      .catch((error) => {
+        console.log(error)
+        return null
+      })
+
+    return () => {
+      abortController.abort()
+    }
+  }, [])
+
+  const value = {
+    dataHistoric,
     data,
     setData,
     fetch7Days,
@@ -72,22 +90,22 @@ export function GraficContextProvider({ children }) {
     setTime,
     dateNow,
     rangeGraficAction,
+    rangeGrafic,
     loading
   }
 
   return (
-    <GraficContext.Provider value={dataContext}>
+    <ContextGraficsData.Provider value={value}>
       {children}
-    </GraficContext.Provider>
+    </ContextGraficsData.Provider>
   )
 }
 
-export default function useGraficContext() {
-  const context = useContext(GraficContext)
+export function useContextGraficsData() {
+  const context = useContext(ContextGraficsData)
 
   if (!context) {
-    console.error('Error deploying App Context!!!')
+    throw new Error('El contexto debe usarse dentro del provider')
   }
-
   return context
 }

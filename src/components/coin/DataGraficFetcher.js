@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { graficDays, graficRange } from '../../client/client'
 import { useSelector } from 'react-redux'
-import useGraficContext from '../../context/GraficContext'
 import ContainerGrafic from './ContainerGrafic'
+import { useContextGraficsData } from './context/ContextGraficsData'
 
 export default function DataGraficFetcher({ id }) {
   const [dataBitcoin, setDataBitcoin] = useState(null)
   const { currencySelect } = useSelector((state) => state.criptoList)
   const rangeMin = useRef({ min: null, time: null })
   const [change, setChange] = useState(false)
-  const { data, rangeGrafic, time } = useGraficContext()
+  const { data, rangeGrafic, time } = useContextGraficsData()
 
   function reduceBitcoin(value) {
     const arr = value.map((u, i) => {
@@ -30,7 +30,6 @@ export default function DataGraficFetcher({ id }) {
           time,
           currencySelect.currency
         )
-        console.log(time)
 
         reduceBitcoin(response.prices)
       }

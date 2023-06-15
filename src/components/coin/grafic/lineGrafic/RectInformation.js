@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
 import { select } from 'd3'
 import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
-import { ContextSVG } from '../../context/ContextSVG'
+import { useContextSVG } from '../../context/ContextSVG'
+import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
 export const trim = (val) => {
   if (val) {
@@ -16,64 +16,50 @@ export const trim = (val) => {
   }
 }
 export default function RectInformation({
-  x1,
-  y1,
   bitcoinPrice,
   bitcoinScale,
-  animationStart
+  valueYRef
 }) {
-  const { state } = useContext(ContextSVG)
-  const { coordenadas } = state
+  const { state } = useContextSVG()
+  const { scaleX, scaleY } = state.scaleXandY
 
-  function mostarNOmostrar(valor) {
-    const arr = ['#textPrice', '#rectInformation', '#textBitcoin', '#textDate']
+  const { state: stateAnimation } = useContextAnimationCursor()
+  const { coordenadas, animationStart } = stateAnimation
 
-    arr.forEach((u) => {
-      d3.select(u)
-        .transition()
-        .ease(d3.easeLinear)
-        .duration(300)
-        .style('opacity', valor)
-    })
+  let uperDown
+
+  if (coordenadas.x > 200) {
+    uperDown = 150
+  } else {
+    uperDown = -10
   }
 
-  useEffect(() => {
-    if (animationStart) {
-      mostarNOmostrar(1)
-    } else {
-      mostarNOmostrar(0)
-    }
-  }, [animationStart])
+  const yDown = coordenadas.y < 100 ? 95 : -10
 
-  useEffect(() => {
-    let uperDown
+  select('#rectInformation')
+    .attr('x', coordenadas.x - uperDown)
+    .attr('y', coordenadas.y - 85 + yDown)
+    .transition()
+    .ease(d3.easeLinear)
+    .duration(300)
+    .style('opacity', animationStart ? 1 : 0)
 
-    if (coordenadas.x > 200) {
-      uperDown = 150
-    } else {
-      uperDown = -10
-    }
+  select('#textPrice')
+    .attr('x', coordenadas.x - uperDown + 12)
+    .attr('y', coordenadas.y - 42 + yDown)
+    .style('opacity', animationStart ? 1 : 0)
 
-    const yDown = coordenadas.y < 100 ? 95 : -10
+  select('#textDate')
+    .attr('x', coordenadas.x - uperDown + 12)
+    .attr('y', coordenadas.y - 65 + yDown)
+    .style('opacity', animationStart ? 1 : 0)
 
-    select('#rectInformation')
-      .attr('x', coordenadas.x - uperDown)
-      .attr('y', coordenadas.y - 85 + yDown)
-
-    select('#textPrice')
+  if (bitcoinScale) {
+    select('#textBitcoin')
       .attr('x', coordenadas.x - uperDown + 12)
-      .attr('y', coordenadas.y - 42 + yDown)
-
-    select('#textDate')
-      .attr('x', coordenadas.x - uperDown + 12)
-      .attr('y', coordenadas.y - 65 + yDown)
-
-    if (bitcoinScale) {
-      select('#textBitcoin')
-        .attr('x', coordenadas.x - uperDown + 12)
-        .attr('y', coordenadas.y - 22 + yDown)
-    }
-  }, [coordenadas])
+      .attr('y', coordenadas.y - 22 + yDown)
+      .style('opacity', animationStart ? 1 : 0)
+  }
 
   return (
     <>
@@ -98,7 +84,7 @@ export default function RectInformation({
         fill={color.reduceBackground}
         fontWeight={'600'}
       >
-        price: $ {trim(y1.invert(coordenadas.y))}
+        price: $ {trim(scaleY.invert(valueYRef.current))}
       </text>
 
       <text
@@ -121,7 +107,7 @@ export default function RectInformation({
         fontWeight={'600'}
         fill={color.reduceBackground}
       >
-        {new Date(x1.invert(coordenadas.x)).toLocaleString()}
+        {new Date(scaleX.invert(coordenadas.x)).toLocaleString()}
       </text>
 
       <style jsx>{`

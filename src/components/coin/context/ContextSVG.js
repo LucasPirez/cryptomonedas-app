@@ -1,4 +1,4 @@
-import { useReducer, createContext, useEffect } from 'react'
+import { useReducer, createContext, useEffect, useContext } from 'react'
 import useConstansGrafic from '../../../hook/useConstansGrafic'
 
 export const ContextSVG = createContext(null)
@@ -6,31 +6,24 @@ export const ContextSVG = createContext(null)
 const initialState = {
   scaleXandY: { scaleX: null, scaleY: null },
   parsePath: null,
-  coordenadas: { x: 0, y: 0 },
   constants: {
     width: 200,
     height: 450,
     margin: { top: 40, right: 30, bottom: 50, left: 40 }
-  },
-  animationStart: false
+  }
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_SCALEXANDY':
       return { ...state, scaleXandY: action.payload }
-
     case 'SET_PARSE_PATH':
       return { ...state, parsePath: action.payload }
-    case 'SET_COORDENADAS':
-      return { ...state, coordenadas: action.payload }
     case 'SET_CONSTANTS':
       return {
         ...state,
         constants: { ...state.constants, width: action.payload }
       }
-    case 'SET_ANIMATIONSTATE':
-      return { ...state, animationStart: action.payload }
   }
 }
 
@@ -50,4 +43,14 @@ export default function ContextSVGProvider({ children }) {
       {children}
     </ContextSVG.Provider>
   )
+}
+
+export const useContextSVG = () => {
+  const context = useContext(ContextSVG)
+
+  if (!context) {
+    throw new Error('el contexto debe usarse dentro del provider')
+  }
+
+  return context
 }

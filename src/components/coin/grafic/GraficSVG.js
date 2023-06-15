@@ -1,18 +1,21 @@
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useGrafic } from '../../../hook/useGrafic'
 import { color } from '../../../styles/colors'
 import * as d3 from 'd3'
 import { scaleTime, scaleLinear, min, max } from 'd3'
 import Grafic from './lineGrafic/Grafic'
 import useCursor from '../../../hook/useCursor'
-import { ContextSVG } from '../context/ContextSVG'
 import CandleGrafic from './candleGrafic'
+import { useContextSVG } from '../context/ContextSVG'
+import { useContextAnimationCursor } from '../context/ContextAnimationCursor'
 
 export default function GraficSVG({ data, change, dataBitcoin, candleGrafic }) {
-  const { state, dispatch } = useContext(ContextSVG)
+  const { dispatch: dispatchSVG, state } = useContextSVG()
   const { width, height, margin } = state.constants
 
-  const { getYforX, startTouch, stopAnimation } = useCursor(dispatch)
+  const { dispatch: dispatchAnimation } = useContextAnimationCursor()
+  const { getYforX, startTouch, getyforXTouch, stopAnimation } =
+    useCursor(dispatchAnimation)
 
   const { xScale, yScale } = useMemo(() => {
     const X = scaleTime()
@@ -30,7 +33,7 @@ export default function GraficSVG({ data, change, dataBitcoin, candleGrafic }) {
 
   const graficD3 = useGrafic(
     (svg) => {
-      dispatch({
+      dispatchSVG({
         type: 'SET_SCALEXANDY',
         payload: { scaleX: xScale, scaleY: yScale }
       })
@@ -98,7 +101,7 @@ export default function GraficSVG({ data, change, dataBitcoin, candleGrafic }) {
           onMouseMove={getYforX}
           onMouseLeave={stopAnimation}
           onTouchStart={(e) => startTouch(e)}
-          // onTouchMove={getyforXTouch}
+          onTouchMove={getyforXTouch}
           onTouchEnd={stopAnimation}
         >
           <g id='xxis' />

@@ -1,20 +1,26 @@
-import { useContext } from 'react'
+import { useRef } from 'react'
 import { color } from '../../../../styles/colors'
 import { select } from 'd3'
-import { ContextSVG } from '../../context/ContextSVG'
+import { useContextSVG } from '../../context/ContextSVG'
+import RectInformation from '../lineGrafic/RectInformation'
 import { getPathData } from 'path-data-polyfill'
+import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
-export default function Cursor({ animationStart }) {
-  const { state } = useContext(ContextSVG)
+export default function Cursor({ bitcoinPrice, bitcoinScale }) {
+  const { state } = useContextSVG()
   const { margin, height, width } = state.constants
+  const { parsePath } = state
 
-  const { coordenadas, parsePath } = state
-  const { x, y } = coordenadas
+  const { state: stateAnimation } = useContextAnimationCursor()
+  const { x, y } = stateAnimation.coordenadas
+
+  const valueYRef = useRef()
 
   if (y > margin.bottom && parsePath) {
     parsePath.getPathData().forEach((u, i) => {
       if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
         if (y < height - margin.bottom) {
+          valueYRef.current = u.values[1]
           select('[name=circle]')
             .attr('cy', u.values[1])
             .attr('cx', u.values[0])
@@ -34,6 +40,7 @@ export default function Cursor({ animationStart }) {
       }
     })
   }
+
   return (
     <>
       <circle
@@ -43,7 +50,7 @@ export default function Cursor({ animationStart }) {
         name='circle'
         fill={color.lineGrafic}
         stroke={color.letters}
-        scale={`${animationStart}` ? 1 : 0}
+        transform={`scale(${stateAnimation.animationStart ? 1 : 0})`}
       />
       <line
         className='cursor'
@@ -56,28 +63,29 @@ export default function Cursor({ animationStart }) {
         stroke={color.letters}
         strokeDasharray={2}
         strokeOpacity={0.5}
+        transform={`scale(${stateAnimation.animationStart ? 1 : 0})`}
       />
       {/* <rect
         x={0}
-        y={coordenadas.mouseY - 14}
+        y={coordenadas.y - 14}
         fill={color.letters}
         opacity={0.8}
         width={
           y1
-            .invert(coordenadas.mouseY)
+            .invert(coordenadas.y)
             .toLocaleString('en-US', { maximumFractionDigits: 0 }).length * 7
         }
         height={18}
       />
       <text
         x={0}
-        y={coordenadas.mouseY}
+        y={coordenadas.y}
         fontSize={12}
         fill={color.background}
         className='lineY'
       >
         {y1
-          .invert(coordenadas.mouseY)
+          .invert(coordenadas.y)
           .toLocaleString('en-US', { maximumFractionDigits: 0 })}
       </text> */}
       <line
@@ -91,6 +99,13 @@ export default function Cursor({ animationStart }) {
         stroke={color.letters}
         strokeDasharray={2}
         strokeOpacity={0.5}
+        transform={`scale(${stateAnimation.animationStart ? 1 : 0})`}
+      />
+
+      <RectInformation
+        bitcoinPrice={bitcoinPrice}
+        bitcoinScale={bitcoinScale}
+        valueYRef={valueYRef}
       />
     </>
   )

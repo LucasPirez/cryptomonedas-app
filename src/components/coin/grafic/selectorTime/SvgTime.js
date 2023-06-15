@@ -2,20 +2,24 @@ import { useContext, useEffect, useRef } from 'react'
 import { useGrafic } from '../../../../hook/useGrafic'
 import { select, min, axisBottom, timeFormat } from 'd3'
 import { color } from '../../../../styles/colors'
-import useGraficContext from '../../../../context/GraficContext'
 import { ContextSVG } from '../../context/ContextSVG'
+import { useContextGraficsData } from '../../context/ContextGraficsData'
 
 export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
   const { state } = useContext(ContextSVG)
   const { width } = state.constants
-  const { data, rangeGraficAction } = useGraficContext()
-  const ref1 = useRef(0)
-  const ref2 = useRef(1)
+  const { data, rangeGraficAction } = useContextGraficsData()
+  const refLines = useRef({ left: 0, right: 1 })
+  const currentSelect = useRef()
 
   useEffect(() => {
-    ref1.current = xScale(data[0][0])
-    ref2.current = xScale(data[data.length - 1][0])
+    refLines.current.left = xScale(data[0][0])
+    refLines.current.right = xScale(data[data.length - 1][0])
   }, [width, data])
+
+  useEffect(() => {
+    console.log('hola')
+  })
 
   const svgD3 = useGrafic(
     (svg) => {
@@ -44,16 +48,6 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
         .style('strokeWidth', 1)
         .style('fill', 'transparent')
 
-      // svg
-      //   .select("#rectHistoric")
-      //   .attr("x", margin.left)
-      //   .attr("y", 0)
-      //   .attr("width", Math.abs(width - margin.left))
-      //   .attr("height", 80)
-      //   .style("fill", "transparent")
-      //   .style("stroke", `${color.lightBlue}`)
-      //   .style("strokeWidth", 2);
-
       svg
         .select('#idG')
         .append('rect')
@@ -69,61 +63,66 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
     [dataHistoric, width, data]
   )
 
-  let bool = ''
-
   const handleDown = (e, str) => {
     e.preventDefault()
-    return (bool = str)
+
+    currentSelect.current = str
   }
 
   const handleUp = (e) => {
     e.preventDefault()
     rangeGraficAction({
-      min: new Date(xScale.invert(ref1.current)).getTime(),
-      max: new Date(xScale.invert(ref2.current)).getTime()
+      min: new Date(xScale.invert(refLines.current.left)).getTime(),
+      max: new Date(xScale.invert(refLines.current.right)).getTime()
     })
 
-    return (bool = 'none')
+    return (currentSelect.current = 'none')
+  }
+
+  const dicSelect = {
+    RIGHT: 'right',
+    LEFT: 'left'
   }
 
   const handleMove = (e) => {
     e.preventDefault()
-
     const x = e.nativeEvent.offsetX
 
-    if (bool === 'left') {
-      if (x <= ref2.current - 10) {
+    if (currentSelect.current === dicSelect.LEFT) {
+      if (x <= refLines.current.right - 10) {
         select('#lineHistoric').attr('x1', x).attr('x2', x)
-        ref1.current = x
+        refLines.current.left = x
       } else {
         select('#lineHistoric').attr('x1', x).attr('x2', x)
         select('#lineHistoricMax')
           .attr('x1', x + 9)
           .attr('x2', x + 9)
-        ref2.current = x + 9
-        ref1.current = x
+        refLines.current.right = x + 9
+        refLines.current.left = x
       }
     }
 
-    if (bool === 'right') {
-      if (x >= ref1.current + 10) {
+    if (currentSelect.current === dicSelect.RIGHT) {
+      if (x >= refLines.current.left + 10) {
         select('#lineHistoricMax').attr('x1', x).attr('x2', x)
-        ref2.current = x
+        refLines.current.right = x
       } else {
         select('#lineHistoricMax').attr('x1', x).attr('x2', x)
         select('#lineHistoric')
           .attr('x1', x - 9)
           .attr('x2', x - 9)
-        ref1.current = x - 9
-        ref2.current = x
+        refLines.current.left = x - 9
+        refLines.current.right = x
       }
     }
-    if (bool === 'left' || bool === 'right') {
-      console.log(ref1, ref2)
+    if (
+      currentSelect.current === dicSelect.LEFT ||
+      currentSelect.current === dicSelect.RIGHT
+    ) {
       select('#rectHistoricMovil')
-        .attr('x', ref1.current)
+        .attr('x', refLines.current.left)
         .attr('y', 0)
-        .attr('width', Math.abs(ref2.current - ref1.current))
+        .attr('width', Math.abs(refLines.current.right - refLines.current.left))
     }
   }
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 
 export default function useCursor(dispatch) {
   const refTouchStart = useRef()
@@ -7,10 +7,18 @@ export default function useCursor(dispatch) {
     const y = 100
     const eventX = e.changedTouches[0].pageX - refTouchStart.current
 
-    return { eventX, y }
+    dispatch({
+      type: 'SET_COORDENADAS',
+      payload: {
+        x: eventX,
+        y
+      }
+    })
+    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
   }
 
   const getYforX = (e) => {
+    e.preventDefault()
     const y = e.nativeEvent.offsetY
     const x = e.nativeEvent.offsetX
 
@@ -29,6 +37,7 @@ export default function useCursor(dispatch) {
   return {
     getYforX,
     startTouch,
+    getyforXTouch,
     stopAnimation
   }
 }

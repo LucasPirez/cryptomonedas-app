@@ -4,7 +4,6 @@ import { oneCoin } from '../../client/client'
 import { color } from '../../styles/colors'
 import Content from '../../components/coin/Content'
 import Convert from '../../components/coin/Convert'
-import { GraficContextProvider } from '../../context/GraficContext'
 import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
 import ContextGraficsDataProvider from '../../components/coin/context/ContextGraficsData'
 
@@ -37,19 +36,17 @@ export default function Coin() {
   return (
     <>
       <section>
-        <GraficContextProvider>
-          {coin.data && (
-            <ContextGraficsDataProvider id={coin.id}>
-              <Content data={EPCoinAdapter(coin.data)} />
-              <div>
-                <Suspense fallback={<p>Cargando Grafico</p>}>
-                  <DataGraficFetcher id={coin.id} />
-                </Suspense>
-                <Convert data={coin.data.market_data} name={coin.data.symbol} />
-              </div>
-            </ContextGraficsDataProvider>
-          )}
-        </GraficContextProvider>
+        {coin.data && (
+          <ContextGraficsDataProvider id={coin.id}>
+            <Content data={EPCoinAdapter(coin.data)} />
+            <div>
+              <Suspense fallback={<p>Cargando Grafico</p>}>
+                <DataGraficFetcher id={coin.id} />
+              </Suspense>
+              <Convert data={coin.data.market_data} name={coin.data.symbol} />
+            </div>
+          </ContextGraficsDataProvider>
+        )}
       </section>
 
       <style jsx>

@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
-import useGraficContext from '../../context/GraficContext'
+
 import Loading from '../Loading'
 import SelectorTime from './grafic/selectorTime'
 import ModalPortal from '../portal/ModalPortal'
 import GraficSVG from './grafic/GraficSVG'
 import ContextSVGProvider from './context/ContextSVG'
+import { useContextGraficsData } from './context/ContextGraficsData'
+import ContextAnimationCursorProvider from './context/ContextAnimationCursor'
 
 export default function ContainerGrafic({
   id,
@@ -16,39 +18,37 @@ export default function ContainerGrafic({
 }) {
   const [candleGrafic, setCandleGrafic] = useState(false)
   const [portalState, setPortalState] = useState(false)
-  const { data, loading } = useGraficContext()
-
-  useEffect(() => {
-    console.log('render')
-  })
+  const { data, loading } = useContextGraficsData()
 
   function GroupComponentns() {
     return (
       <>
         <section>
           <ContextSVGProvider>
-            <HeaderGeneralGrafic />
-
-            <ButtonsSelectGrafic
-              setPortalState={setPortalState}
-              portalState={portalState}
-              setCandleGrafic={setCandleGrafic}
-              candleGrafic={candleGrafic}
-              setChange={setChange}
-              name={id}
-              change={change}
-            />
-
-            {data && (
-              <GraficSVG
-                data={data}
-                change={change}
-                dataBitcoin={dataBitcoin}
+            <ContextAnimationCursorProvider>
+              <HeaderGeneralGrafic />
+              <ButtonsSelectGrafic
+                setPortalState={setPortalState}
+                portalState={portalState}
+                setCandleGrafic={setCandleGrafic}
                 candleGrafic={candleGrafic}
+                setChange={setChange}
+                name={id}
+                change={change}
               />
-            )}
-            {loading && <Loading />}
-            {data && <SelectorTime id={id} currency={'usd'} />}
+              {data && (
+                <>
+                  <GraficSVG
+                    data={data}
+                    change={change}
+                    dataBitcoin={dataBitcoin}
+                    candleGrafic={candleGrafic}
+                  />
+                  <SelectorTime id={id} currency={'usd'} />
+                </>
+              )}
+              {loading && <Loading />}
+            </ContextAnimationCursorProvider>
           </ContextSVGProvider>
         </section>
 

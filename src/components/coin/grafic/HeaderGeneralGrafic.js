@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { color } from '../../../styles/colors'
-import useGraficContext from '../../../context/GraficContext'
 import ChevronDown from '../../Icons/ChevrowDown'
+import { useContextGraficsData } from '../context/ContextGraficsData'
 
 export default function HeaderGeneralGrafic() {
-  const { fetch7Days, time, setTime, dateNow } = useGraficContext()
+  const { fetch7Days, time, setTime, dateNow } = useContextGraficsData()
   const [vista, setVista] = useState(false)
 
   const fecha = (e) => {
