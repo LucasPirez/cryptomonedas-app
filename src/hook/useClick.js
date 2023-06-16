@@ -1,21 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react'
 
 export default function useClick(callback) {
-  const ref = useRef();
+  const ref = useRef()
 
   useEffect(() => {
-    const event = document.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const event = document.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
 
       if (ref.current && !ref.current.contains(e.target)) {
-        callback();
+        callback()
       }
-    });
+    })
     return () => {
-      document.removeEventListener("click", event);
-    };
-  }, [ref]);
+      document.removeEventListener('click', event)
+    }
+  }, [ref])
 
-  return ref;
+  return ref
 }
