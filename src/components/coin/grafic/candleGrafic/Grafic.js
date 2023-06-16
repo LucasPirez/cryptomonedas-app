@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { select } from 'd3'
 import RectLine from '../RectLine'
 import { color } from '../../../../styles/colors'
 import HeaderGrafic from './HeaderGrafic'
-import { ContextSVG } from '../../context/ContextSVG'
+import { useContextSVG } from '../../context/ContextSVG'
+import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
 export default function Grafic({ dataObj, dataScale }) {
   const [stateRect, setStateRect] = useState({
@@ -16,11 +17,12 @@ export default function Grafic({ dataObj, dataScale }) {
   })
   const [theme, setTheme] = useState(null)
   const [marginCandles, setMarginCandles] = useState(null)
-  const { state } = useContext(ContextSVG)
-  const { coordenadas } = state
-  const { animationStart } = state
+  const { state } = useContextSVG()
   const { scaleY } = state.scaleXandY
   const { width, height, margin } = state.constants
+
+  const { state: stateAnimation } = useContextAnimationCursor()
+  const { coordenadas, animationStart } = stateAnimation
 
   useEffect(() => {
     const calc = Math.round(
