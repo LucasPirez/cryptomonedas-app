@@ -1,17 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as d3 from 'd3'
 
 import { color } from '../../../../styles/colors'
-import { ContextSVG } from '../../context/ContextSVG'
+import { useContextSVG } from '../../context/ContextSVG'
+import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
 export default function BitcoinGrafic({
   dataBitcoin,
   setBitcoinPrice,
   setBitcoinScale
 }) {
-  const { state } = useContext(ContextSVG)
-  const { coordenadas } = state
+  const { state } = useContextSVG()
   const { width, height, margin } = state.constants
+
+  const { state: stateAnimation } = useContextAnimationCursor()
+  const { x } = stateAnimation.coordenadas
+
   const [stateBitcoin, setStateBitcoin] = useState(null)
 
   const y1 = d3
@@ -45,24 +49,13 @@ export default function BitcoinGrafic({
       .style('fill', 'transparent')
       .style('stroke-width', 1.4)
 
-    // const yAxis = d3
-    //   .select('#axisBitcoin')
-    //   .attr('transform', `translate(${width - margin.left},0)`)
-    //   .style('color', 'transparent')
-    //   .call(d3.axisRight().scale(y1).ticks(7).tickSize(0))
-    //   .selectAll('text')
-    //   .style('color', `${color.bitcoin}`)
-    //   .style('font-weight', 600)
-    //   .style('font-size', 12)
-
     const parse = path.node()
     setStateBitcoin(parse)
   }, [dataBitcoin, width])
 
   useEffect(() => {
     if (stateBitcoin) {
-      stateBitcoin.getPathData().map((u, i) => {
-        const x = coordenadas.x
+      stateBitcoin.getPathData().forEach((u, i) => {
         if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
           const eventY = { x: u.values[0], y: u.values[1] }
 
@@ -74,7 +67,7 @@ export default function BitcoinGrafic({
         }
       })
     }
-  }, [coordenadas])
+  }, [x])
 
   return (
     <>

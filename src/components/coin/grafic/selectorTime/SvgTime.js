@@ -1,12 +1,12 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGrafic } from '../../../../hook/useGrafic'
 import { select, min, axisBottom, timeFormat } from 'd3'
 import { color } from '../../../../styles/colors'
-import { ContextSVG } from '../../context/ContextSVG'
 import { useContextGraficsData } from '../../context/ContextGraficsData'
+import { useContextSVG } from '../../context/ContextSVG'
 
 export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
-  const { state } = useContext(ContextSVG)
+  const { state } = useContextSVG()
   const { width } = state.constants
   const { data, rangeGraficAction } = useContextGraficsData()
   const refLines = useRef({ left: 0, right: 1 })
@@ -15,7 +15,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
   useEffect(() => {
     refLines.current.left = xScale(data[0][0])
     refLines.current.right = xScale(data[data.length - 1][0])
-  }, [width, data])
+  }, [width])
 
   useEffect(() => {
     console.log('hola')
@@ -60,7 +60,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
         .style('opacity', 0.2)
     },
 
-    [dataHistoric, width, data]
+    [dataHistoric, width]
   )
 
   const handleDown = (e, str) => {
@@ -90,11 +90,11 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
 
     if (currentSelect.current === dicSelect.LEFT) {
       if (x <= refLines.current.right - 10) {
-        select('#lineHistoric').attr('x1', x).attr('x2', x)
+        select('[name=lineHistoric]').attr('x1', x).attr('x2', x)
         refLines.current.left = x
       } else {
-        select('#lineHistoric').attr('x1', x).attr('x2', x)
-        select('#lineHistoricMax')
+        select('[name=lineHistoric]').attr('x1', x).attr('x2', x)
+        select('[name=lineHistoricMax]')
           .attr('x1', x + 9)
           .attr('x2', x + 9)
         refLines.current.right = x + 9
@@ -104,11 +104,11 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
 
     if (currentSelect.current === dicSelect.RIGHT) {
       if (x >= refLines.current.left + 10) {
-        select('#lineHistoricMax').attr('x1', x).attr('x2', x)
+        select('[name=lineHistoricMax]').attr('x1', x).attr('x2', x)
         refLines.current.right = x
       } else {
-        select('#lineHistoricMax').attr('x1', x).attr('x2', x)
-        select('#lineHistoric')
+        select('[name=lineHistoricMax]').attr('x1', x).attr('x2', x)
+        select('[name=lineHistoric]')
           .attr('x1', x - 9)
           .attr('x2', x - 9)
         refLines.current.left = x - 9
@@ -143,7 +143,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
 
         <line
           style={{ cursor: 'ew-resize' }}
-          id={'lineHistoricMax'}
+          name={'lineHistoricMax'}
           x1={xScale(data[data.length - 1][0]) - 2}
           y={0}
           x2={xScale(data[data.length - 1][0]) - 2}
@@ -156,7 +156,7 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
         {data && (
           <line
             style={{ cursor: 'ew-resize' }}
-            id={'lineHistoric'}
+            name={'lineHistoric'}
             x1={xScale(min(data, (d) => d[0]))}
             y={0}
             x2={xScale(min(data, (d) => d[0]))}
@@ -166,7 +166,6 @@ export default function SvgTime({ dataHistoric, lineGrafic, xScale, yScale }) {
             onMouseDown={(e) => handleDown(e, 'left')}
             onMouseUp={handleUp}
           />
-          // <rect x1={} />
         )}
       </svg>
     </>
