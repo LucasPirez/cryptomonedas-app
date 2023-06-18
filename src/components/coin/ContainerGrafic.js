@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
 
@@ -16,7 +16,6 @@ export default function ContainerGrafic({
   change,
   setChange
 }) {
-  const [candleGrafic, setCandleGrafic] = useState(false)
   const [portalState, setPortalState] = useState(false)
   const { data, loading } = useContextGraficsData()
 
@@ -30,11 +29,9 @@ export default function ContainerGrafic({
               <ButtonsSelectGrafic
                 setPortalState={setPortalState}
                 portalState={portalState}
-                setCandleGrafic={setCandleGrafic}
-                candleGrafic={candleGrafic}
                 setChange={setChange}
-                name={id}
                 change={change}
+                name={id}
               />
               {data && (
                 <>
@@ -42,7 +39,6 @@ export default function ContainerGrafic({
                     data={data}
                     change={change}
                     dataBitcoin={dataBitcoin}
-                    candleGrafic={candleGrafic}
                   />
                   <SelectorTime id={id} currency={'usd'} />
                 </>

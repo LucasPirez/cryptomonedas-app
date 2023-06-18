@@ -3,6 +3,11 @@ import useConstansGrafic from '../../../hook/useConstansGrafic'
 
 export const ContextSVG = createContext(null)
 
+export const selectorGrafic = {
+  LINE: 'line',
+  CANDLE: 'candle'
+}
+
 const initialState = {
   scaleXandY: { scaleX: null, scaleY: null },
   parsePath: null,
@@ -10,7 +15,8 @@ const initialState = {
     width: 200,
     height: 450,
     margin: { top: 40, right: 30, bottom: 50, left: 40 }
-  }
+  },
+  selectGrafic: selectorGrafic.LINE
 }
 
 const reducer = (state, action) => {
@@ -24,6 +30,13 @@ const reducer = (state, action) => {
         ...state,
         constants: { ...state.constants, width: action.payload }
       }
+    case 'LINE_GRAPH':
+      return {
+        ...state,
+        selectGrafic: selectorGrafic.LINE
+      }
+    case 'CANDLE_GRAPH':
+      return { ...state, selectGrafic: selectorGrafic.CANDLE }
   }
 }
 

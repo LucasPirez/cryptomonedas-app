@@ -5,33 +5,44 @@ import Minimizar from '../Icons/Minimizar'
 import Image from 'next/image'
 import { color } from '../../styles/colors'
 import Button from '../Button'
+import { selectorGrafic, useContextSVG } from './context/ContextSVG'
 
 export default function ButtonsSelectGrafic({
   setPortalState,
   portalState,
-  setCandleGrafic,
-  candleGrafic,
   setChange,
   name
 }) {
+  const { dispatch, state } = useContextSVG()
+  const { selectGrafic } = state
+  const { LINE, CANDLE } = selectorGrafic
+
   return (
     <>
       <div className='container_buttons'>
         {name !== 'bitcoin' && (
           <>
             <input
-              className={candleGrafic ? 'disabled' : ''}
+              className={selectGrafic === CANDLE ? 'disabled' : ''}
               type='checkbox'
               onClick={() => setChange((change) => !change)}
             />
-            <span className={candleGrafic ? 'disabled' : ''}>BTC</span>
+            <span className={selectGrafic === CANDLE ? 'disabled' : ''}>
+              BTC
+            </span>
           </>
         )}
 
-        <Button select={candleGrafic} onClick={() => setCandleGrafic(true)}>
+        <Button
+          select={selectGrafic === CANDLE}
+          onClick={() => dispatch({ type: 'CANDLE_GRAPH' })}
+        >
           <BarChartIcon />
         </Button>
-        <Button select={!candleGrafic} onClick={() => setCandleGrafic(false)}>
+        <Button
+          select={selectGrafic === LINE}
+          onClick={() => dispatch({ type: 'LINE_GRAPH' })}
+        >
           <Image src={lineChart} alt='chart-line' width={20} height={20} />
         </Button>
 
