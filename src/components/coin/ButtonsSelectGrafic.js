@@ -6,16 +6,18 @@ import Image from 'next/image'
 import { color } from '../../styles/colors'
 import Button from '../Button'
 import { selectorGrafic, useContextSVG } from './context/ContextSVG'
+import { useContextGraficsData } from './context/ContextGraficsData'
 
 export default function ButtonsSelectGrafic({
   setPortalState,
   portalState,
-  setChange,
   name
 }) {
   const { dispatch, state } = useContextSVG()
   const { selectGrafic } = state
   const { LINE, CANDLE } = selectorGrafic
+
+  const { setBitcoinGrafic } = useContextGraficsData()
 
   return (
     <>
@@ -25,7 +27,7 @@ export default function ButtonsSelectGrafic({
             <input
               className={selectGrafic === CANDLE ? 'disabled' : ''}
               type='checkbox'
-              onClick={() => setChange((change) => !change)}
+              onClick={() => setBitcoinGrafic((prev) => !prev)}
             />
             <span className={selectGrafic === CANDLE ? 'disabled' : ''}>
               BTC

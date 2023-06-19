@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
   getLocalStorageCurrency,
   setLocalStorageCurrency
-} from '../../util/localStorageCurrency'
+} from '../../storage/localStorageCurrency'
 import { pagination } from '../../client/client'
 
 export const fetchByPage = createAsyncThunk(

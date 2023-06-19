@@ -1,3 +1,4 @@
+import { getSessionStorageBitcoin } from '../storage/sessionStorageBitcoin'
 import { color } from '../styles/colors'
 
 export default function Button({
@@ -6,6 +7,7 @@ export default function Button({
   select,
   disabled = false
 }) {
+  getSessionStorageBitcoin()
   return (
     <>
       <button

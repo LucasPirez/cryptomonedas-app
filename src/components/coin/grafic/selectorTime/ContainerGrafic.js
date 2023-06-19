@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { scaleLinear, scaleTime, line, extent } from 'd3'
-import SvgTime from './SvgTime'
+import SvgTime from './GraficHistoricSVG'
 import { useContextGraficsData } from '../../context/ContextGraficsData'
 import { ContextSVG } from '../../context/ContextSVG'
 

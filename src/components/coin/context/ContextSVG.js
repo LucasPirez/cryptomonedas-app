@@ -37,6 +37,9 @@ const reducer = (state, action) => {
       }
     case 'CANDLE_GRAPH':
       return { ...state, selectGrafic: selectorGrafic.CANDLE }
+
+    default:
+      throw new Error('ContextSVG reducer action.type is not exist')
   }
 }
 

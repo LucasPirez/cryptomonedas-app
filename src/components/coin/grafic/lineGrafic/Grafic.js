@@ -4,14 +4,18 @@ import BitcoinGrafic from './BitcoinGrafic'
 import { color } from '../../../../styles/colors'
 import Cursor from './Cursor'
 import { ContextSVG } from '../../context/ContextSVG'
+import { useContextGraficsData } from '../../context/ContextGraficsData'
 
-export default function Grafic({ data, change, dataBitcoin }) {
+export default function Grafic({ data, dataBitcoin }) {
   const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
 
   const { state, dispatch } = useContext(ContextSVG)
   const { animationStart } = state
   const { width, height, margin } = state.constants
+
+  const { bitcoinGrafic } = useContextGraficsData()
+
   const valueLine = useMemo(() => {
     const v = d3
       .line()
@@ -32,7 +36,7 @@ export default function Grafic({ data, change, dataBitcoin }) {
 
   return (
     <>
-      {change && dataBitcoin && (
+      {bitcoinGrafic && dataBitcoin && (
         <BitcoinGrafic
           dataBitcoin={dataBitcoin}
           setBitcoinPrice={setBitcoinPrice}
@@ -46,7 +50,7 @@ export default function Grafic({ data, change, dataBitcoin }) {
         } ${height - margin.bottom} `}
       />
       <Cursor bitcoinPrice={bitcoinPrice} bitcoinScale={bitcoinScale} />
-      {!change && (
+      {!bitcoinGrafic && (
         <defs>
           <linearGradient id='gradient' x1='50%' y1='20%' x2='10%' y2='100%'>
             <stop offset='0%' stopColor={color.lightBlue} stopOpacity={0.6} />

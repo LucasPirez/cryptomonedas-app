@@ -8,8 +8,8 @@ export default function DataGraficFetcher({ id }) {
   const [dataBitcoin, setDataBitcoin] = useState(null)
   const { currencySelect } = useSelector((state) => state.criptoList)
   const rangeMin = useRef({ min: null, time: null })
-  const [change, setChange] = useState(false)
-  const { data, rangeGrafic, time } = useContextGraficsData()
+
+  const { data, rangeGrafic, time, bitcoinGrafic } = useContextGraficsData()
 
   function reduceBitcoin(value) {
     const arr = value.map((u, i) => {
@@ -22,7 +22,7 @@ export default function DataGraficFetcher({ id }) {
 
   useEffect(() => {
     ;(async () => {
-      if (data && time && change && rangeMin.current.time !== time) {
+      if (data && time && bitcoinGrafic && rangeMin.current.time !== time) {
         rangeMin.current.time = time
 
         const response = await graficDays(
@@ -34,10 +34,10 @@ export default function DataGraficFetcher({ id }) {
         reduceBitcoin(response.prices)
       }
     })()
-  }, [time, change])
+  }, [time, bitcoinGrafic])
 
   useEffect(() => {
-    if (change && rangeGrafic.min !== rangeMin.current.min) {
+    if (bitcoinGrafic && rangeGrafic.min !== rangeMin.current.min) {
       rangeMin.current.min = rangeGrafic.min
 
       graficRange({
@@ -51,14 +51,7 @@ export default function DataGraficFetcher({ id }) {
           reduceBitcoin(datos.prices)
         })
     }
-  }, [rangeGrafic, change])
+  }, [rangeGrafic, bitcoinGrafic])
 
-  return (
-    <ContainerGrafic
-      dataBitcoin={dataBitcoin}
-      id={id}
-      change={change}
-      setChange={setChange}
-    />
-  )
+  return <ContainerGrafic dataBitcoin={dataBitcoin} id={id} />
 }

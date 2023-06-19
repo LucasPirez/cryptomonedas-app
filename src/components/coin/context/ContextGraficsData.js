@@ -1,12 +1,42 @@
 import { useContext, createContext, useState, useEffect } from 'react'
 import { graficDays, graficRange } from '../../../client/client'
 import { useSelector } from 'react-redux'
+import { getSessionStorageBitcoin } from '../../../storage/sessionStorageBitcoin'
 
 const ContextGraficsData = createContext(null)
 
-export default function ContextGraficsDataProvide({ children, id }) {
-  const { currencySelect } = useSelector((state) => state.criptoList)
+const initialState = {
+  data: null,
+  dataHistoric: null,
+  dataBitcoin: getSessionStorageBitcoin(),
+  time: null,
+  loading: null,
+  rangeGrafic: null,
+  bitcoinGrafic: false
+}
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_DATA':
+      return { ...state, data: action.payload, loading: false }
+    case 'SET_DATAHISTORIC':
+      return { ...state, dataHistoric: action.payload, loading: false }
+    case 'SET_TIME':
+      return { ...state, time: action.payload }
+    case 'SET_RANGEGRAFIC':
+      return { ...state, rangeGrafic: action.payload }
+    case 'LOADING':
+      return { ...state, loading: true }
+    case 'TOGGLE_BITCOIN_GRAFIC':
+      return { ...state, bitcoinGrafic: !state.bitcoinGrafic }
+    default:
+      throw new Error('ContextGraficsData reducer action.type is not exist')
+  }
+}
+
+export default function ContextGraficsDataProvide({ children, id }) {
+  const [bitcoinGrafic, setBitcoinGrafic] = useState(false)
+  const { currencySelect } = useSelector((state) => state.criptoList)
   const [dataHistoric, setDataHistoric] = useState(null)
   const [time, setTime] = useState(null)
   const [data, setData] = useState(null)
@@ -91,7 +121,9 @@ export default function ContextGraficsDataProvide({ children, id }) {
     dateNow,
     rangeGraficAction,
     rangeGrafic,
-    loading
+    loading,
+    bitcoinGrafic,
+    setBitcoinGrafic
   }
 
   return (

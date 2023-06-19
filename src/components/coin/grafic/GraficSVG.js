@@ -9,7 +9,7 @@ import CandleGrafic from './candleGrafic'
 import { useContextSVG } from '../context/ContextSVG'
 import { useContextAnimationCursor } from '../context/ContextAnimationCursor'
 
-export default function GraficSVG({ data, change, dataBitcoin }) {
+export default function GraficSVG({ data, dataBitcoin }) {
   const { dispatch: dispatchSVG, state } = useContextSVG()
   const { width, height, margin } = state.constants
 
@@ -111,7 +111,7 @@ export default function GraficSVG({ data, change, dataBitcoin }) {
           {state.scaleXandY.scaleX && (
             <>
               {state.selectGrafic === 'line' ? (
-                <Grafic data={data} change={change} dataBitcoin={dataBitcoin} />
+                <Grafic data={data} dataBitcoin={dataBitcoin} />
               ) : (
                 <CandleGrafic data={data} />
               )}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
 
@@ -10,12 +10,7 @@ import ContextSVGProvider from './context/ContextSVG'
 import { useContextGraficsData } from './context/ContextGraficsData'
 import ContextAnimationCursorProvider from './context/ContextAnimationCursor'
 
-export default function ContainerGrafic({
-  id,
-  dataBitcoin,
-  change,
-  setChange
-}) {
+export default function ContainerGrafic({ id, dataBitcoin }) {
   const [portalState, setPortalState] = useState(false)
   const { data, loading } = useContextGraficsData()
 
@@ -29,17 +24,11 @@ export default function ContainerGrafic({
               <ButtonsSelectGrafic
                 setPortalState={setPortalState}
                 portalState={portalState}
-                setChange={setChange}
-                change={change}
                 name={id}
               />
               {data && (
                 <>
-                  <GraficSVG
-                    data={data}
-                    change={change}
-                    dataBitcoin={dataBitcoin}
-                  />
+                  <GraficSVG data={data} dataBitcoin={dataBitcoin} />
                   <SelectorTime id={id} currency={'usd'} />
                 </>
               )}

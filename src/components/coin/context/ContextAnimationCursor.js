@@ -13,6 +13,8 @@ const reducer = (state, action) => {
       return { ...state, coordenadas: action.payload }
     case 'SET_ANIMATIONSTATE':
       return { ...state, animationStart: action.payload }
+    default:
+      throw new Error('ContextAnimationCursor reducer action.type is not exist')
   }
 }
 
