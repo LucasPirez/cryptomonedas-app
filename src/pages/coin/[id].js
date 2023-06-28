@@ -7,8 +7,8 @@ import Convert from '../../components/coin/Convert'
 import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
 import ContextGraficsDataProvider from '../../components/coin/context/ContextGraficsData'
 
-const DataGraficFetcher = lazy(() =>
-  import('../../components/coin/DataGraficFetcher')
+const ContainerGrafic = lazy(() =>
+  import('../../components/coin/ContainerGrafic')
 )
 
 export default function Coin() {
@@ -41,7 +41,7 @@ export default function Coin() {
             <Content data={EPCoinAdapter(coin.data)} />
             <div>
               <Suspense fallback={<p>Cargando Grafico</p>}>
-                <DataGraficFetcher id={coin.id} />
+                <ContainerGrafic id={coin.id} />
               </Suspense>
               <Convert data={coin.data.market_data} name={coin.data.symbol} />
             </div>

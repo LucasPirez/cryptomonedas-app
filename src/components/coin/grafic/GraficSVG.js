@@ -11,8 +11,8 @@ import { useContextAnimationCursor } from '../context/ContextAnimationCursor'
 import { useContextGraficsData } from '../context/ContextGraficsData'
 import Loading from '../../Loading'
 
-export default function GraficSVG({ dataBitcoin }) {
-  const { data = [], loading } = useContextGraficsData()
+export default function GraficSVG() {
+  const { data = [[]], loading } = useContextGraficsData()
 
   const { dispatch: dispatchSVG, state } = useContextSVG()
   const { width, height, margin } = state.constants
@@ -115,7 +115,7 @@ export default function GraficSVG({ dataBitcoin }) {
           {state.scaleXandY.scaleX && (
             <>
               {state.selectGrafic === 'line' ? (
-                <Grafic data={data} dataBitcoin={dataBitcoin} />
+                <Grafic data={data} />
               ) : (
                 <CandleGrafic data={data} />
               )}

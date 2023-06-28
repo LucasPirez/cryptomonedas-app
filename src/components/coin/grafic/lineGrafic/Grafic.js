@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext, useMemo } from 'react'
 import * as d3 from 'd3'
-import BitcoinGrafic from './BitcoinGrafic'
 import { color } from '../../../../styles/colors'
 import Cursor from './Cursor'
 import { ContextSVG } from '../../context/ContextSVG'
 import { useContextGraficsData } from '../../context/ContextGraficsData'
+import BitcoinFetcher from './BitcoinFetcher'
 
-export default function Grafic({ data, dataBitcoin }) {
+export default function Grafic({ data }) {
   const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
 
@@ -36,9 +36,8 @@ export default function Grafic({ data, dataBitcoin }) {
 
   return (
     <>
-      {bitcoinGrafic && dataBitcoin && (
-        <BitcoinGrafic
-          dataBitcoin={dataBitcoin}
+      {bitcoinGrafic && (
+        <BitcoinFetcher
           setBitcoinPrice={setBitcoinPrice}
           setBitcoinScale={setBitcoinScale}
         />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
 import SelectorTime from './grafic/selectorTime'
@@ -7,7 +7,7 @@ import GraficSVG from './grafic/GraficSVG'
 import ContextSVGProvider from './context/ContextSVG'
 import ContextAnimationCursorProvider from './context/ContextAnimationCursor'
 
-export default function ContainerGrafic({ id, dataBitcoin }) {
+export default function ContainerGrafic({ id }) {
   const [portalState, setPortalState] = useState(false)
 
   function GroupComponentns() {
@@ -23,7 +23,7 @@ export default function ContainerGrafic({ id, dataBitcoin }) {
                 name={id}
               />
 
-              <GraficSVG dataBitcoin={dataBitcoin} />
+              <GraficSVG />
               <SelectorTime id={id} currency={'usd'} />
             </ContextAnimationCursorProvider>
           </ContextSVGProvider>
