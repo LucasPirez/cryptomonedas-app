@@ -7,7 +7,6 @@ import { useContextGraficsData } from '../../context/ContextGraficsData'
 import BitcoinFetcher from './BitcoinFetcher'
 
 export default function Grafic({ data }) {
-  const [bitcoinPrice, setBitcoinPrice] = useState(null)
   const [bitcoinScale, setBitcoinScale] = useState(null)
 
   const { state, dispatch } = useContext(ContextSVG)
@@ -36,19 +35,14 @@ export default function Grafic({ data }) {
 
   return (
     <>
-      {bitcoinGrafic && (
-        <BitcoinFetcher
-          setBitcoinPrice={setBitcoinPrice}
-          setBitcoinScale={setBitcoinScale}
-        />
-      )}
+      {bitcoinGrafic && <BitcoinFetcher setBitcoinScale={setBitcoinScale} />}
       <path
         name='pathSelect'
         d={`${valueLine}L ${width + margin.left} ${height - margin.bottom} L ${
           margin.left
         } ${height - margin.bottom} `}
       />
-      <Cursor bitcoinPrice={bitcoinPrice} bitcoinScale={bitcoinScale} />
+      <Cursor bitcoinScale={bitcoinScale} />
       {!bitcoinGrafic && (
         <defs>
           <linearGradient id='gradient' x1='50%' y1='20%' x2='10%' y2='100%'>

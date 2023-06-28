@@ -4,7 +4,7 @@ import BitcoinGrafic from './BitcoinGrafic'
 import { useSelector } from 'react-redux'
 import { graficDays, graficRange } from '../../../../client/client'
 
-export default function BitcoinFetcher({ setBitcoinPrice, setBitcoinScale }) {
+export default function BitcoinFetcher({ setBitcoinScale }) {
   const [dataBitcoin, setDataBitcoin] = useState([])
   const { currencySelect } = useSelector((state) => state.criptoList)
   const { data, rangeGrafic, time, bitcoinGrafic } = useContextGraficsData()
@@ -55,7 +55,6 @@ export default function BitcoinFetcher({ setBitcoinPrice, setBitcoinScale }) {
   return (
     <BitcoinGrafic
       dataBitcoin={dataBitcoin}
-      setBitcoinPrice={setBitcoinPrice}
       setBitcoinScale={setBitcoinScale}
     />
   )

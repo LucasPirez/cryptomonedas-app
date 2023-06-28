@@ -15,11 +15,7 @@ export const trim = (val) => {
     return 0
   }
 }
-export default function RectInformation({
-  bitcoinPrice,
-  bitcoinScale,
-  valueYRef
-}) {
+export default function RectInformation({ bitcoinScale, valueYRef }) {
   const { state } = useContextSVG()
   const { scaleX, scaleY } = state.scaleXandY
 

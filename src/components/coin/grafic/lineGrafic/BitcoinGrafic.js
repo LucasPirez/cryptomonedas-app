@@ -5,11 +5,7 @@ import { color } from '../../../../styles/colors'
 import { useContextSVG } from '../../context/ContextSVG'
 import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
-export default function BitcoinGrafic({
-  dataBitcoin,
-  setBitcoinPrice,
-  setBitcoinScale
-}) {
+export default function BitcoinGrafic({ dataBitcoin, setBitcoinScale }) {
   const { state } = useContextSVG()
   const { width, height, margin } = state.constants
 
@@ -62,7 +58,7 @@ export default function BitcoinGrafic({
           d3.select('[name=bitcoinDezlizador]')
             .attr('cx', u.values[0])
             .attr('cy', u.values[1])
-          setBitcoinPrice(eventY)
+          // setBitcoinPrice(eventY)
           setBitcoinScale(y1.invert(eventY.y))
         }
       })
