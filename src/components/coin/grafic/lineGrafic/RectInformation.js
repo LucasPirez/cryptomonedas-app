@@ -15,12 +15,12 @@ export const trim = (val) => {
     return 0
   }
 }
-export default function RectInformation({ bitcoinScale, valueYRef }) {
+export default function RectInformation({ valueYRef }) {
   const { state } = useContextSVG()
   const { scaleX, scaleY } = state.scaleXandY
 
   const { state: stateAnimation } = useContextAnimationCursor()
-  const { coordenadas, animationStart } = stateAnimation
+  const { coordenadas, animationStart, bitcoinScale } = stateAnimation
 
   let uperDown
 

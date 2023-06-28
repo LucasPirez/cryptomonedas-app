@@ -6,7 +6,7 @@ import RectInformation from '../lineGrafic/RectInformation'
 import { getPathData } from 'path-data-polyfill'
 import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
 
-export default function Cursor({ bitcoinPrice, bitcoinScale }) {
+export default function Cursor() {
   const { state } = useContextSVG()
   const { margin, height, width } = state.constants
   const { parsePath } = state
@@ -102,11 +102,7 @@ export default function Cursor({ bitcoinPrice, bitcoinScale }) {
         transform={`scale(${stateAnimation.animationStart ? 1 : 0})`}
       />
 
-      <RectInformation
-        bitcoinPrice={bitcoinPrice}
-        bitcoinScale={bitcoinScale}
-        valueYRef={valueYRef}
-      />
+      <RectInformation valueYRef={valueYRef} />
     </>
   )
 }

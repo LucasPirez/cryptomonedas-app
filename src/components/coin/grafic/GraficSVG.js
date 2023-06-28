@@ -33,7 +33,7 @@ export default function GraficSVG() {
     return { xScale: X, yScale: Y }
   }, [data, width])
 
-  const diference = data[data.length - 1][0] - data[0][0]
+  const diference = data.length && data[data.length - 1][0] - data[0][0]
 
   const graficD3 = useGrafic(
     (svg) => {

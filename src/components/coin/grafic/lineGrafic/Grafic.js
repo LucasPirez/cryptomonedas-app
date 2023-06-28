@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useMemo } from 'react'
+import { useEffect, useContext, useMemo } from 'react'
 import * as d3 from 'd3'
 import { color } from '../../../../styles/colors'
 import Cursor from './Cursor'
@@ -7,8 +7,6 @@ import { useContextGraficsData } from '../../context/ContextGraficsData'
 import BitcoinFetcher from './BitcoinFetcher'
 
 export default function Grafic({ data }) {
-  const [bitcoinScale, setBitcoinScale] = useState(null)
-
   const { state, dispatch } = useContext(ContextSVG)
   const { animationStart } = state
   const { width, height, margin } = state.constants
@@ -35,14 +33,14 @@ export default function Grafic({ data }) {
 
   return (
     <>
-      {bitcoinGrafic && <BitcoinFetcher setBitcoinScale={setBitcoinScale} />}
+      {bitcoinGrafic && <BitcoinFetcher />}
       <path
         name='pathSelect'
         d={`${valueLine}L ${width + margin.left} ${height - margin.bottom} L ${
           margin.left
         } ${height - margin.bottom} `}
       />
-      <Cursor bitcoinScale={bitcoinScale} />
+      <Cursor />
       {!bitcoinGrafic && (
         <defs>
           <linearGradient id='gradient' x1='50%' y1='20%' x2='10%' y2='100%'>
