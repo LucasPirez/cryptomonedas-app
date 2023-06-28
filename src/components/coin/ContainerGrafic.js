@@ -1,18 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HeaderGeneralGrafic from './grafic/HeaderGeneralGrafic'
 import ButtonsSelectGrafic from './ButtonsSelectGrafic'
-
-import Loading from '../Loading'
 import SelectorTime from './grafic/selectorTime'
 import ModalPortal from '../portal/ModalPortal'
 import GraficSVG from './grafic/GraficSVG'
 import ContextSVGProvider from './context/ContextSVG'
-import { useContextGraficsData } from './context/ContextGraficsData'
 import ContextAnimationCursorProvider from './context/ContextAnimationCursor'
 
 export default function ContainerGrafic({ id, dataBitcoin }) {
   const [portalState, setPortalState] = useState(false)
-  const { data, loading } = useContextGraficsData()
 
   function GroupComponentns() {
     return (
@@ -26,13 +22,9 @@ export default function ContainerGrafic({ id, dataBitcoin }) {
                 portalState={portalState}
                 name={id}
               />
-              {data && (
-                <>
-                  <GraficSVG data={data} dataBitcoin={dataBitcoin} />
-                  <SelectorTime id={id} currency={'usd'} />
-                </>
-              )}
-              {loading && <Loading />}
+
+              <GraficSVG dataBitcoin={dataBitcoin} />
+              <SelectorTime id={id} currency={'usd'} />
             </ContextAnimationCursorProvider>
           </ContextSVGProvider>
         </section>

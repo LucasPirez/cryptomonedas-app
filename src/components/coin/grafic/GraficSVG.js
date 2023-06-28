@@ -8,8 +8,12 @@ import useCursor from '../../../hook/useCursor'
 import CandleGrafic from './candleGrafic'
 import { useContextSVG } from '../context/ContextSVG'
 import { useContextAnimationCursor } from '../context/ContextAnimationCursor'
+import { useContextGraficsData } from '../context/ContextGraficsData'
+import Loading from '../../Loading'
 
-export default function GraficSVG({ data, dataBitcoin }) {
+export default function GraficSVG({ dataBitcoin }) {
+  const { data = [], loading } = useContextGraficsData()
+
   const { dispatch: dispatchSVG, state } = useContextSVG()
   const { width, height, margin } = state.constants
 
@@ -118,6 +122,7 @@ export default function GraficSVG({ data, dataBitcoin }) {
             </>
           )}
         </svg>
+        {loading && <Loading />}
       </div>
 
       <style jsx>{`
