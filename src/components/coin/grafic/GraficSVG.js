@@ -18,7 +18,7 @@ export default function GraficSVG() {
   const { width, height, margin } = state.constants
 
   const { dispatch: dispatchAnimation } = useContextAnimationCursor()
-  const { getYforX, startTouch, getyforXTouch, stopAnimation } =
+  const { getYforX, startTouch, getyforXTouch, stopAnimation, startAnimation } =
     useCursor(dispatchAnimation)
 
   const { xScale, yScale } = useMemo(() => {
@@ -104,7 +104,8 @@ export default function GraficSVG() {
           }}
           onMouseMove={getYforX}
           onMouseLeave={stopAnimation}
-          onTouchStart={(e) => startTouch(e)}
+          onMouseEnter={startAnimation}
+          onTouchStart={startTouch}
           onTouchMove={getyforXTouch}
           onTouchEnd={stopAnimation}
         >

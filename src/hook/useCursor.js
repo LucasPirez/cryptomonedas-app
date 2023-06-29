@@ -14,7 +14,6 @@ export default function useCursor(dispatch) {
         y
       }
     })
-    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
   }
 
   const getYforX = (e) => {
@@ -23,7 +22,6 @@ export default function useCursor(dispatch) {
     const x = e.nativeEvent.offsetX
 
     dispatch({ type: 'SET_COORDENADAS', payload: { x, y } })
-    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
   }
 
   function stopAnimation() {
@@ -32,12 +30,18 @@ export default function useCursor(dispatch) {
 
   function startTouch(e) {
     refTouchStart.current = e.target.getBoundingClientRect().x - 40
+    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
+  }
+
+  function startAnimation(e) {
+    dispatch({ type: 'SET_ANIMATIONSTATE', payload: true })
   }
 
   return {
     getYforX,
     startTouch,
     getyforXTouch,
-    stopAnimation
+    stopAnimation,
+    startAnimation
   }
 }
