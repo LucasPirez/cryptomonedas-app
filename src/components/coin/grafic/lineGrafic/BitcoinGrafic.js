@@ -37,13 +37,13 @@ export default function BitcoinGrafic({ dataBitcoin }) {
       .y((d) => y1(d[1]))
 
     const path = d3
-      .select('#pathBitcoin')
+      .select('[name=pathBitcoin]')
       .data([dataBitcoin])
       .attr('class', 'line')
       .attr('d', valueLine)
       .style('stroke', `${color.bitcoin}`)
       .style('fill', 'transparent')
-      .style('stroke-width', 1.4)
+      .style('stroke-width', 2)
 
     const parse = path.node()
     setStateBitcoin(parse)
@@ -55,9 +55,11 @@ export default function BitcoinGrafic({ dataBitcoin }) {
         if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
           const eventY = { x: u.values[0], y: u.values[1] }
 
-          d3.select('[name=bitcoinDezlizador]')
-            .attr('cx', u.values[0])
-            .attr('cy', u.values[1])
+          d3.select('[name=bitcoinDezlizador]').style(
+            'transform',
+            `translate(${u.values[0]}px,${u.values[1]}px)`
+          )
+
           const invert = y1.invert(eventY.y)
           dispatch({ type: 'SET_BITCOINSCALE', payload: invert })
         }
@@ -67,17 +69,15 @@ export default function BitcoinGrafic({ dataBitcoin }) {
 
   return (
     <>
-      <g id='axisBitcoin' />
-      <path id='pathBitcoin' />
+      <g />
+      <path name='pathBitcoin' />
 
       <circle
-        className='cursor'
         name='bitcoinDezlizador'
-        cx='187.476'
-        cy='214.443'
-        r='2.5'
+        r='3.4'
         fill={color.bitcoin}
-        stroke={color.blue}
+        stroke={color.letters}
+        strokeWidth={1.8}
         opacity={dataBitcoin ? 1 : 0}
       />
     </>
