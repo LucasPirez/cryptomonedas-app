@@ -52,5 +52,5 @@ export default function BitcoinFetcher() {
     }
   }, [rangeGrafic, bitcoinGrafic])
 
-  return <BitcoinGrafic dataBitcoin={dataBitcoin} />
+  return <>{bitcoinGrafic && <BitcoinGrafic dataBitcoin={dataBitcoin} />}</>
 }
