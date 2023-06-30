@@ -21,21 +21,20 @@ export default function Cursor() {
       if (x + 2 >= u.values[0] && x - 2 <= u.values[0]) {
         if (y < height - margin.bottom) {
           valueYRef.current = u.values[1]
-          select('[name=circle]')
-            .attr('cy', u.values[1])
-            .attr('cx', u.values[0])
+          select('[name=circle]').style(
+            'transform',
+            `translate(${u.values[0]}px,${u.values[1]}px)`
+          )
 
           select('[name=lineUpdate]')
             .attr('x1', margin.left)
-            .attr('y1', u.values[1])
             .attr('x2', width)
-            .attr('y2', u.values[1])
+            .style('transform', `translate(0,${u.values[1]}px)`)
 
           select('[name=lineVerticalUpdate]')
-            .attr('x1', x)
             .attr('y1', margin.top)
-            .attr('x2', x)
             .attr('y2', height - margin.bottom)
+            .style('transform', `translate(${x}px,0)`)
         }
       }
     })
@@ -44,21 +43,16 @@ export default function Cursor() {
   return (
     <>
       <circle
-        cx='187.476'
-        cy='214.443'
         r='3.4'
         name='circle'
-        fill={color.lineGrafic}
+        fill={'#09f'}
         stroke={color.letters}
+        strokeWidth={2}
         transform={`scale(${stateAnimation.animationStart ? 1 : 0})`}
       />
       <line
         className='cursor'
         name='lineUpdate'
-        x1='0'
-        y1='30'
-        x2='300'
-        y2='30'
         fill={color.letters}
         stroke={color.letters}
         strokeDasharray={2}
@@ -91,10 +85,6 @@ export default function Cursor() {
       <line
         className='cursor'
         name='lineVerticalUpdate'
-        x1='0'
-        y1='30'
-        x2='300'
-        y2='30'
         fill={color.letters}
         stroke={color.letters}
         strokeDasharray={2}
