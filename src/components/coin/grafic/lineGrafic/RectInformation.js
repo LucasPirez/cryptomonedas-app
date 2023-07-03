@@ -3,6 +3,8 @@ import { color } from '../../../../styles/colors'
 import * as d3 from 'd3'
 import { useContextSVG } from '../../context/ContextSVG'
 import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
+import { useEffect, useRef } from 'react'
+import { useContextGraficsData } from '../../context/ContextGraficsData'
 
 export const trim = (val) => {
   if (val) {
@@ -19,98 +21,125 @@ export default function RectInformation({ valueYRef }) {
   const { state } = useContextSVG()
   const { scaleX, scaleY } = state.scaleXandY
 
+  const { bitcoinGrafic, symbolRef } = useContextGraficsData()
+
   const { state: stateAnimation } = useContextAnimationCursor()
   const { coordenadas, animationStart, bitcoinScale } = stateAnimation
+
+  const ref = useRef()
+
+  useEffect(() => {
+    const filterId = self.crypto.randomUUID()
+    const selectRef = select(ref.current)
+
+    selectRef
+      .append('defs')
+      .append('filter')
+      .attr('height', '130%')
+      .attr('id', filterId)
+      .append('feDropShadow')
+      .attr('dx', '0')
+      .attr('dy', '4')
+      .attr('stdDeviation', '4')
+      .attr('flood-color', 'rgba(0, 0, 0, 0.35)')
+
+    selectRef
+      .append('rect')
+      .attr('width', 190)
+      .attr('height', 110)
+      .attr('rx', 8)
+      .attr('ry', 8)
+      .style('fill', color.letters)
+      .style('opacity', 0.9)
+      .style('filter', `url(#${filterId})`)
+
+    selectRef
+      .append('text')
+      .attr('x', 65)
+      .attr('y', 20)
+      .attr('name', 'textDateGrafic')
+      .style('font-size', 13)
+      .style('fill', color.background)
+      .style('opacity', 0.8)
+
+    selectRef
+      .append('circle')
+      .attr('cy', 45)
+      .attr('cx', 10)
+      .attr('r', 3.5)
+      .style('fill', '#09f')
+
+    selectRef
+      .append('text')
+      .attr('x', 23)
+      .attr('y', 48)
+      .attr('name', 'textPriceCoin')
+      .style('fontSize', 13)
+      .style('fill', color.background)
+
+    selectRef
+      .append('circle')
+      .attr('cy', 82)
+      .attr('cx', 10)
+      .attr('class', 'gBitcoinDataVisualization')
+      .attr('r', 3.5)
+      .style('fill', color.bitcoin)
+
+    selectRef
+      .append('text')
+      .attr('x', 23)
+      .attr('y', 85)
+      .attr('class', 'gBitcoinDataVisualization')
+      .attr('name', 'textPriceBitcoin')
+      .style('fontSize', 13)
+      .style('fill', color.background)
+      .style('opacity', 0.9)
+  }, [])
+
+  useEffect(() => {
+    const selectRef = select(ref.current)
+
+    if (bitcoinGrafic) {
+      selectRef.select('rect').attr('height', 115)
+      selectRef.select('.gBitcoinDataVisualization').style('opacity', 1)
+    } else {
+      selectRef.select('rect').attr('height', 85)
+      selectRef.select('.gBitcoinDataVisualization').style('opacity', 0)
+    }
+  }, [bitcoinGrafic])
 
   let uperDown
 
   if (coordenadas.x > 200) {
-    uperDown = 150
+    uperDown = 210
   } else {
-    uperDown = -10
+    uperDown = -20
   }
-
   const yDown = coordenadas.y < 100 ? 95 : -10
 
-  select('#rectInformation')
-    .attr('x', coordenadas.x - uperDown)
-    .attr('y', coordenadas.y - 85 + yDown)
+  select(ref.current)
     .transition()
     .ease(d3.easeLinear)
-    .duration(300)
+    .duration(200)
+    .attr(
+      'transform',
+      `translate(${coordenadas.x - uperDown}, ${coordenadas.y - 85 + yDown})`
+    )
     .style('opacity', animationStart ? 1 : 0)
 
-  select('#textPrice')
-    .attr('x', coordenadas.x - uperDown + 12)
-    .attr('y', coordenadas.y - 42 + yDown)
-    .style('opacity', animationStart ? 1 : 0)
-
-  select('#textDate')
-    .attr('x', coordenadas.x - uperDown + 12)
-    .attr('y', coordenadas.y - 65 + yDown)
-    .style('opacity', animationStart ? 1 : 0)
-
-  if (bitcoinScale) {
-    select('#textBitcoin')
-      .attr('x', coordenadas.x - uperDown + 12)
-      .attr('y', coordenadas.y - 22 + yDown)
-      .style('opacity', animationStart ? 1 : 0)
-  }
-
-  return (
-    <>
-      <filter id='dropshadow' height='130%'></filter>
-
-      <rect
-        id='rectInformation'
-        x='0'
-        y='0'
-        width={135}
-        height={85}
-        fill={color.letters}
-        opacity={0.9}
-        stroke={color.letters}
-        strokeWidth={1}
-      />
-      <text
-        id='textPrice'
-        x={50}
-        y={100}
-        fontSize={12}
-        fill={color.reduceBackground}
-        fontWeight={'600'}
-      >
-        price: $ {trim(scaleY.invert(valueYRef.current))}
-      </text>
-
-      <text
-        id='textBitcoin'
-        x={50}
-        y={100}
-        fontSize={12}
-        fill={color.bitcoin}
-        fontWeight={'600'}
-        opacity={bitcoinScale ? 1 : 0}
-      >
-        B {trim(bitcoinScale)}
-      </text>
-
-      <text
-        id='textDate'
-        x={50}
-        y={100}
-        fontSize={12}
-        fontWeight={'600'}
-        fill={color.reduceBackground}
-      >
-        {new Date(scaleX.invert(coordenadas.x)).toLocaleString()}
-      </text>
-
-      <style jsx>{`
-        rect {
-          filter: drop-shadow(3px 3px 2px rgb(25 54 25 / 0.4));
-        }
-      `}</style>
-    </>
+  select('[name=textPriceCoin]').text(
+    `Price (${symbolRef.current.toUpperCase()}): $${trim(
+      scaleY.invert(valueYRef.current)
+    )}`
   )
+
+  select('[name=textDateGrafic]').text(
+    `${new Date(scaleX.invert(coordenadas.x)).toLocaleString()}`
+  )
+  if (bitcoinGrafic) {
+    select('[name=textPriceBitcoin]').text(`Price (BTC): ${trim(bitcoinScale)}`)
+  } else {
+    select('[name=textPriceBitcoin]').text('')
+  }
+  return <g ref={ref}></g>
 }
