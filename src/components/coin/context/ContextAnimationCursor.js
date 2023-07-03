@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useRef } from 'react'
+import { createContext, useContext, useReducer } from 'react'
 
 const ContextAnimationCursor = createContext(null)
 
@@ -23,12 +23,9 @@ const reducer = (state, action) => {
 
 export default function ContextAnimationCursorProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const refBitcoinScale = useRef()
 
   return (
-    <ContextAnimationCursor.Provider
-      value={{ state, dispatch, refBitcoinScale }}
-    >
+    <ContextAnimationCursor.Provider value={{ state, dispatch }}>
       {children}
     </ContextAnimationCursor.Provider>
   )
