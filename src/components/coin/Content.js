@@ -13,16 +13,31 @@ export default function Content({ data }) {
     <>
       <div className='container'>
         <div className='sub_container'>
-          <div className='rank'>
-            <span>Rank #{market_cap_rank}</span>
-          </div>
-          <div className='container_name'>
-            <Image src={image.small} alt='coin image' width={70} height={70} />
-            <h2>{name}</h2>
-            <div className='container_symbol'>
-              <span> {symbol.toUpperCase()}</span>
+          <div className='container_price_name'>
+            <div>
+              <p className='rank'>
+                <span>Rank #{market_cap_rank}</span>
+              </p>
 
-              <AddDeleteFavorite data={id} yes='#09a' no='white' scale={1.3} />
+              <div className='container_name'>
+                <Image
+                  src={image.small}
+                  alt='coin image'
+                  width={70}
+                  height={70}
+                />
+                <h2>{name}</h2>
+                <div className='container_symbol'>
+                  <span> {symbol.toUpperCase()}</span>
+
+                  <AddDeleteFavorite
+                    data={id}
+                    yes='#09a'
+                    no='white'
+                    scale={1.3}
+                  />
+                </div>
+              </div>
             </div>
 
             <p className='price'>
@@ -90,7 +105,7 @@ export default function Content({ data }) {
           }
 
           .container {
-            margin: auto;
+            margin: 3rem auto;
             position: relative;
             width: 90%;
             height: auto;
@@ -101,7 +116,7 @@ export default function Content({ data }) {
           .sub_container {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-between;
             height: auto;
             min-height: 300px;
             width: 50%;
@@ -109,8 +124,18 @@ export default function Content({ data }) {
             margin-bottom: 20px;
           }
 
+          .container_price_name {
+            display: flex;
+            height: 200px;
+            position: relative;
+            justify-content: space-around;
+            align-items: center;
+          }
+
           .rank span {
-            opacity: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
             padding: 0.3em 0.5rem;
             background: ${color.letters};
             color: ${color.background};
@@ -124,11 +149,8 @@ export default function Content({ data }) {
           }
 
           .price {
-            position: absolute;
             font-size: 1.5em;
             font-weight: 600;
-            top: -10%;
-            right: 10%;
           }
           .green {
             color: ${color.candleGreen};
@@ -177,12 +199,6 @@ export default function Content({ data }) {
             .content_market {
               width: 95%;
             }
-
-            .rank {
-              position: absolute;
-              left: 10px;
-              top: 20px;
-            }
           }
 
           @media screen and (max-width: 600px) {
@@ -190,6 +206,11 @@ export default function Content({ data }) {
               flex-direction: column;
             }
 
+            .container_price_name {
+              flex-direction: column;
+              align-items: center;
+              height: auto;
+            }
             .price {
               position: relative;
               right: 0;
