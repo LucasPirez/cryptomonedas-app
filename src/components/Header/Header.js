@@ -65,10 +65,10 @@ export default function Header() {
           position: relative;
           display: flex;
           width: 100%;
-          height: 12vh;
+          height: 10vh;
           align-items: center;
           justify-content: space-around;
-          background: ${color.reduceBackground}50;
+          background: ${color.background};
           border-bottom: 2px solid ${color.letters}70;
           box-shadow: rgba(50, 50, 93, 0.1) 0px 3px 3px -1px,
             rgba(0, 0, 0, 0.1) 0px 3px 5px -1px;
@@ -100,16 +100,31 @@ export default function Header() {
           list-style: none;
         }
         li {
+          position: relative;
           font-size: 1.14em;
           text-decoration: none;
-          color: ${color.blue};
-          padding: 0.4em 0.8em 0.7em;
+          color: ${color.letters};
+          font-weight: 600;
+          padding: 0.3em 0.8em;
           border-radius: 6px;
-          transition: transform 0.3s;
+          transition: all 0.7s;
         }
 
-        li:hover {
-          transform: scale(1.1);
+        li:before {
+          content: '';
+          width: 80%;
+          height: 2px;
+          position: absolute;
+          bottom: 0;
+          left: 10%;
+          background: ${color.letters};
+          transform: scale(0);
+          transition: all 0.25s;
+          transform-origin: left;
+        }
+
+        li:hover:before {
+          transform: scale(1);
         }
 
         .hamburguer {
@@ -127,8 +142,15 @@ export default function Header() {
         }
 
         .select {
-          background: ${color.letters};
-          color: ${color.lightBlue};
+          border-radius: 4px;
+          border: solid 1px ${color.blue}70;
+          color: ${color.blue};
+          box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 4px;
+        }
+
+        .select:before {
+          content: '';
+          height: 0;
         }
 
         .ul_container {
