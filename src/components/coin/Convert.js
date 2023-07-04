@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import useConstansGrafic from '../../hook/useConstansGrafic'
 import { color } from '../../styles/colors'
+import { useContextGraficsData } from './context/ContextGraficsData'
 
 export default function Convert({ data, name }) {
+  const { symbolRef } = useContextGraficsData()
   const [coinSelected, setCoinSelected] = useState('usd')
   const [mount, setMount] = useState(null)
   const [conversion, setConversion] = useState(0)
   const arr = Object.entries(data.current_price)
   const width = useConstansGrafic()
+
   useEffect(() => {
     for (const [val, price] of arr) {
       if (val === coinSelected) {
@@ -16,10 +19,15 @@ export default function Convert({ data, name }) {
     }
   }, [mount, coinSelected, arr])
 
+  const arrAth = Object.keys(data.ath)
+
   return (
     <>
       <div className='container'>
-        <h3>Convert ETH to {coinSelected.toUpperCase()} </h3>
+        <h3>
+          Convert <span>{symbolRef.current.toUpperCase()}</span> to
+          <span> {coinSelected.toUpperCase()}</span>
+        </h3>
         <div className='sub_container'>
           <div>
             <p>{name.toUpperCase()}:</p>
@@ -37,9 +45,12 @@ export default function Convert({ data, name }) {
               onChange={(e) => setCoinSelected(e.target.value)}
               value={coinSelected || 'usd'}
             >
-              {Object.keys(data.ath).map((u) => (
-                <option value={u} key={u + Math.random()}>
-                  {u}
+              {arrAth.map((currency) => (
+                <option
+                  value={currency}
+                  key={currency + Math.random() + '--' + Math.random()}
+                >
+                  {currency}
                 </option>
               ))}
             </select>
@@ -51,7 +62,9 @@ export default function Convert({ data, name }) {
             readOnly={true}
           />
         </div>
-        <h4>1 ETH =${data.current_price.usd}</h4>
+        <h4>
+          1 {symbolRef.current.toUpperCase()} =${data.current_price.usd}
+        </h4>
       </div>
       <style jsx>{`
         select {
@@ -59,21 +72,28 @@ export default function Convert({ data, name }) {
         }
 
         h3 {
-          color: ${color.letters};
+          color: ${color.letters}90;
           border-bottom: 1px dashed ${color.letters};
           padding: 0 0 10px 0;
           font-size: 1.3em;
+          opacity: 0.9;
+        }
+
+        h3 span {
+          color: ${color.letters};
         }
 
         input {
           padding: 0.7em 1.2em;
           font-size: 1em;
           border: none;
+          outline: 2px solid ${color.blue}85;
+          box-shadow: rgba(0, 0, 0, 0.36) 0px 0px 2px inset;
+          border-radius: 5px;
         }
 
         input:focus {
           outline: 2px solid ${color.blue};
-          transform: scale(1.15);
         }
 
         option {
@@ -89,7 +109,7 @@ export default function Convert({ data, name }) {
           width: ${width * 0.45}px;
           max-height: 400px;
           margin: auto;
-          background: ${color.reduceBackground}80;
+          background: ${color.background};
           padding: 15px;
           text-align: center;
           border-radius: 10px;
