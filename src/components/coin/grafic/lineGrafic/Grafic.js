@@ -5,10 +5,12 @@ import Cursor from './Cursor'
 import { ContextSVG } from '../../context/ContextSVG'
 import BitcoinFetcher from './BitcoinFetcher'
 import LinearGradient from './LinearGradient'
+import { useContextGraficsData } from '../../context/ContextGraficsData'
 
 export default function Grafic({ data }) {
   const { state, dispatch } = useContext(ContextSVG)
   const { width, height, margin } = state.constants
+  const { bitcoinGrafic } = useContextGraficsData()
 
   const valueLine = useMemo(() => {
     const v = line()
@@ -19,9 +21,9 @@ export default function Grafic({ data }) {
 
   useEffect(() => {
     const path = select('[name=pathSelect]')
-      .style('stroke', `${color.blue}80`)
-      .style('stroke-width', 2)
-      .style('fill', 'transparent')
+      .attr('stroke', `${color.blue}80`)
+      .attr('stroke-width', 2)
+      .attr('fill', 'none')
 
     dispatch({ type: 'SET_PARSE_PATH', payload: path.node() })
   }, [])
@@ -35,7 +37,11 @@ export default function Grafic({ data }) {
           margin.left
         } ${height - margin.bottom} `}
       />
-      <LinearGradient name={'pathSelect'} />
+      <LinearGradient
+        name={'pathSelect'}
+        colorProp={color.lightBlue}
+        visibility={bitcoinGrafic}
+      />
       <Cursor />
     </>
   )

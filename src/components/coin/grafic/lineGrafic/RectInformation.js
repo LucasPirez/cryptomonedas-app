@@ -29,71 +29,75 @@ export default function RectInformation({ valueYRef }) {
   const ref = useRef()
 
   useEffect(() => {
-    const filterId = self.crypto.randomUUID()
+    console.log('holar render')
     const selectRef = select(ref.current)
 
-    selectRef
-      .append('defs')
-      .append('filter')
-      .attr('height', '130%')
-      .attr('id', filterId)
-      .append('feDropShadow')
-      .attr('dx', '0')
-      .attr('dy', '4')
-      .attr('stdDeviation', '4')
-      .attr('flood-color', 'rgba(0, 0, 0, 0.35)')
+    if (!selectRef.select('defs')._groups[0][0]) {
+      const filterId = self.crypto.randomUUID()
 
-    selectRef
-      .append('rect')
-      .attr('width', 190)
-      .attr('height', 110)
-      .attr('rx', 8)
-      .attr('ry', 8)
-      .style('fill', color.letters)
-      .style('opacity', 0.9)
-      .style('filter', `url(#${filterId})`)
+      selectRef
+        .append('defs')
+        .append('filter')
+        .attr('height', '130%')
+        .attr('id', filterId)
+        .append('feDropShadow')
+        .attr('dx', '0')
+        .attr('dy', '4')
+        .attr('stdDeviation', '4')
+        .attr('flood-color', 'rgba(0, 0, 0, 0.35)')
 
-    selectRef
-      .append('text')
-      .attr('x', 65)
-      .attr('y', 20)
-      .attr('name', 'textDateGrafic')
-      .style('font-size', 13)
-      .style('fill', color.background)
-      .style('opacity', 0.8)
+      selectRef
+        .append('rect')
+        .attr('width', 190)
+        .attr('height', 110)
+        .attr('rx', 8)
+        .attr('ry', 8)
+        .style('fill', color.letters)
+        .style('opacity', 0.9)
+        .style('filter', `url(#${filterId})`)
 
-    selectRef
-      .append('circle')
-      .attr('cy', 45)
-      .attr('cx', 10)
-      .attr('r', 3.5)
-      .style('fill', '#09f')
+      selectRef
+        .append('text')
+        .attr('x', 65)
+        .attr('y', 20)
+        .attr('name', 'textDateGrafic')
+        .style('font-size', 13)
+        .style('fill', color.background)
+        .style('opacity', 0.8)
 
-    selectRef
-      .append('text')
-      .attr('x', 23)
-      .attr('y', 48)
-      .attr('name', 'textPriceCoin')
-      .style('fontSize', 13)
-      .style('fill', color.background)
+      selectRef
+        .append('circle')
+        .attr('cy', 45)
+        .attr('cx', 10)
+        .attr('r', 3.5)
+        .style('fill', '#09f')
 
-    selectRef
-      .append('circle')
-      .attr('cy', 82)
-      .attr('cx', 10)
-      .attr('class', 'gBitcoinDataVisualization')
-      .attr('r', 3.5)
-      .style('fill', color.bitcoin)
+      selectRef
+        .append('text')
+        .attr('x', 23)
+        .attr('y', 48)
+        .attr('name', 'textPriceCoin')
+        .style('fontSize', 13)
+        .style('fill', color.background)
 
-    selectRef
-      .append('text')
-      .attr('x', 23)
-      .attr('y', 85)
-      .attr('class', 'gBitcoinDataVisualization')
-      .attr('name', 'textPriceBitcoin')
-      .style('fontSize', 13)
-      .style('fill', color.background)
-      .style('opacity', 0.9)
+      selectRef
+        .append('circle')
+        .attr('cy', 82)
+        .attr('cx', 10)
+        .attr('class', 'gBitcoinDataVisualization')
+        .attr('r', 3.5)
+        .style('fill', color.bitcoin)
+
+      selectRef
+        .append('text')
+        .attr('x', 23)
+        .attr('y', 85)
+        .attr('class', 'gBitcoinDataVisualization')
+        .attr('name', 'textPriceBitcoin')
+        .style('fontSize', 13)
+        .style('fill', color.background)
+        .style('opacity', 0.9)
+    }
   }, [])
 
   useEffect(() => {

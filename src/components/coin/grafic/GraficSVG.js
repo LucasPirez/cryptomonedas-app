@@ -12,8 +12,7 @@ import { useContextGraficsData } from '../context/ContextGraficsData'
 import Loading from '../../Loading'
 
 export default function GraficSVG() {
-  const { data = [[]], loading } = useContextGraficsData()
-
+  const { data, loading } = useContextGraficsData()
   const { dispatch: dispatchSVG, state } = useContextSVG()
   const { width, height, margin } = state.constants
 

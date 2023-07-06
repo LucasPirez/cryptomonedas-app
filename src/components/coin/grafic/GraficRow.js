@@ -16,7 +16,7 @@ function GraficRow({ dataGrafic, graficColor, width = 220 }) {
   const valueLine = line()
     .x((d, i) => x1(i))
     .y((d) => y1(d))
-  console.log('render')
+
   return (
     <svg
       style={{

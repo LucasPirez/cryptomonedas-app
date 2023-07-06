@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import * as d3 from 'd3'
-
 import { color } from '../../../../styles/colors'
 import { useContextSVG } from '../../context/ContextSVG'
 import { useContextAnimationCursor } from '../../context/ContextAnimationCursor'
@@ -41,9 +40,9 @@ export default function BitcoinGrafic({ dataBitcoin }) {
       .data([dataBitcoin])
       .attr('class', 'line')
       .attr('d', valueLine)
-      .style('stroke', `${color.bitcoin}`)
-      .style('fill', 'transparent')
-      .style('stroke-width', 2)
+      .attr('stroke', `${color.bitcoin}`)
+      .attr('stroke-width', 2)
+      .attr('fill', 'none')
 
     const parse = path.node()
     setStateBitcoin(parse)
@@ -71,7 +70,6 @@ export default function BitcoinGrafic({ dataBitcoin }) {
     <>
       <g />
       <path name='pathBitcoin' />
-
       <circle
         name='bitcoinDezlizador'
         r='3.4'

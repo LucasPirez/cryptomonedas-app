@@ -23,14 +23,16 @@ export default function BitcoinFetcher() {
     ;(async () => {
       if (data && time && bitcoinGrafic && rangeMin.current.time !== time) {
         rangeMin.current.time = time
+        const abortController = new AbortController()
 
-        const response = await graficDays(
-          'bitcoin',
-          time,
-          currencySelect.currency
+        const { signal } = abortController
+        graficDays('bitcoin', time, currencySelect.currency, signal).then(
+          (data) => {
+            if (data?.prices) {
+              reduceBitcoin(data.prices)
+            }
+          }
         )
-
-        reduceBitcoin(response.prices)
       }
     })()
   }, [time, bitcoinGrafic])
@@ -45,9 +47,16 @@ export default function BitcoinFetcher() {
         time: rangeGrafic.min / 1000,
         dateNow: rangeGrafic.max / 1000
       })
-        .then((datos) => datos.json())
-        .then((datos) => {
-          reduceBitcoin(datos.prices)
+        .then((data) => {
+          if (!data.ok) {
+            throw new Error('Error en la solicitud')
+          }
+          return data.json()
+        })
+        .then((data) => {
+          if (data?.prices) {
+            reduceBitcoin(data.prices)
+          }
         })
     }
   }, [rangeGrafic, bitcoinGrafic])
