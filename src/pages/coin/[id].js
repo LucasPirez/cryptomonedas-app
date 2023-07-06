@@ -6,6 +6,7 @@ import Content from '../../components/coin/Content'
 import Convert from '../../components/coin/Convert'
 import { EPCoinAdapter } from '../../adapters/EPCoinAdapter'
 import ContextGraficsDataProvider from '../../components/coin/context/ContextGraficsData'
+import Head from 'next/head'
 
 const ContainerGrafic = lazy(() =>
   import('../../components/coin/ContainerGrafic')
@@ -35,9 +36,17 @@ export default function Coin() {
 
   return (
     <>
+      <Head>
+        <title>{coin.id}</title>
+        <link rel='icon' href={coin.data?.image?.small} />
+        <meta
+          name='description'
+          content={`Explore in-depth details about ${coin?.id}, including its current price, market performance, historical data, and relevant news.`}
+        />
+      </Head>
       <section>
         {coin.data && (
-          <ContextGraficsDataProvider id={coin.id}>
+          <ContextGraficsDataProvider id={coin.id} symbol={coin.data.symbol}>
             <Content data={EPCoinAdapter(coin.data)} />
             <div>
               <Suspense fallback={<p>Cargando Grafico</p>}>
