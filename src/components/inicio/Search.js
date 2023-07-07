@@ -5,7 +5,7 @@ import { color } from '../../styles/colors'
 import RenderSearch from './RenderSearch'
 
 const INITIAL_STATE = {
-  list: [],
+  list: {},
   listFiltered: [],
   wordTiped: ''
 }
@@ -32,17 +32,22 @@ export default function Search() {
   const ref = useClick(() => dispatch({ type: 'escribir', payload: '' }))
 
   const handleChange = (e) => {
-    const { value } = e.target
+    let { value } = e.target
+    value = value.toLowerCase()
 
     dispatch({ type: 'escribir', payload: value })
     storage(value)
+
     if (value.length > 1) {
-      const order = list
-        .filter((u) => u.includes(value))
-        .toSorted((a, b) => a.length - b.length)
+      const arrCryptos = list[value[0]] ?? []
+
+      const arrFilter = arrCryptos
+        .filter((crypto) => crypto.id.includes(value))
+        .toSorted((a, b) => a.id.length - b.id.length)
+
       dispatch({
         type: 'filtrar',
-        payload: order
+        payload: arrFilter
       })
     }
     if (value.length === 0) {
@@ -59,12 +64,21 @@ export default function Search() {
       } else {
         if (value.length > 1) {
           lista().then((data) => {
-            const arr = data.map((u, i) => u.id.toLowerCase())
-            localStorage.setItem('listSearch', JSON.stringify(arr))
+            const dicList = {}
+
+            data.forEach((cripto, index) => {
+              if (!dicList[cripto.id[0]]) {
+                dicList[cripto.id[0]] = [cripto]
+              } else {
+                dicList[cripto.id[0]].push(cripto)
+              }
+            })
+
+            localStorage.setItem('listSearch', JSON.stringify(dicList))
 
             dispatch({
               type: 'cargarList',
-              payload: arr
+              payload: dicList
             })
           })
         }
@@ -85,7 +99,9 @@ export default function Search() {
           {wordTiped.length > 2 && (
             <div className='sub_container'>
               {listFiltered.length &&
-                listFiltered.map((u) => <RenderSearch u={u} key={u} />)}
+                listFiltered.map((cripto) => (
+                  <RenderSearch cripto={cripto} key={cripto.id} />
+                ))}
             </div>
           )}
         </div>
