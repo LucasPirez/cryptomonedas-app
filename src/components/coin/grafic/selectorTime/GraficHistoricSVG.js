@@ -16,6 +16,7 @@ export default function GraficHistoricSVG({
   const { data, rangeGraficAction } = useContextGraficsData()
   const refLines = useRef({ left: 0, right: 1 })
   const currentSelect = useRef()
+  const isMove = useRef(false)
 
   useEffect(() => {
     refLines.current.left = xScale(data[0][0])
@@ -24,15 +25,15 @@ export default function GraficHistoricSVG({
 
   const svgD3 = useGrafic(
     (svg) => {
-      select('#rectHistoricMovil').remove()
-      select('#pathHistoric').remove()
+      select('[name=rectHistoricMovil]').remove()
+      select('[name=pathHistoric]').remove()
 
       const bottomAxis = axisBottom()
         .tickSize(20)
         .scale(xScale)
         .ticks(4, [timeFormat('%Y')])
       svg
-        .select('#idG')
+        .select('[name=idG]')
         .style('opacity', 0.9)
         .style('color', `${color.lightBlue}`)
         .call(bottomAxis)
@@ -42,7 +43,7 @@ export default function GraficHistoricSVG({
 
       svg
         .append('path')
-        .attr('id', 'pathHistoric')
+        .attr('name', 'pathHistoric')
         .data([dataHistoric])
         .attr('d', lineGrafic)
         .style('stroke', color.lightBlue)
@@ -50,9 +51,9 @@ export default function GraficHistoricSVG({
         .style('fill', 'transparent')
 
       svg
-        .select('#idG')
+        .select('[name=idG]')
         .append('rect')
-        .attr('id', 'rectHistoricMovil')
+        .attr('name', 'rectHistoricMovil')
         .attr('x', xScale(data[0][0]))
         .attr('y', 0)
         .attr('width', xScale(data[data.length - 1][0]) - xScale(data[0][0]))
@@ -72,11 +73,13 @@ export default function GraficHistoricSVG({
 
   const handleUp = (e) => {
     e.preventDefault()
-    rangeGraficAction({
-      min: new Date(xScale.invert(refLines.current.left)).getTime(),
-      max: new Date(xScale.invert(refLines.current.right)).getTime()
-    })
-
+    if (isMove.current) {
+      rangeGraficAction({
+        min: new Date(xScale.invert(refLines.current.left)).getTime(),
+        max: new Date(xScale.invert(refLines.current.right)).getTime()
+      })
+      isMove.current = false
+    }
     return (currentSelect.current = 'none')
   }
 
@@ -93,6 +96,7 @@ export default function GraficHistoricSVG({
       if (x <= refLines.current.right - 10) {
         select('[name=lineHistoric]').attr('x1', x).attr('x2', x)
         refLines.current.left = x
+        isMove.current = true
       } else {
         select('[name=lineHistoric]').attr('x1', x).attr('x2', x)
         select('[name=lineHistoricMax]')
@@ -100,6 +104,7 @@ export default function GraficHistoricSVG({
           .attr('x2', x + 9)
         refLines.current.right = x + 9
         refLines.current.left = x
+        isMove.current = true
       }
     }
 
@@ -107,6 +112,7 @@ export default function GraficHistoricSVG({
       if (x >= refLines.current.left + 10) {
         select('[name=lineHistoricMax]').attr('x1', x).attr('x2', x)
         refLines.current.right = x
+        isMove.current = true
       } else {
         select('[name=lineHistoricMax]').attr('x1', x).attr('x2', x)
         select('[name=lineHistoric]')
@@ -114,13 +120,14 @@ export default function GraficHistoricSVG({
           .attr('x2', x - 9)
         refLines.current.left = x - 9
         refLines.current.right = x
+        isMove.current = true
       }
     }
     if (
       currentSelect.current === dicSelect.LEFT ||
       currentSelect.current === dicSelect.RIGHT
     ) {
-      select('#rectHistoricMovil')
+      select('[name=rectHistoricMovil]')
         .attr('x', refLines.current.left)
         .attr('y', 0)
         .attr('width', Math.abs(refLines.current.right - refLines.current.left))
@@ -138,9 +145,7 @@ export default function GraficHistoricSVG({
         onMouseUp={handleUp}
         onMouseMove={handleMove}
       >
-        {/* <rect id="rectHistoric" /> */}
-
-        <g id='idG' onMouseDown={(e) => handleDown(e, 'g')}></g>
+        <g name='idG' onMouseDown={(e) => handleDown(e, 'g')}></g>
 
         <line
           style={{ cursor: 'ew-resize' }}
@@ -156,7 +161,7 @@ export default function GraficHistoricSVG({
         />
         {data && (
           <line
-            style={{ cursor: 'ew-resize' }}
+            style={{ cursor: 'ew-resize', paddingLeft: '25px' }}
             name={'lineHistoric'}
             x1={xScale(data[0][0])}
             y={0}
