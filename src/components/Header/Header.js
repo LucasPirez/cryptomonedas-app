@@ -160,7 +160,19 @@ export default function Header() {
 
         @media (max-width: 800px) {
           .ul_container {
-            border: 2px solid ${color.letters}80;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 23px 5px;
+            background: ${color.background};
+            visibility: hidden;
+            transform: scaleX(0);
+            z-index: 999;
+            transition: transform 0.3s;
+            border-radius: 5px;
+            transform-origin: top right;
+            box-shadow: 0px 3px 5px 1px ${color.letters}30;
           }
           ul {
             flex-direction: column;
@@ -176,33 +188,15 @@ export default function Header() {
             margin: 0.5rem;
           }
 
-          li:hover {
-            opacity: 0.86;
-            transform: scale(1.1);
-          }
-          .ul_container {
-            flex-direction: column;
-            position: absolute;
-            top: 64%;
-            right: 5%;
-            padding: 5px;
-            background: ${color.reduceBackground};
-            visibility: hidden;
-            transform: scale(0);
-            z-index: 999;
-            transition: transform 0.3s;
-            border-radius: 5px;
-            transform-origin: top right;
-          }
-
           .hamburguer {
             visibility: visible;
             top: 37%;
             right: 5%;
+            cursor: pointer;
           }
           .mostrar {
             visibility: visible;
-            transform: scale(1);
+            transform: scaleX(1);
           }
         }
       `}</style>

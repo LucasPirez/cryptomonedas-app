@@ -22,25 +22,21 @@
 
 .sub_container {
   position: absolute;
-  top: 32px;
-  right: 0px;
+  top: 0px;
+  right: 70px;
   padding: 7px;
-  /* display: block;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start; */
   width: 360px;
   height: 500px;
   background: var(--background);
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 5px;
-  border: 3px solid var(--lightBlue);
-  transform: translate(175px, -250px) scale(0);
+  box-shadow: 0 0 5px 1px var(--blue);
+  transform: scaleY(0);
   z-index: 999;
   transition: all 0.3s;
+  transform-origin: top;
 }
-
 .sub_container::-webkit-scrollbar {
   display: none;
   width: 10px;
@@ -55,7 +51,7 @@
 }
 
 .viewSelect {
-  transform: translate(0, 0) scale(1);
+  transform: scaleY(1);
 }
 
 .containerSeparator > p {
@@ -93,12 +89,6 @@
   margin: 0 0 0 4px;
 }
 
-@media (max-width: 500px) {
-  .container {
-    transform: scale(0.8);
-  }
-}
-
 .select {
   background: #dadada;
   border: 2px solid var(--letters);
@@ -109,4 +99,16 @@
 .select > :first-child {
   color: #000;
   font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .container {
+    transform: scale(0.8);
+  }
+  .sub_container {
+    right: 50px;
+  }
+  .viewSelect {
+    transform: scale(0.9);
+  }
 }
