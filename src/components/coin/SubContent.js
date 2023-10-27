@@ -5,10 +5,20 @@ import LinkExternal from '../Icons/LinkExternal'
 export default function SubContent({ data }) {
   return (
     <>
-      <div className='container'>
+      <div
+        className='container'
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+      >
         <div className='container_link'>
-          <a href={data.homepage} target='_black' className='direct_link'>
-            webSite
+          <a
+            href={data.homepage[0]}
+            target='_blank'
+            className='direct_link'
+            rel='noreferrer'
+          >
+            Web Site
           </a>
           <span>
             <LinkExternal />
@@ -16,7 +26,7 @@ export default function SubContent({ data }) {
         </div>
         <div className='container_link'>
           <a
-            target='_black'
+            target='_blank'
             href={
               data.chat_url[0] !== ''
                 ? data.chat_url[0]
@@ -25,6 +35,7 @@ export default function SubContent({ data }) {
                 : data.chat_url[2]
             }
             className='direct_link'
+            rel='noreferrer'
           >
             Chat
           </a>
@@ -41,7 +52,7 @@ export default function SubContent({ data }) {
             {data.blockchain_site.map((u) => {
               if (u !== '') {
                 return (
-                  <a key={u} href={u} target='_black'>
+                  <a key={u} href={u} target='_blank' rel='noreferrer'>
                     {u.slice(8, 22)}
                   </a>
                 )
@@ -55,21 +66,27 @@ export default function SubContent({ data }) {
             <ArrowDown />
           </span>
           <div className='content_ocult'>
-            <a href={data.official_forum_url[0]} target='_blanck'>
+            <a
+              href={data.official_forum_url[0]}
+              target='_blank'
+              rel='noreferrer'
+            >
               Forum.ethereum.org
             </a>
             <a
               href={`https://twitter.com/${data.twitter_screen_name}`}
-              target='_blanck'
+              target='_blank'
+              rel='noreferrer'
             >
               twitter.com{' '}
             </a>
-            <a href={data.subreddit_url} target='_blanck'>
+            <a href={data.subreddit_url} target='_blank' rel='noreferrer'>
               reddit.com
             </a>
             <a
               href={`https://facebook.com/${data.facebook_username}`}
-              target='_blanck'
+              target='_blank'
+              rel='noreferrer'
             >
               facebook.com
             </a>
@@ -124,14 +141,6 @@ export default function SubContent({ data }) {
             background: ${color.lightBlue};
             color: ${color.letters};
             cursor: pointer;
-          }
-           {
-            /* .container_link:hover,
-          .container_link:hover,
-          .container_link:hover {
-            background: ${color.lightBlue};
-            color: ${color.letters};
-          } */
           }
 
           .content_ocult {

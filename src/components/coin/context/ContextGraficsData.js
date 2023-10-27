@@ -46,10 +46,7 @@ export default function ContextGraficsDataProvide({ children, id, symbol }) {
 
   const dateNow = Math.round(new Date().getTime() / 1000)
 
-  function rangeGraficAction({ min, max }) {
-    const abortController = new AbortController()
-    const { signal } = abortController
-
+  function rangeGraficAction({ min, max, signal }) {
     const twoentyDays = 1728000000
     if (
       min < rangeGrafic.min - twoentyDays ||

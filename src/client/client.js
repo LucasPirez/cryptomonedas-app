@@ -6,7 +6,7 @@ export const global = () => {
     .then((data) => data.json())
     .catch((error) => {
       console.log(error)
-      return null
+      throw new Error(error.message)
     })
 }
 
@@ -39,29 +39,36 @@ export const oneCoin = (id) => {
   return response
 }
 
-export const graficRange = ({
-  id,
-  currency,
-  time,
-  dateNow = Math.round(new Date().getTime() / 1000)
-}) => {
+export const graficRange = (
+  { id, currency, time, dateNow = Math.round(new Date().getTime() / 1000) },
+  signal
+) => {
   console.log('graficRange')
   return fetch(
-    `${BASE_URL}coins/${id}/market_chart/range?vs_currency=${currency}&from=${time}&to=${dateNow}`
+    `${BASE_URL}coins/${id}/market_chart/range?vs_currency=${currency}&from=${time}&to=${dateNow}`,
+    {
+      signal
+    }
   )
 }
 
-export const graficDays = (id, days = 7, currency) => {
+export const graficDays = (id, days = 7, currency, signal) => {
   console.log('graficDays')
   return fetch(
     `${BASE_URL}coins/${id}/market_chart?vs_currency=${currency}&days=${days}`,
     {
+      signal,
       headers: {
         'Content-Type': 'application/json'
       }
     }
   )
-    .then((data) => data.json())
+    .then((data) => {
+      if (!data.ok) {
+        throw new Error('Error en la solicitud')
+      }
+      return data.json()
+    })
     .catch((error) => {
       console.log(error)
       return null

@@ -7,7 +7,6 @@ export default function useClick(callback) {
     const event = document.addEventListener('click', (e) => {
       e.preventDefault()
       e.stopPropagation()
-
       if (ref.current && !ref.current.contains(e.target)) {
         callback()
       }
@@ -17,5 +16,5 @@ export default function useClick(callback) {
     }
   }, [ref])
 
-  return ref
+  return { ref }
 }

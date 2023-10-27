@@ -9,7 +9,7 @@ export default function PagesTable() {
   return (
     <>
       <Head>
-        <title>CrytoTracked</title>
+        <title>CrytoTracker</title>
         <meta
           name='description'
           content='Explore the cryptocurrency market, get real-time information, follow trends, and track your favorite cryptocurrencies.'

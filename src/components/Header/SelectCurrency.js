@@ -87,7 +87,7 @@ export default function SelectCurrency({
 }) {
   const { currencySelect } = useSelector((state) => state.criptoList)
 
-  const ref = useClick(() => handleVisibility(false))
+  const { ref } = useClick(() => handleVisibility(false))
 
   const select = (value) => {
     const s = currencySelect.currency.toLowerCase() === value.toLowerCase()

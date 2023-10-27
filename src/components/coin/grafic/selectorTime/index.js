@@ -3,7 +3,7 @@ import ContainerTimeGrafic from './ContainerGrafic'
 import { useContextSVG } from '../../context/ContextSVG'
 
 export default function SelectorTime({ id, currency }) {
-  const { dataHistoric } = useContextGraficsData()
+  const { dataHistoric, data } = useContextGraficsData()
   const { state } = useContextSVG()
   const { width } = state.constants
 
@@ -14,7 +14,7 @@ export default function SelectorTime({ id, currency }) {
         height: '80px'
       }}
     >
-      {dataHistoric && <ContainerTimeGrafic />}
+      {dataHistoric && data && data.length ? <ContainerTimeGrafic /> : ''}
     </div>
   )
 }

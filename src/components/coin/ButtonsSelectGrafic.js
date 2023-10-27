@@ -23,16 +23,12 @@ export default function ButtonsSelectGrafic({
     <>
       <div className='container_buttons'>
         {name !== 'bitcoin' && (
-          <>
-            <input
-              className={selectGrafic === CANDLE ? 'disabled' : ''}
-              type='checkbox'
-              onClick={() => setBitcoinGrafic((prev) => !prev)}
-            />
-            <span className={selectGrafic === CANDLE ? 'disabled' : ''}>
-              BTC
-            </span>
-          </>
+          <button
+            onClick={() => setBitcoinGrafic((prev) => !prev)}
+            className={selectGrafic === CANDLE ? 'disabled' : ''}
+          >
+            BTC
+          </button>
         )}
 
         <Button
@@ -63,11 +59,15 @@ export default function ButtonsSelectGrafic({
           cursor: pointer;
           transform: scale(1.23);
         }
-        span {
+        button {
           font-weight: 600;
           font-size: 1.2em;
+          padding:0.4rem 0.6rem;
           color: ${color.bitcoin};
-          margin-right: 1em;
+          margin-right: 0.5em;
+          cursor:pointer;
+          border:none;
+          background:transparent
         }
 
         .disabled {
@@ -75,11 +75,18 @@ export default function ButtonsSelectGrafic({
           opacity: 0.5;
         }
 
+        button:active{
+          transform:scale(0.95);
+        }
+
         .container_buttons {
           position: absolute;
           right: 20px;
           z-index: 99;
         }
+
+     
+        .
       `}</style>
     </>
   )

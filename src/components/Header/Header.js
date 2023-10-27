@@ -19,7 +19,7 @@ export default function Header() {
     setHidden(true)
   }
 
-  const ref = useClick(handleClick)
+  const { ref } = useClick(handleClick)
 
   async function handleBack(e) {
     e.preventDefault()
@@ -66,6 +66,7 @@ export default function Header() {
           display: flex;
           width: 100%;
           height: 10vh;
+          min-height: 60px;
           align-items: center;
           justify-content: space-around;
           background: ${color.background};

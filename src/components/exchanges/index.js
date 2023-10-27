@@ -25,14 +25,7 @@ export default function Exchanges({ query }) {
 
   return (
     <>
-      {page && (
-        <SelectPage
-          max={5}
-          reInitCount={reInitCount}
-          route={'exchanges'}
-          page={page}
-        />
-      )}
+      <h1>Top Crypto Exchanges Ranked by Trust Score</h1>
       <div>
         <table>
           <TableHeader dataExchanges={dataExchanges} />
@@ -60,8 +53,20 @@ export default function Exchanges({ query }) {
         ref={container}
         style={{ width: '100%', height: 30, background: 'trasparent' }}
       ></div>
-
+      {page && (
+        <SelectPage
+          max={5}
+          reInitCount={reInitCount}
+          route={'exchanges'}
+          page={page}
+        />
+      )}
       <style jsx>{`
+        h1 {
+          margin: 3rem;
+          text-align: center;
+          font-size: 1.6rem;
+        }
         div {
           max-width: 1150px;
           margin: 0 auto;

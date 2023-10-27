@@ -38,12 +38,7 @@ export default function Table({ query }) {
   if (error) return <Error message={error} />
   return (
     <>
-      <SelectPage
-        max={99}
-        reInitCount={reInitCount}
-        route={'criptos'}
-        page={page}
-      />
+      <h1>Cryptocurrency Prices by Market Cap</h1>
       <div className='contain'>
         <table>
           <thead>
@@ -84,12 +79,19 @@ export default function Table({ query }) {
           </tbody>
         </table>
       </div>
-      <div
-        ref={container}
-        style={{ width: '100%', height: 30, background: 'trasparent' }}
-      ></div>
+      <div ref={container} className='container_intersection'></div>
+      <SelectPage
+        max={99}
+        reInitCount={reInitCount}
+        route={'criptos'}
+        page={page}
+      />
       <style jsx>
         {`
+          h1 {
+            text-align: center;
+            font-size: 1.9rem;
+          }
           table {
             min-height: '90vh';
             width: 100%;
@@ -122,6 +124,12 @@ export default function Table({ query }) {
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+          }
+
+          .container_intersection {
+            width: '100%';
+            height: 30;
+            background: 'trasparent';
           }
         `}
       </style>{' '}
