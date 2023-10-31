@@ -25,6 +25,9 @@ export default function Header() {
     e.preventDefault()
     router.back()
   }
+  const a = {
+    firstName: 'aaaaiddddddddg'
+  }
 
   return (
     <>

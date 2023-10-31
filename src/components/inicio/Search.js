@@ -56,7 +56,6 @@ export default function Search() {
   }
 
   const storage = (value) => {
-    // localStorage.removeItem("listSearch");
     if (!list.length) {
       const storage = JSON.parse(localStorage.getItem('listSearch'))
       if (storage) {
