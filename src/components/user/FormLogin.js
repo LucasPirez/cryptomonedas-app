@@ -4,12 +4,9 @@ import { authServices } from '../../services/authServices'
 import { storageUser } from '../../util/localStorageUser'
 import { tokenAccess } from '../../util/tokenAccess'
 
-export default function FormSignUp() {
+export default function FormLogin() {
   const { handleBlur } = useValidateForms()
   const [formValues, setFormValues] = useState({
-    userEmail: '',
-    firstName: '',
-    lastName: '',
     userName: '',
     password: ''
   })
@@ -17,7 +14,9 @@ export default function FormSignUp() {
   const sendData = async (e) => {
     e.preventDefault()
     try {
-      const { token, userData } = await authServices.createUser(formValues)
+      const { token, userData } = await authServices.login(formValues)
+
+      console.log(token, userData)
 
       tokenAccess.set(token)
       storageUser.setData(userData)
@@ -37,47 +36,14 @@ export default function FormSignUp() {
         <div className='container_input'>
           <input
             type='text'
-            name='firstName'
-            onBlur={handleBlur}
-            required
-            value={formValues.firstName}
-            onChange={handleChange}
-          />
-          <label htmlFor='firstName'> First Name</label>
-        </div>{' '}
-        <div className='container_input'>
-          <input
-            type='text'
-            name='lastName'
-            onBlur={handleBlur}
-            required
-            value={formValues.lastName}
-            onChange={handleChange}
-          />
-          <label htmlFor='lastName'> Last Name</label>
-        </div>
-        <div className='container_input'>
-          <input
-            type='text'
             name='userName'
             onBlur={handleBlur}
             required
             value={formValues.userName}
             onChange={handleChange}
           />
-          <label htmlFor='name'> userAlias</label>
-        </div>
-        <div className='container_input'>
-          <input
-            type='email'
-            name='userEmail'
-            required
-            onBlur={handleBlur}
-            value={formValues.userEmail}
-            onChange={handleChange}
-          />
-          <label htmlFor='email'>Email Address</label>
-        </div>
+          <label htmlFor='firstName'> UserName </label>
+        </div>{' '}
         <div className='container_input'>
           <input
             type='password'
@@ -92,7 +58,7 @@ export default function FormSignUp() {
       </form>
 
       <div className='container_buttons'>
-        <button onClick={sendData}>Create an Account</button>
+        <button onClick={sendData}>Login</button>
       </div>
       <style jsx>{`
         form {

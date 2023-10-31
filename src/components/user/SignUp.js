@@ -1,36 +1,10 @@
 // import react, { useState, useEffect, useRef } from 'react'
 // import login from '../../client/clientUser'
 import ModalPortal from '../portal/ModalPortal'
+import FormLogin from './FormLogin'
 import FormSignUp from './FormSignUp'
 
 export default function SignUp() {
-  // const refForm = useRef({ email: "", name: "", lastName: "", password: "" });
-  // const [formValues, setFormValues] = useState({
-  //   email: "",
-  //   name: "",
-  //   lastName: "",
-  //   password: "",
-  // });
-
-  // const sendData = (e) => {
-  //   e.preventDefault();
-  //   console.log(refForm.current);
-  //   login(refForm.current)
-  //     .then((data) => {
-  //       console.log(data);
-  //       if (data.ok) {
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // const handleChange = (e) => {
-  //   e.preventDefault();
-  //   refForm.current[e.target.name] = e.target.value;
-  // };
-
   return (
     <>
       <ModalPortal>
@@ -44,7 +18,7 @@ export default function SignUp() {
               </span>
             </p>
           </div>
-          <FormSignUp />
+          <FormLogin />
         </section>
       </ModalPortal>
       <style jsx>{`

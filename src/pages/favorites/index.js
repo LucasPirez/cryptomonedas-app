@@ -1,4 +1,3 @@
-import React, { useRef, useEffect } from 'react'
 import ListFavorites from '../../components/favorites/ListFavorites'
 
 export default function Favorites() {

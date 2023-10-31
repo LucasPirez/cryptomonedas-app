@@ -1,13 +1,13 @@
 import { URL_BASE_DATOS } from '../constants/constants'
 
 export const authServices = {
-  login: ({ username, password }) => {
+  login: ({ userName, password }) => {
     return fetch(`${URL_BASE_DATOS}/User/Login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: { userName: username, password }
+      body: JSON.stringify({ userName, password })
     }).then((data) => data.json())
   },
   createUser: (user) => {
@@ -31,7 +31,7 @@ export const authServices = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`
+        Authorization: `Bearer ${4}`
       },
       body: JSON.stringify({
         firstName: user.firstName,
