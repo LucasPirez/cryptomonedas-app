@@ -58,6 +58,11 @@ export default function Header() {
                 <a>Exchanges</a>
               </Link>
             </li>
+            <li className={path.includes('/alerts') ? 'select' : ''}>
+              <Link href={'/alerts'}>
+                <a>alerts</a>
+              </Link>
+            </li>
           </ul>
           <RenderSelectCurrency />
         </div>
