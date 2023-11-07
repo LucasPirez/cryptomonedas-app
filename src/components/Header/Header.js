@@ -12,8 +12,13 @@ export default function Header() {
   const path = router.asPath
   const [hidden, setHidden] = useState(true)
 
-  const { page: criptoPage } = useSelector((state) => state.criptoList)
-  const { page: exchagesPage } = useSelector((state) => state.exchangesList)
+  const { page: criptoPage } = useSelector(
+    (state) => state.criptoList
+  )
+  const { page: exchagesPage } = useSelector(
+    (state) => state.exchangesList
+  )
+  const { userData } = useSelector((state) => state.userData)
 
   const handleClick = () => {
     setHidden(true)
@@ -36,7 +41,10 @@ export default function Header() {
           <ArrowLeft />
         </button>
         <h2>Crypto Tracker</h2>
-        <div className='hamburguer' onClick={() => setHidden(!hidden)}>
+        <div
+          className='hamburguer'
+          onClick={() => setHidden(!hidden)}
+        >
           <div></div>
           <div></div>
           <div></div>
@@ -48,21 +56,31 @@ export default function Header() {
                 <a>table</a>
               </Link>
             </li>
-            <li className={path.includes('/favorites/') ? 'select' : ''}>
+            <li
+              className={path.includes('/favorites/') ? 'select' : ''}
+            >
               <Link href={'/favorites'}>
                 <a>Favorites</a>
               </Link>
             </li>
-            <li className={path.includes('/exchanges/1') ? 'select' : ''}>
+            <li
+              className={
+                path.includes('/exchanges/1') ? 'select' : ''
+              }
+            >
               <Link href={`/exchanges/${exchagesPage || 1}`}>
                 <a>Exchanges</a>
               </Link>
             </li>
-            <li className={path.includes('/alerts') ? 'select' : ''}>
-              <Link href={'/alerts'}>
-                <a>alerts</a>
-              </Link>
-            </li>
+            {userData && (
+              <li
+                className={path.includes('/alerts') ? 'select' : ''}
+              >
+                <Link href={'/alerts'}>
+                  <a>alerts</a>
+                </Link>
+              </li>
+            )}
           </ul>
           <RenderSelectCurrency />
         </div>
