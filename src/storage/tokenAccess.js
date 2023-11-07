@@ -3,6 +3,6 @@
 import { storageUser } from './localStorageUser'
 
 export const tokenAccess = {
-  get: () => storageUser.getToken(),
-  set: (token) => storageUser.setToken(token)
+  get: () => storageUser().getToken(),
+  set: (token) => storageUser().setToken(token)
 }
