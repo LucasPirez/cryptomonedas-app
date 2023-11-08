@@ -21,6 +21,7 @@ export const storageUser = () => {
         )
       }
     },
+    deleteData: () => localStorage.removeItem(STORGA_USER),
     getToken: () => localStorage.getItem(TOKEN),
     setToken: (token) => localStorage.setItem(TOKEN, token)
   }

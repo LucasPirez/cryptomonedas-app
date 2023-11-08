@@ -18,7 +18,8 @@ export default function Header() {
   const { page: exchagesPage } = useSelector(
     (state) => state.exchangesList
   )
-  const { userData } = useSelector((state) => state.userData)
+  const userData = useSelector((state) => state.userData)
+  console.log(userData)
 
   const handleClick = () => {
     setHidden(true)

@@ -1,8 +1,10 @@
 import Head from 'next/head'
-import SearchCrypto from '../../components/alerts/createAlert/SearchCrypto'
 import AlertsCreated from '../../components/alerts/createAlert/AlertsCreated'
-import AlertContextProvider from '../../components/alerts/contextAlerts'
-import ContextToastProvider from '../../components/alerts/contextToast'
+import ContextToastProvider from '../../components/alerts/contexts/contextToast'
+import FormAlert from '../../components/alerts/createAlert/FormAlert'
+import FormContextProvider from '../../components/alerts/contexts/contextForm'
+import FormLogin from '../../components/user/FormLogin'
+import OnlyAuthorized from '../../components/alerts/OnlyAuthorized'
 
 export default function Alerts() {
   return (
@@ -15,12 +17,16 @@ export default function Alerts() {
         />
       </Head>
       <ContextToastProvider>
-        <AlertContextProvider>
+        <FormContextProvider>
           <section className='container'>
-            <SearchCrypto />
-            <AlertsCreated />
+            <FormLogin />
+
+            <OnlyAuthorized>
+              <FormAlert />
+              <AlertsCreated />
+            </OnlyAuthorized>
           </section>
-        </AlertContextProvider>
+        </FormContextProvider>
       </ContextToastProvider>
       <style jsx>{`
         .container {

@@ -48,7 +48,10 @@ export const criptoSlice = createSlice({
     })
   }
 })
-export const { coinReduceTable, currencySelectReducer, currencyUpdatePage } =
-  criptoSlice.actions
+export const {
+  coinReduceTable,
+  currencySelectReducer,
+  currencyUpdatePage
+} = criptoSlice.actions
 
 export default criptoSlice.reducer

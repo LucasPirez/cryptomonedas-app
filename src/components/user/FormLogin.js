@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useValidateForms } from '../../hook/useValidateForms'
 import { authServices } from '../../services/authServices'
-import { storageUser } from '../../util/localStorageUser'
-import { tokenAccess } from '../../util/tokenAccess'
+import { tokenAccess } from '../../storage/tokenAccess'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../../redux/features/userData'
 
 export default function FormLogin() {
   const { handleBlur } = useValidateForms()
@@ -10,6 +11,7 @@ export default function FormLogin() {
     userName: '',
     password: ''
   })
+  const dispatch = useDispatch()
 
   const sendData = async (e) => {
     e.preventDefault()
@@ -17,9 +19,8 @@ export default function FormLogin() {
       const { token, userData } = await authServices.login(formValues)
 
       console.log(token, userData)
-
+      dispatch(setUserData({ userData, token }))
       tokenAccess.set(token)
-      storageUser.setData(userData)
     } catch (error) {
       console.log(error)
     }

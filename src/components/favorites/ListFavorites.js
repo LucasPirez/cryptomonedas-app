@@ -4,28 +4,35 @@ import { oneCoin } from '../../client/client'
 import { color } from '../../styles/colors'
 import TableComponent from '../utilities/TableComponent'
 import RowFavorites from './RowFavorites'
+import FormLogin from '../user/FormLogin'
 
 export default function ListFavorites() {
   const [favoritesFetch, setFavoritesFetch] = useState(null)
-  const favorites = JSON.parse(localStorage.getItem('favorites_coin')) || []
 
   useEffect(() => {
-    const promiseAll = favorites.map(async (u) => {
-      const response = await oneCoin(u)
-      return response
-    })
+    const favorites =
+      typeof window !== 'undefined'
+        ? JSON.parse(localStorage.getItem('favorites_coin'))
+        : []
+    if (favorites) {
+      const promiseAll = favorites.map(async (u) => {
+        const response = await oneCoin(u)
+        return response
+      })
 
-    Promise.all(promiseAll)
-      .then((data) => {
-        setFavoritesFetch(data)
-      })
-      .catch((error) => {
-        throw new Error(error.message)
-      })
+      Promise.all(promiseAll)
+        .then((data) => {
+          setFavoritesFetch(data)
+        })
+        .catch((error) => {
+          throw new Error(error.message)
+        })
+    }
   }, [])
 
-  if (!favorites.length) {
-    return <h3>you don&apos;t have favorites yet </h3>
+  if (!favoritesFetch?.length) {
+    return <FormLogin />
+    // return <h3>you don&apos;t have favorites yet </h3>
   }
 
   return (
@@ -41,7 +48,10 @@ export default function ListFavorites() {
             <tbody>
               {favoritesFetch &&
                 favoritesFetch.map((u, i) => (
-                  <RowFavorites data={EPCoinsMarketsAdapter(u)} key={u.id} />
+                  <RowFavorites
+                    data={EPCoinsMarketsAdapter(u)}
+                    key={u.id}
+                  />
                 ))}
             </tbody>
           </table>
