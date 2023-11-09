@@ -64,7 +64,9 @@ export default function CoinsRow({ data }) {
             : 'price_danger numbers '
         }
       >
-        {priceChangePercentage24h && priceChangePercentage24h.toFixed(2)}%
+        {priceChangePercentage24h &&
+          priceChangePercentage24h.toFixed(2)}
+        %
       </td>
       <td
         className={
@@ -78,8 +80,12 @@ export default function CoinsRow({ data }) {
         %
       </td>
 
-      <td className='numbers'>${totalVolume.toLocaleString('en-US')}</td>
-      <td className='numbers'>${marketCap.toLocaleString('en-US')}</td>
+      <td className='numbers'>
+        ${totalVolume.toLocaleString('en-US')}
+      </td>
+      <td className='numbers'>
+        ${marketCap.toLocaleString('en-US')}
+      </td>
       <td className='tdGrafic'>
         <Suspense fallback={<p>cargando</p>}>
           <GraficRow
@@ -113,6 +119,7 @@ export default function CoinsRow({ data }) {
             justify-content: space-between;
             font-weight: 600;
           }
+
           .image {
             width: 70px;
             margin: 0 10px;
@@ -126,7 +133,7 @@ export default function CoinsRow({ data }) {
             color: red;
           }
           .symbol {
-            color: ${color.lineGrafic};
+            color: var(--bitcoin-dark);
           }
           .numbers {
             padding: 0 20px;

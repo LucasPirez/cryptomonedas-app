@@ -3,7 +3,6 @@ import AlertsCreated from '../../components/alerts/createAlert/AlertsCreated'
 import ContextToastProvider from '../../components/alerts/contexts/contextToast'
 import FormAlert from '../../components/alerts/createAlert/FormAlert'
 import FormContextProvider from '../../components/alerts/contexts/contextForm'
-import FormLogin from '../../components/user/FormLogin'
 import OnlyAuthorized from '../../components/alerts/OnlyAuthorized'
 
 export default function Alerts() {
@@ -19,8 +18,6 @@ export default function Alerts() {
       <ContextToastProvider>
         <FormContextProvider>
           <section className='container'>
-            <FormLogin />
-
             <OnlyAuthorized>
               <FormAlert />
               <AlertsCreated />

@@ -4,6 +4,8 @@ import { authServices } from '../../services/authServices'
 import { tokenAccess } from '../../storage/tokenAccess'
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../redux/features/userData'
+import { InputText } from 'primereact/inputtext'
+import { Button } from 'primereact/button'
 
 export default function FormLogin() {
   const { handleBlur } = useValidateForms()
@@ -35,36 +37,39 @@ export default function FormLogin() {
     <>
       <form>
         <div className='container_input'>
-          <input
+          <InputText
             type='text'
             name='userName'
+            placeholder='UserName'
             onBlur={handleBlur}
             required
             value={formValues.userName}
             onChange={handleChange}
           />
-          <label htmlFor='firstName'> UserName </label>
+          {/* <label htmlFor='firstName'> UserName </label> */}
         </div>{' '}
         <div className='container_input'>
-          <input
+          <InputText
             type='password'
             onBlur={handleBlur}
             name='password'
+            placeholder='password'
             required
             value={formValues.password}
             onChange={handleChange}
           />
-          <label htmlFor='password'> Passoword</label>
+          {/* <label htmlFor='password'> Passoword</label> */}
         </div>
       </form>
 
       <div className='container_buttons'>
-        <button onClick={sendData}>Login</button>
+        <Button label='Login' onClick={sendData} severity='info' />
       </div>
       <style jsx>{`
         form {
           width: 90%;
           margin-bottom: 1rem;
+          z-index: 99;
         }
         .container_title {
           width: 100%;

@@ -31,8 +31,7 @@ export default function ListFavorites() {
   }, [])
 
   if (!favoritesFetch?.length) {
-    return <FormLogin />
-    // return <h3>you don&apos;t have favorites yet </h3>
+    return <h3>you don&apos;t have favorites yet</h3>
   }
 
   return (
@@ -63,8 +62,11 @@ export default function ListFavorites() {
           background: 'white';
           border-collapse: collapse;
         }
+
         .container {
+          margin: auto;
           max-width: 1150px;
+          textalign: center;
           width: auto;
           overflow-x: auto;
         }

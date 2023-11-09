@@ -33,7 +33,9 @@ export const alertServices = {
    */
   addAlert: (data) => {
     return fetch(
-      `${URL_BASE_DATOS}/Alerts/Add?userDataId=${userData?.userDataId}`,
+      `${URL_BASE_DATOS}/Alerts/Add?userDataId=${
+        userData()?.userDataId
+      }`,
       {
         method: 'POST',
         headers: {
@@ -80,7 +82,7 @@ export const alertServices = {
   deleteAlert: (coinName) => {
     return fetch(
       `${URL_BASE_DATOS}/Alerts/Delete?userDataId=${
-        alertServices.userData()?.userDataId
+        userData()?.userDataId
       }&CoinName=${coinName}`,
       {
         method: 'DELETE',

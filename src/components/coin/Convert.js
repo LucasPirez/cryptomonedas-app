@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import useConstansGrafic from '../../hook/useConstansGrafic'
 import { color } from '../../styles/colors'
 import { useContextGraficsData } from './context/ContextGraficsData'
+import { Dropdown } from 'primereact/dropdown'
 
 export default function Convert({ data, name }) {
   const { symbolRef } = useContextGraficsData()
@@ -30,7 +31,7 @@ export default function Convert({ data, name }) {
         </h3>
         <div className='sub_container'>
           <div>
-            <p>{name.toUpperCase()}:</p>
+            <p className='coinName'>{name.toUpperCase()}:</p>
           </div>
           <input
             type='number'
@@ -40,20 +41,12 @@ export default function Convert({ data, name }) {
         </div>
         <div className='sub_container'>
           <div>
-            <select
+            <Dropdown
               name='select'
-              onChange={(e) => setCoinSelected(e.target.value)}
+              onChange={(e) => setCoinSelected(e.value)}
               value={coinSelected || 'usd'}
-            >
-              {arrAth.map((currency) => (
-                <option
-                  value={currency}
-                  key={currency + Math.random() + '--' + Math.random()}
-                >
-                  {currency}
-                </option>
-              ))}
-            </select>
+              options={arrAth}
+            ></Dropdown>
           </div>
 
           <input
@@ -62,9 +55,10 @@ export default function Convert({ data, name }) {
             readOnly={true}
           />
         </div>
-        <h4>
-          1 {symbolRef.current.toUpperCase()} =${data.current_price.usd}
-        </h4>
+        <p className='result'>
+          1 <strong>{symbolRef.current.toUpperCase()}</strong> = $
+          {data.current_price.usd}
+        </p>
       </div>
       <style jsx>{`
         select {
@@ -72,37 +66,40 @@ export default function Convert({ data, name }) {
         }
 
         h3 {
-          color: ${color.letters}90;
+          color: var(--text-color);
           border-bottom: 1px dashed ${color.letters};
           padding: 0 0 10px 0;
           font-size: 1.3em;
           opacity: 0.9;
         }
 
-        h3 span {
-          color: ${color.letters};
+        h3 span,
+        .coinName {
+          color: var(--bitcoin-dark);
+          font-weight: bold;
+        }
+
+        h3:lastchild {
+          color: red;
         }
 
         input {
           padding: 0.7em 1.2em;
+          max-width: 400px;
+
           font-size: 1em;
           border: none;
-          outline: 2px solid ${color.blue}85;
+          outline: 1px solid #00000040;
           box-shadow: rgba(0, 0, 0, 0.36) 0px 0px 2px inset;
           border-radius: 5px;
         }
 
         input:focus {
-          outline: 2px solid ${color.blue};
+          box-shadow: var(--primary-color) 0 0 4px 1px;
         }
 
         option {
           font-size: 1.3em;
-        }
-
-        h4 {
-          text-align: left;
-          margin-left: 7%;
         }
 
         .container {
@@ -119,8 +116,16 @@ export default function Convert({ data, name }) {
         .sub_container > div {
           margin: 30px auto 10px auto;
           justify-content: center;
+          gap: 30px;
           width: 4.5em;
           justify-content: center;
+        }
+
+        .result {
+          font-size: 1.3rem;
+        }
+        .result strong {
+          color: var(--bitcoin-dark);
         }
 
         @media (max-width: 1100px) {

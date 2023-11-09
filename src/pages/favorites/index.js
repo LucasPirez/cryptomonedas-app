@@ -18,10 +18,8 @@ export default function Favorites() {
       <style jsx>
         {`
           .container {
-            display: grid;
+            text-align: center;
             width: 100vw;
-            justify-content: center;
-
             padding: 10px;
           }
         `}

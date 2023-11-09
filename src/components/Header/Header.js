@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import useClick from '../../hook/useClick'
 import { useSelector } from 'react-redux'
 import RenderSelectCurrency from './RenderSelectCurrency'
+import Register from '../user/Register'
+import RenderLogin from '../user/RenderLogin'
 
 export default function Header() {
   const router = useRouter()
@@ -18,8 +20,7 @@ export default function Header() {
   const { page: exchagesPage } = useSelector(
     (state) => state.exchangesList
   )
-  const userData = useSelector((state) => state.userData)
-  console.log(userData)
+  const { userDataId } = useSelector((state) => state.userData)
 
   const handleClick = () => {
     setHidden(true)
@@ -30,9 +31,6 @@ export default function Header() {
   async function handleBack(e) {
     e.preventDefault()
     router.back()
-  }
-  const a = {
-    firstName: 'aaaaiddddddddg'
   }
 
   return (
@@ -52,13 +50,19 @@ export default function Header() {
         </div>
         <div className={`ul_container ${!hidden ? 'mostrar' : ''}`}>
           <ul>
-            <li className={path.includes('/criptos') ? 'select' : ''}>
+            <li
+              className={
+                path.includes('/criptos') ? 'select li' : 'li'
+              }
+            >
               <Link href={`/criptos/${criptoPage || 1}`}>
                 <a>table</a>
               </Link>
             </li>
             <li
-              className={path.includes('/favorites/') ? 'select' : ''}
+              className={
+                path.includes('/favorites/') ? 'select li' : 'li'
+              }
             >
               <Link href={'/favorites'}>
                 <a>Favorites</a>
@@ -66,23 +70,30 @@ export default function Header() {
             </li>
             <li
               className={
-                path.includes('/exchanges/1') ? 'select' : ''
+                path.includes('/exchanges/1') ? 'select li' : 'li'
               }
             >
               <Link href={`/exchanges/${exchagesPage || 1}`}>
                 <a>Exchanges</a>
               </Link>
             </li>
-            {userData && (
+            {userDataId && (
               <li
-                className={path.includes('/alerts') ? 'select' : ''}
+                className={
+                  path.includes('/alerts') ? 'select li' : 'li'
+                }
               >
                 <Link href={'/alerts'}>
                   <a>alerts</a>
                 </Link>
               </li>
             )}
+
+            <li className='li2'>
+              <RenderLogin />
+            </li>
           </ul>
+
           <RenderSelectCurrency />
         </div>
       </nav>
@@ -127,7 +138,9 @@ export default function Header() {
           justify-content: flex-end;
           list-style: none;
         }
-        li {
+
+        .li,
+        .li2 {
           position: relative;
           font-size: 1.14em;
           text-decoration: none;
@@ -138,7 +151,7 @@ export default function Header() {
           transition: all 0.7s;
         }
 
-        li:before {
+        .li:before {
           content: '';
           width: 80%;
           height: 2px;
@@ -151,7 +164,7 @@ export default function Header() {
           transform-origin: left;
         }
 
-        li:hover:before {
+        .li:hover:before {
           transform: scale(1);
         }
 
@@ -171,7 +184,7 @@ export default function Header() {
 
         .select {
           border-radius: 4px;
-          border: solid 1px ${color.blue}70;
+          border: solid 1px ${color.blue}30;
           color: ${color.blue};
           box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 4px;
         }

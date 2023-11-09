@@ -59,6 +59,8 @@ export default function AlertsCreated() {
             pt={{
               root: {
                 style: {
+                  paddingLeft: '30px',
+                  paddingRight: '30px',
                   background: `${
                     coinId === formState.coinName
                       ? 'var(--surface-100)'

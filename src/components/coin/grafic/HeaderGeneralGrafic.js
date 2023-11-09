@@ -4,11 +4,14 @@ import ChevronDown from '../../Icons/ChevrowDown'
 import { useContextGraficsData } from '../context/ContextGraficsData'
 
 export default function HeaderGeneralGrafic() {
-  const { fetch7Days, time, setTime, dateNow } = useContextGraficsData()
+  const { fetch7Days, time, setTime, dateNow } =
+    useContextGraficsData()
   const [vista, setVista] = useState(false)
 
   const fecha = (e) => {
-    const dateSelect = Math.round(new Date(e.target.value).getTime() / 1000)
+    const dateSelect = Math.round(
+      new Date(e.target.value).getTime() / 1000
+    )
     const res = Math.round((dateNow - dateSelect) / 86400)
 
     setTime(() => res)
@@ -60,10 +63,15 @@ export default function HeaderGeneralGrafic() {
           >
             1Y
           </button>
-          <div className='container_icon' onClick={() => setVista(!vista)}>
+          <div
+            className='container_icon'
+            onClick={() => setVista(!vista)}
+          >
             <ChevronDown />
           </div>
-          <div className={`container_input ${vista && 'select_input'}`}>
+          <div
+            className={`container_input ${vista && 'select_input'}`}
+          >
             <input
               type='date'
               onChange={fecha}
@@ -75,32 +83,37 @@ export default function HeaderGeneralGrafic() {
       </div>
       <style jsx>{`
         button {
-          padding: 4.5px 10px;
-          border-radius: 5px;
+          padding: 13px 10px;
           border: none;
           transition: background 0.3s;
           font-weight: bold;
-          opacity: 0.8;
           margin: 1.3px;
-          color: ${color.lightBlue};
+          color: var(--text-color);
           cursor: pointer;
-          background: ${color.letters};
+        
         }
+
         button:hover {
-          background: ${color.lightBlue};
-          color: ${color.letters};
+        background: var(--primary-200);
+        color: #0a0a0a;
         }
+
         button:active {
-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         }
+
         .select {
-          background: ${color.lightBlue};
-          color: ${color.letters};
+          background: var(--primary-300);
+          color: #0a0a0a;
         }
+
         input {
-          background: ${color.letters};
-          color: ${color.lightBlue};
-          cursor: pointer;
+          background: #00000010;
+          color:color: var(--text-color);
+ 
+          border:none
         }
 
         .container {
@@ -114,8 +127,7 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 
         }
         .sub_container {
           display: inline-flex;
-          background: ${color.letters};
-          padding: 3px 10px;
+          background: #00000010;
           border-radius: 5px;
         }
 

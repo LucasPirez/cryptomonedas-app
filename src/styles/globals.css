@@ -3,12 +3,12 @@ body {
   padding: 0;
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 
   background: #f8f9fa;
   color: #4a4a4a;
-  --primary-color: #000;
   --background: #f8f9fa;
   --reduceBackground: #f3eddf;
   --letters: #31364c;
@@ -19,6 +19,7 @@ body {
   --lightBlue: #78d7dd;
   --lineGrafic: #923330;
   --bitcoin: #fe9870;
+  --bitcoin-dark: #e08663;
   --candleGreen: #5dae82;
   --candleRed: #ff4646;
 }

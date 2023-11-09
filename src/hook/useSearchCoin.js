@@ -33,6 +33,7 @@ export const useSearchCoin = () => {
   )
 
   const handleChange = (value) => {
+    console.log(value)
     dispatch({ type: 'escribir', payload: value })
     storage(value)
 

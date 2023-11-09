@@ -21,11 +21,19 @@ export default function FormAlert() {
   }
   console.log(formState)
 
+  const itemTemplate = (option) => {
+    return (
+      <div style={{ width: 'fit-content', background: 'red' }}>
+        <span style={{ fontWeight: 'bold' }}>{option.symbol} - </span>
+
+        <span>{option.id}</span>
+      </div>
+    )
+  }
   return (
     <>
       {state && (
         <>
-          {/* <FormLogin /> */}
           <Card
             title='Create new Alert'
             style={{
@@ -51,11 +59,12 @@ export default function FormAlert() {
                         })
                       }}
                       options={listFiltered}
-                      optionLabel='id'
+                      itemTemplate={itemTemplate}
                       inputId='dd-crypto'
-                      className='w-full md:w-14rem'
                       ref={refDropdown}
-                      style={{ width: '200px' }}
+                      pt={{
+                        panel: { style: { width: '100px' } }
+                      }}
                       editable
                     />
                     <label htmlFor='dd-crypto'>Search a Crypto</label>

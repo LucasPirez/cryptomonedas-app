@@ -20,8 +20,10 @@ export default function RenderSearch({ cripto }) {
           width: 100%;
           height: 39px;
           margin: 0px;
-          border: 1px solid #000;
-          background: ${color.letters};
+          color: var(--text-color);
+          font-weight: 500;
+          border: solid 1px var(--surface-200);
+          background: var(--surface-50);
           transition: all 0.25s;
           display: flex;
           align-items: center;
@@ -29,16 +31,15 @@ export default function RenderSearch({ cripto }) {
         }
 
         .map:hover {
-          box-shadow: #eaeaea30 0px 0px 34px 6px inset;
+          box-shadow: #00000010 0px 0px 34px 6px inset;
         }
 
         .names {
           margin-left: 2rem;
-
-          color: ${color.lightBlue};
+          color: var(--text-color);
         }
         .names span {
-          color: ${color.lightBlue}90;
+          color: var(--bitcoin);
         }
       `}</style>
     </>
