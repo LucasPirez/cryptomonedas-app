@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { alertServices } from '../../../services/alertServices'
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
@@ -10,17 +10,9 @@ import DeleteAlert from './DeleteAlert'
 import { useToastContext } from '../contexts/contextToast'
 
 export default function AlertsCreated() {
-  const { handleSetValueForm, formState, updateNeed, refCoinsId } =
+  const { handleSetValueForm, formState, alerts, updateAlerts } =
     useContextForm()
-  const [alerts, setAlerts] = useState(null)
   const { toastError } = useToastContext()
-
-  const handleSetAlerts = (alerts) => {
-    const alertsId = alerts.map((alert) => alert.coinId)
-    refCoinsId.current = alertsId
-
-    setAlerts({ alerts, alertsId })
-  }
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -30,14 +22,14 @@ export default function AlertsCreated() {
           abort: abortController
         })
         handleSetValueForm(INITIAL_STATE_FORM)
-        handleSetAlerts(response)
+        updateAlerts(response)
       } catch (error) {
         toastError('An Error has occurred')
       }
 
       return () => abortController.abort()
     })()
-  }, [updateNeed])
+  }, [])
 
   const ptButton = {
     root: {

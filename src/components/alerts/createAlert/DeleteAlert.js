@@ -21,9 +21,10 @@ export default function DeleteAlert({ coinName }) {
   const handleClick = async () => {
     try {
       const response = await alertServices.deleteAlert(coinName)
-      console.log(response)
+
       toastSucces('The alert was Deleted')
-      updateAlerts()
+      console.log(response)
+      updateAlerts(response)
     } catch (error) {
       console.log(error)
       toastError(error.message)

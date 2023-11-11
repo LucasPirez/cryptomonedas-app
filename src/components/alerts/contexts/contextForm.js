@@ -16,12 +16,16 @@ const ContextAlerts = createContext(null)
 export default function FormContextProvider({ children }) {
   const [formState, setFormState] = useState(INITIAL_STATE_FORM)
   const [isCoinExist, setIsCoinExist] = useState(false)
-  const [updateNeed, setUpdateNeed] = useState(false)
+  const [alerts, setAlerts] = useState(null)
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const refCoinsId = useRef(null)
 
-  const updateAlerts = () => {
-    setUpdateNeed(!updateNeed)
+  const updateAlerts = (alertsObtain) => {
+    handleSetValueForm(INITIAL_STATE_FORM)
+    const alertsId = alertsObtain.map((alert) => alert.coinId)
+    refCoinsId.current = alertsId
+
+    setAlerts({ alerts: alertsObtain, alertsId })
   }
 
   const handleSetValueForm = (data) => {
@@ -52,7 +56,7 @@ export default function FormContextProvider({ children }) {
   const value = {
     formState,
     handleSetValueForm,
-    updateNeed,
+    alerts,
     updateAlerts,
     refCoinsId,
     isCoinExist,

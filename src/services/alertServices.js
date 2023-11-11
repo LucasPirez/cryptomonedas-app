@@ -44,7 +44,13 @@ export const alertServices = {
         },
         body: JSON.stringify(data)
       }
-    ).then((data) => console.log(data))
+    ).then((data) => {
+      if (data.ok) {
+        return data.json()
+      } else {
+        throw new Error('Error al agregar la alerta')
+      }
+    })
   },
   /**
    *
@@ -66,9 +72,8 @@ export const alertServices = {
         body: JSON.stringify(data)
       }
     ).then((data) => {
-      console.log(data)
       if (data.ok) {
-        return data
+        return data.json()
       } else {
         throw new Error('Error al editar la alerta')
       }
@@ -93,9 +98,9 @@ export const alertServices = {
       }
     ).then((data) => {
       if (data.ok) {
-        return data
+        return data.json()
       } else {
-        throw new Error('Error al editar la alerta')
+        throw new Error('Error al borrar la alerta')
       }
     })
   }

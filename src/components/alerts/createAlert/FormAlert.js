@@ -23,7 +23,7 @@ export default function FormAlert() {
 
   const itemTemplate = (option) => {
     return (
-      <div style={{ width: 'fit-content', background: 'red' }}>
+      <div style={{ width: 'fit-content' }}>
         <span style={{ fontWeight: 'bold' }}>{option.symbol} - </span>
 
         <span>{option.id}</span>

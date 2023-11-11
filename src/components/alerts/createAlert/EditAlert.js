@@ -9,12 +9,12 @@ export default function EditAlert() {
 
   const handleClick = async () => {
     try {
-      await alertServices.editAlert({
+      const response = await alertServices.editAlert({
         ...formState,
         dateCreate: new Date().toISOString()
       })
       toastSucces('The alert was Edited successfully')
-      updateAlerts()
+      updateAlerts(response)
     } catch (error) {
       toastError(error.message)
     }

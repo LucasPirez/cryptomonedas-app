@@ -9,13 +9,12 @@ export default function AddAlert() {
 
   const handleClick = async () => {
     try {
-      console.log(formState)
-      await alertServices.addAlert({
+      const response = await alertServices.addAlert({
         ...formState,
         dateCreate: new Date()
       })
       toastSucces('The alert was created successfully')
-      updateAlerts()
+      updateAlerts(response)
     } catch (error) {
       toastError(error.message)
     }
