@@ -1,4 +1,4 @@
-import { STORGA_USER, TOKEN } from '../constants/constants'
+import { STORAGE_USER, TOKEN } from '../constants/constants'
 
 export const storageUser = () => {
   if (typeof window === 'undefined') {
@@ -8,20 +8,20 @@ export const storageUser = () => {
     }
   }
   return {
-    getData: () => localStorage.getItem(STORGA_USER),
+    getData: () => localStorage.getItem(STORAGE_USER),
     setData: (data) => {
       const storage = storageUser().getData()
 
       if (!storage) {
-        localStorage.setItem(STORGA_USER, JSON.stringify(data))
+        localStorage.setItem(STORAGE_USER, JSON.stringify(data))
       } else {
         localStorage.setItem(
-          STORGA_USER,
+          STORAGE_USER,
           JSON.stringify({ ...JSON.parse(storage), ...data })
         )
       }
     },
-    deleteData: () => localStorage.removeItem(STORGA_USER),
+    deleteData: () => localStorage.removeItem(STORAGE_USER),
     getToken: () => localStorage.getItem(TOKEN),
     setToken: (token) => localStorage.setItem(TOKEN, token)
   }

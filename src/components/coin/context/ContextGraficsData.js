@@ -1,4 +1,10 @@
-import { useContext, createContext, useState, useEffect, useRef } from 'react'
+import {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useRef
+} from 'react'
 import { graficDays, graficRange } from '../../../client/client'
 import { useSelector } from 'react-redux'
 // import { getSessionStorageBitcoin } from '../../../storage/sessionStorageBitcoin'
@@ -34,14 +40,21 @@ const ContextGraficsData = createContext(null)
 //   }
 // }
 
-export default function ContextGraficsDataProvide({ children, id, symbol }) {
+export default function ContextGraficsDataProvide({
+  children,
+  id,
+  symbol
+}) {
   const [bitcoinGrafic, setBitcoinGrafic] = useState(false)
   const { currencySelect } = useSelector((state) => state.criptoList)
   const [dataHistoric, setDataHistoric] = useState(null)
   const [time, setTime] = useState(null)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
-  const [rangeGrafic, setRangeGrafic] = useState({ min: null, max: null })
+  const [rangeGrafic, setRangeGrafic] = useState({
+    min: null,
+    max: null
+  })
   const symbolRef = useRef(symbol)
 
   const dateNow = Math.round(new Date().getTime() / 1000)
@@ -87,13 +100,15 @@ export default function ContextGraficsDataProvide({ children, id, symbol }) {
     const { signal } = abortController
 
     setLoading(true)
-    graficDays(id, tiempo, currencySelect.currency, signal).then((datos) => {
-      if (datos?.prices) {
-        setData(datos.prices)
-        setLoading(false)
-        setTime(tiempo)
+    graficDays(id, tiempo, currencySelect.currency, signal).then(
+      (datos) => {
+        if (datos?.prices) {
+          setData(datos.prices)
+          setLoading(false)
+          setTime(tiempo)
+        }
       }
-    })
+    )
   }
 
   useEffect(() => {
@@ -118,26 +133,28 @@ export default function ContextGraficsDataProvide({ children, id, symbol }) {
         }
       })
 
-    graficRange({ id, currency: 'usd', time: 1022577232 }, signal)
-      .then((data) => {
-        if (!data.ok) {
-          throw new Error('Error en la solicitud')
-        }
-        return data.json()
-      })
-      .then((data) => {
-        if (data?.prices) {
-          setDataHistoric(data.prices)
-        }
-      })
-      .catch((err) => {
-        if (err.name === 'AbortError') {
-          console.log('The request was aborted by the user.')
-          // Handle the aborted request scenario
-        } else {
-          throw new Error(err.message)
-        }
-      })
+    // graficRange({ id, currency: 'usd', time: 1022577232 }, signal)
+    //   .then((data) => {
+    //     console.log(data)
+    //     if (!data.ok) {
+    //       throw new Error('Error en la solicitud')
+    //     }
+    //     return data.json()
+    //   })
+    //   .then((data) => {
+    //     if (data?.prices) {
+    //       setDataHistoric(data.prices)
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     if (err.name === 'AbortError') {
+    //       console.log('The request was aborted by the user.')
+    //       // Handle the aborted request scenario
+    //     } else {
+    //       console.log(err)
+    //       throw new Error(err.message)
+    //     }
+    //   })
 
     return () => {
       abortController.abort()

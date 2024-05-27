@@ -10,7 +10,7 @@ export default function ModalPortal({ children }) {
   portalNode.style.height = '100vh'
   portalNode.style.display = 'flex'
   portalNode.style.justifyContent = 'center'
-  portalNode.style.background = 'rgba(230,230,240,0.7)'
+  portalNode.style.background = 'rgba(240,240,240)'
   portalNode.style.top = '0'
   portalNode.style.left = '0'
   portalNode.style.zIndex = 9999

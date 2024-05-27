@@ -10,12 +10,12 @@ export default function OnlyAuthorized({ children }) {
 
   useEffect(() => {
     if (userData.userDataId) {
-      console.log('autorizado')
-      //   dispatch(deleteData())
+      console.log(userData)
     } else {
-      // push('/criptos/1')
+      dispatch(deleteData())
+      push('/criptos/1')
     }
   }, [])
-  console.log(userData)
+
   return <>{userData.userDataId && <>{children} </>}</>
 }
